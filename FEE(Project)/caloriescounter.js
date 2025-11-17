@@ -11,7 +11,7 @@ const lunchCaloriesDisplay = document.getElementById('lunchCalories');
 const snacksCaloriesDisplay = document.getElementById('snacksCalories');
 const dinnerCaloriesDisplay = document.getElementById('dinnerCalories');
 const totalCaloriesDisplay = document.getElementById('totalCalories');
-
+// Aarnav added this comment to test the PR workflow.
 // Calorie counters for each meal
 let breakfastCalories = 0;
 let brunchCalories = 0;
