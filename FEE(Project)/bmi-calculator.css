@@ -1,0 +1,153 @@
+:root {
+    --primary-color: #ff69b4; /* Hot pink */
+    --secondary-color: #333; /* Dark grey */
+    --background-color: #000; /* Black */
+    --text-color: #fff; /* White */
+}
+
+/* Style for the main container */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background-color); /* Background color from custom properties */
+    background-size: cover;
+}
+
+/* Main form container with transparency */
+/* .Container {
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent white */
+    /* border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+} */ 
+
+/* Hover effect for the container */
+/* .Container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+} */
+
+/* new Main form container with reduced size */
+.Container {
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent white */
+    border-radius: 15px;
+    padding: 25px; /* Reduced padding */
+    width: 300px; /* Reduced width */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for the container */
+.Container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Headings and text styles */
+h1, h4 {
+    color: var(--primary-color); /* Primary color for headings */
+    text-align: center;
+}
+
+p {
+    color: var(--text-color); /* Text color for paragraphs */
+    margin: 10px 0;
+}
+
+/* Form label and input */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-color); /* Text color for input */
+    outline: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input[type="text"]:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Button styles */
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--primary-color); /* Primary color for button */
+    color: var(--text-color); /* Text color for button */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--secondary-color); /* Secondary color on hover */
+}
+
+/* Result box */
+.result-box, #weight-guide {
+    color: var(--text-color); /* Text color for results */
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.result-box:hover, #weight-guide:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#reset-btn {
+    padding: 1rem;
+    font-size: 1.25rem;
+    background-color: #00b4d8;
+    color: #eff5f4;
+    border-radius: 1rem;
+    border: none;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    
+
+}
+#reset-btn:hover{
+    background: linear-gradient(to right, #f368e0,#48dbfb);
+    border: 1px solid blueviolet;
+    cursor: move;
+}
+
+/* back to home button */
+
+.top-left-container {
+    position: absolute; /* Positioning the container absolutely */
+    top: 20px; /* Adjust the distance from the top */
+    left: 20px; /* Adjust the distance from the left */
+}
+
+.btn-primary {
+    background-color: #ff69b4;
+    border-color: #ff69b4;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Ensure it looks like a button */
+    color: white; /* Text color */
+}
+
+.btn-primary:hover {
+    background-color: #ff45a0;
+    border-color: #ff45a0;
+}

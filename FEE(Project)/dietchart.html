@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet Chart</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dietchart.css">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2 class="text-center">Personalized Diet Chart</h2>
+
+    <!-- Diet Choice Section -->
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <form id="dietChoiceForm">
+              <h3>Select Your Diet Preference</h3>
+              <div class="form-group">
+                <label for="dietType">Choose your diet type:</label>
+                <select class="form-control" id="dietType">
+                  <option value="" disabled selected>Select</option>
+                  <option value="veg">Vegetarian</option>
+                  <option value="nonveg">Non-Vegetarian</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Show Diet Plan</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diet Chart Section -->
+    <div class="row justify-content-center mt-5" id="dietChartSection" style="display: none;">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="text-center">Your Diet Plan</h3>
+            
+            <!-- Display the Diet Chart -->
+            <div id="dietPlan">
+              <!-- Meals will be dynamically inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="top-left-container">
+        
+    
+    <a href="yoki.html" class="btn btn-primary">Back to Home</a>
+    </div>
+
+  <script src="dietchart.js"></script>
+</body>
+</html>

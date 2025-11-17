@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="assets/css/common.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnerGise - Your Ultimate Fitness Destination</title>
+    <!-- Use a single Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="new_yoki.css">
+
+    <!-- added: ensure hero has visible background and slide overlay styles -->
+    <style>
+      /* ensure hero section is visible and covers viewport area */
+      #hero {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        background-size: cover;
+        background-position: center;
+        transition: background 0.8s ease;
+        overflow: hidden;
+        z-index: 0;
+      }
+      #hero .container { position: relative; z-index: 2; }
+
+      /* slide overlay that fades in while swapping backgrounds */
+      #hero-bg-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+      /* when we add slide-active, show overlay */
+      #hero.slide-active #hero-bg-slide { opacity: 1; }
+
+      /* ensure fixed navbar sits above hero visuals */
+      .navbar { z-index: 10; }
+    </style>
+</head>
+<body>
+    <!-- old code -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EnerGise</a>
+            <img src="pikaso_enhance__vivid_2K_Standard_r_c_.png" alt="EnerGise Logo" width="100" height="100" class="d-inline-block align-text-top">
+                
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#HealthAnalyzer">Health Analyzer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#workouts">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Trainers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+    <!-- new code -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="pikaso_enhance__vivid_2K_Standard_r_c_.png" alt="EnerGise Logo" width="100" height="100" class="d-inline-block align-text-top">
+                   
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="healthAnalyzerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Health Analyzer
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="healthAnalyzerDropdown">
+                                <li><a class="dropdown-item" href="bmi-calculator.html">BMI Calculator</a></li>
+                                <li><a class="dropdown-item" href="caloriescounter.html">Calories Counter</a></li>
+                                <li><a class ="dropdown-item" href="dietchart.html">Diet chart</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#workouts">Workouts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimonials">Testimonials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#portfolio">Trainers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="signup.html">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+
+    <section id="hero">
+        <div class="container">
+            <h1><i>Welcome to EnerGise</i></h1>
+            <p class="lead">Your journey to a healthier, stronger you starts here.</p>
+            <a href="#workouts" class="btn btn-primary btn-lg">Explore Workouts</a>
+        </div>
+    </section>
+
+    <section id="workouts">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Workout Plans</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"> Bodyweight Training </h5>
+                            <p class="card-text">Using body weight as resistance for strength and conditioning.</p>
+                            <a href="bodyweightworkout.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="pushup.html" class="card-link">Push-ups Tutorial</a>
+                                <a href="squat.html" class="card-link">Squats Tutorial</a>
+                                <a href="pullups.html" class="card-link">Pull up Tutorial</a>
+                                <a href="planks.html"  class="card-link">Plank Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Cardio Blast</h5>
+                            <p class="card-text">High-intensity cardio workout to get your heart pumping.</p>
+                            <a href="cardio.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="jumpingjack.html" class="card-link">Jumping Jacks Tutorial</a>
+                                <a href="burpees.html" class="card-link">Burpees Tutorial</a>
+                                <a href="rowing.html" class="card-link">Rowing Tutorial</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Strength Training</h5>
+                            <p class="card-text">Focus on building strength with resistance training.</p>
+                            <a href="strength.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="dumbellcurls.html" class="card-link">Dumbbell Curls Tutorial</a>
+                                <a href="deadlift.html" class="card-link">Deadlifts Tutorial</a>
+                                <a href="benchpress.html" class="card-link"> Bench press Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- new box1  -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">High Intensity Interval Training</h5>
+                            <p class="card-text">Combining short bursts of intense activity with periods of rest or lower-intensity activity.</p>
+                            <a href="highintensityEx.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="jumpsquats.html" class="card-link">Jump squat Tutorial</a>
+                                <a href="mountainclimbers.html" class="card-link">Mountain Climbers Tutorial</a>
+                                <a href="highknees.html" class="card-link"> High knees Tutorial </a>
+                                <a href="plankjacks.html" class="card-link"> Plank jacks Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- new box 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Flexibility and Mobility Training</h5>
+                            <p class="card-text">Increasing the range of motion in joints and improving flexibility.</p>
+                            <a href="flexndmobility.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="mobilitydrills.html" class="card-link">Mobility Tutorial</a>
+                                <a href="Stretching.html" class="card-link">Stretching Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- new box 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">The Art of Yoga</h5>
+                            <p class="card-text">Yoga is a holistic practice combining physical postures, breathing exercises, and mindfulness. It improves flexibility, strength, balance, and mental well-being, making it suitable for all fitness levels.</p>
+                            <a href="yogaex.html" class="card-link">Learn More</a>
+                            <div class="mt-3">
+                                <a href="downwarddog.html" class="card-link"> Downward Dog Tutorial</a>
+                                <a href="warrior2.html" class="card-link">Warrior II Tutorial</a>
+                                <a href="cobrapose.html" class="card-link"> Cobra Pose Tutorial</a>
+                                <a href="treepose.html" class="card-link"> Tree Pose Tutorial</a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Pricing Plans</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Basic Plan</h5>
+                            <p class="card-text">Access to standard workout plans and gym facilities.</p>
+                            <p class="card-text"><strong>₹6500/month</strong></p>
+                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Premium Plan</h5>
+                            <p class="card-text">Includes personalized training plans and nutrition guidance.</p>
+                            <p class="card-text"><strong>₹7500/month</strong></p>
+                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Ultimate Plan</h5>
+                            <p class="card-text">All-inclusive access with premium support and exclusive events.</p>
+                            <p class="card-text"><strong>₹8500/month</strong></p>
+                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Clients Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://www.thesun.co.uk/wp-content/uploads/2023/01/2022-ksi-poses-photocall-action-752387306.jpg?strip=all&w=960" alt="KSI" class="mb-3">
+                        <h4>KSI</h4>
+                        <p>"This is the best fitness program I've ever followed. The results speak for themselves!"</p>
+                        <div class="rating">
+                            ★★★★☆
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://images.onlymyhealth.com/imported/images/2022/November/24_Nov_2022/main_ViratKohliFitness.jpg" alt="Virat Kohli" class="mb-3">
+                        <h4>Virat Kohli</h4>
+                        <p>"Amazing workouts and fantastic support. I've never felt better!"</p>
+                        <div class="rating">
+                            ★★★★★
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2017/06/The-Rock-Dwayne-Johnson-Cable-Crossover-Promo.jpg?quality=86&strip=all" alt="Dwayne Johnson" class="mb-3">
+                        <h4>Dwayne Johnson</h4>
+                        <p>"A life-changing experience with results that are truly impressive."</p>
+                        <div class="rating">
+                            ★★★★☆
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="text-center mb-5">Meet Our Trainers</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="Aarnav.jpeg" alt="Aarnav Kaushal">
+                        <div class="content">
+                            <h3>Aarnav Kaushal</h3>
+                            <p>Specializing in strength training and bodybuilding, Aarnav has helped countless clients achieve their muscle-building goals.</p>
+                            <a href="Viewprofile1.html" class="btn btn-primary">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="Amaan.jpeg" alt="Amaan Ur Rehman">
+                        <div class="content">
+                            <h3>Amaan Ur Rehman</h3>
+                            <p>A certified yoga instructor and nutrition expert, Amaan focuses on holistic wellness and mindful fitness practices.</p>
+                            <a href="Viewprofile2.html" class="btn btn-primary">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="Chirag.jpeg" alt="Chirag Baboota">
+                        <div class="content">
+                            <h3>Chirag Baboota</h3>
+                            <p>With a background in professional sports, Chirag specializes in high-intensity interval training and athletic performance.</p>
+                            <a href="Viewprofile3.html" class="btn btn-primary">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="newsletter">
+        <div class="container">
+            <h2>Stay Updated!</h2>
+            <p>Sign up for our newsletter to receive the latest updates and offers.</p>
+            <form>
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- <section id="cta">
+        <div class="container">
+            <h2>Ready to Start Your Fitness Journey?</h2>
+            <a href="#contact" class="btn btn-primary btn-lg">Contact Us</a>
+        </div>
+    </section> -->
+    </section>
+
+    <!-- <footer id="contact" class="text-center">
+        <div class="container">
+            <h2 class="mb-4">Get in Touch</h2>
+            <p>Ready to start your fitness journey? Contact us today!</p>
+            <p>Email: <a href="mailto:info@EnerGise.com">info@EnerGise.com</a></p>
+            <p>Phone: (+91) 88003-84559</p>
+            <div class="mt-4 social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer> -->
+     <!-- new code -->
+     <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2024 EnerGise. All rights reserved.</p>
+            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <div class="social-icons">
+                <a href="#" class="social-card"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-card"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+
+    <button id="back-to-top" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- Single Bootstrap bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect, back-to-top, smooth scrolling (existing)
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('navbar-scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('navbar-scrolled');
+            }
+        });
+
+        var backToTopButton = document.getElementById("back-to-top");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+        backToTopButton.onclick = function() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        };
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Hero background slider
+        const gymImages = [
+            "https://i.pinimg.com/1200x/68/41/97/684197f061bde5a3f49619d188e7245f.jpg",
+            "https://i.pinimg.com/736x/2e/2b/bf/2e2bbfd31cac2979925bc8e9b8c6934e.jpg",
+            "https://i.pinimg.com/736x/5b/1e/0f/5b1e0f1b3ad886fbb36e121bfea907f6.jpg",
+            "https://i.pinimg.com/736x/6b/c5/10/6bc510c905692ee26e56191b2ddfbaed.jpg",
+            "https://i.pinimg.com/736x/1e/d0/cf/1ed0cfe44c203f4830af2855f5c7832b.jpg"
+        ];
+        let currentImage = 0;
+
+        const hero = document.getElementById('hero');
+        // create overlay element once
+        let slideDiv = document.getElementById('hero-bg-slide');
+        if (!slideDiv) {
+          slideDiv = document.createElement('div');
+          slideDiv.id = 'hero-bg-slide';
+          hero.appendChild(slideDiv);
+        }
+
+        function setHeroBg(idx) {
+            hero.style.background = `linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('${gymImages[idx]}') no-repeat center center/cover`;
+        }
+
+        function slideToNextBg() {
+            const nextIdx = (currentImage + 1) % gymImages.length;
+            // set overlay to next image and fade it in
+            slideDiv.style.background = `linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('${gymImages[nextIdx]}') no-repeat center center/cover`;
+            hero.classList.add('slide-active');
+            // after transition, swap main background and hide overlay
+            setTimeout(() => {
+                setHeroBg(nextIdx);
+                hero.classList.remove('slide-active');
+                slideDiv.style.background = '';
+                currentImage = nextIdx;
+            }, 850); // matches CSS transition
+        }
+
+        // initial background
+        setHeroBg(currentImage);
+        // change every 2500ms (you can change to 2000 if you prefer faster)
+        setInterval(slideToNextBg, 2500);
+    </script>
+</body>
+</html>
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=your_password_here (optional)
