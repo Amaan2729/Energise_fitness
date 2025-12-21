@@ -1,7 +1,3 @@
-/* ---------------------------------------------
-   EnerGise Backend - FINAL STABLE VERSION
----------------------------------------------- */
-
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -16,38 +12,38 @@ const redis = require("redis");
 // ----------------------------
 const app = express();
 app.use(express.json());
-
 app.use(cors({
   origin: "*",
   credentials: true
 }));
 
 // ----------------------------
-// MONGODB
+// MONGODB (Render-safe)
 // ----------------------------
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI)
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI not set in environment variables!");
+  process.exit(1);
+}
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.error("❌ MongoDB Error:", err.message));
+  .catch(err => console.error("❌ MongoDB Connection Error:", err.message));
 
 // ----------------------------
-// REDIS (RENDER SAFE)
+// REDIS (Render-safe)
 // ----------------------------
 let redisClient = null;
 
 if (process.env.REDIS_URL) {
-  redisClient = redis.createClient({
-    url: process.env.REDIS_URL
-  });
+  redisClient = redis.createClient({ url: process.env.REDIS_URL });
 
-  redisClient.on("connect", () => {
-    console.log("✅ Redis Connected");
-  });
-
-  redisClient.on("error", (err) => {
-    console.error("❌ Redis Error:", err.message);
-  });
+  redisClient.on("connect", () => console.log("✅ Redis Connected"));
+  redisClient.on("error", (err) => console.error("❌ Redis Error:", err.message));
 
   (async () => {
     try {
@@ -66,10 +62,7 @@ if (process.env.REDIS_URL) {
 const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    credentials: true
-  }
+  cors: { origin: "*", credentials: true }
 });
 
 app.set("io", io);
@@ -77,10 +70,7 @@ app.set("redis", redisClient);
 
 io.on("connection", (socket) => {
   console.log("🔌 Client connected:", socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("🔌 Client disconnected:", socket.id);
-  });
+  socket.on("disconnect", () => console.log("🔌 Client disconnected:", socket.id));
 });
 
 // ----------------------------
@@ -95,9 +85,7 @@ app.use("/api/redis", require("./routes/redisStatus"));
 // ----------------------------
 // ROOT
 // ----------------------------
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
+app.get("/", (req, res) => res.send("Backend is running 🚀"));
 
 // ----------------------------
 // ERROR HANDLER
@@ -112,6 +100,4 @@ app.use((err, req, res, next) => {
 // ----------------------------
 const PORT = process.env.PORT || 5000;
 
-httpServer.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+httpServer.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
