@@ -20,11 +20,16 @@ app.use(express.json());
 // ----------------------------
 // CORS FIX (Do NOT duplicate)
 // ----------------------------
+// app.use(cors({
+//   origin: "http://127.0.0.1:5500",
+//   credentials: true,
+//   allowedHeaders: ["Content-Type", "Authorization"]
+// }));
 app.use(cors({
-  origin: "http://127.0.0.1:5500",
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: "*",
+  credentials: true
 }));
+
 
 // ----------------------------
 // MONGO DB CONNECTION (FIXED)
@@ -43,11 +48,17 @@ mongoose.connect(MONGO_URI)
 // ----------------------------
 const httpServer = http.createServer(app);
 
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: "http://127.0.0.1:5500",
+//     credentials: true,
+//     methods: ["GET", "POST"]
+//   }
+// });
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://127.0.0.1:5500",
-    credentials: true,
-    methods: ["GET", "POST"]
+    origin: "*",
+    credentials: true
   }
 });
 
