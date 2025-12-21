@@ -1,23 +1,24 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { client } = require('../utils/redis');
 
-// GET /api/redis/status - quick health + small stats for demo
-router.get('/status', async (req, res) => {
+router.get("/", async (req, res) => {
+  const redis = req.app.get("redis");
+
+  if (!redis) {
+    return res.status(503).json({
+      status: "disabled",
+      message: "Redis not configured"
+    });
+  }
+
   try {
-    const isReady = !!client.isReady;
-    // Try a simple ping to verify responsiveness
-    let pong = null;
-    try { pong = await client.ping(); } catch (e) { pong = null; }
-
-    // dbSize may be supported; wrap it in try/catch
-    let dbSize = null;
-    try { dbSize = await client.dbSize(); } catch (e) { dbSize = null; }
-
-    res.json({ connected: isReady, pong, dbSize });
+    await redis.ping();
+    res.json({ status: "connected" });
   } catch (err) {
-    console.error('Error in /api/redis/status', err);
-    res.status(500).json({ connected: false, error: err.message });
+    res.status(500).json({
+      status: "error",
+      error: err.message
+    });
   }
 });
 

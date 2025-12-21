@@ -1,5 +1,5 @@
 /* ---------------------------------------------
-   EnerGise Backend - CLEAN & FIXED VERSION
+   EnerGise Backend - FINAL STABLE VERSION
 ---------------------------------------------- */
 
 const express = require("express");
@@ -9,52 +9,62 @@ require("dotenv").config();
 
 const http = require("http");
 const { Server } = require("socket.io");
+const redis = require("redis");
 
-// Redis client
-const { client: redisClient } = require("./utils/redis");
-
-// Initialize Express
+// ----------------------------
+// APP INIT
+// ----------------------------
 const app = express();
 app.use(express.json());
 
-// ----------------------------
-// CORS FIX (Do NOT duplicate)
-// ----------------------------
-// app.use(cors({
-//   origin: "http://127.0.0.1:5500",
-//   credentials: true,
-//   allowedHeaders: ["Content-Type", "Authorization"]
-// }));
 app.use(cors({
   origin: "*",
   credentials: true
 }));
 
-
 // ----------------------------
-// MONGO DB CONNECTION (FIXED)
+// MONGODB
 // ----------------------------
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/database";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI)
-  .then(() => {
-    console.log(`✅ MongoDB Connected`);
-    console.log(`[mongo] Using Database: database`);
-  })
-  .catch(err => console.error("❌ MongoDB Error:", err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ MongoDB Error:", err.message));
 
 // ----------------------------
-// HTTP & SOCKET.IO SERVER
+// REDIS (RENDER SAFE)
+// ----------------------------
+let redisClient = null;
+
+if (process.env.REDIS_URL) {
+  redisClient = redis.createClient({
+    url: process.env.REDIS_URL
+  });
+
+  redisClient.on("connect", () => {
+    console.log("✅ Redis Connected");
+  });
+
+  redisClient.on("error", (err) => {
+    console.error("❌ Redis Error:", err.message);
+  });
+
+  (async () => {
+    try {
+      await redisClient.connect();
+    } catch (err) {
+      console.error("❌ Redis Connection Failed:", err.message);
+    }
+  })();
+} else {
+  console.warn("⚠️ REDIS_URL not set. Redis disabled.");
+}
+
+// ----------------------------
+// HTTP & SOCKET.IO
 // ----------------------------
 const httpServer = http.createServer(app);
 
-// const io = new Server(httpServer, {
-//   cors: {
-//     origin: "http://127.0.0.1:5500",
-//     credentials: true,
-//     methods: ["GET", "POST"]
-//   }
-// });
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -62,49 +72,39 @@ const io = new Server(httpServer, {
   }
 });
 
-// Make global
 app.set("io", io);
 app.set("redis", redisClient);
 
 io.on("connection", (socket) => {
   console.log("🔌 Client connected:", socket.id);
-  socket.on("disconnect", () => console.log("🔌 Client disconnected:", socket.id));
+
+  socket.on("disconnect", () => {
+    console.log("🔌 Client disconnected:", socket.id);
+  });
 });
 
 // ----------------------------
-// IMPORT ROUTES
+// ROUTES
 // ----------------------------
-const userRoutes = require("./routes/userRoutes");
-const orderRoutes = require("./routes/OrderRoutes");
-const subscriptionRoutes = require("./routes/subscriptionRoutes");
-const contactRoutes = require("./routes/contactRoutes");
-const redisStatusRoutes = require("./routes/redisStatus");
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/orders", require("./routes/OrderRoutes"));
+app.use("/api/subscriptions", require("./routes/subscriptionRoutes"));
+app.use("/api/contacts", require("./routes/contactRoutes"));
+app.use("/api/redis", require("./routes/redisStatus"));
 
 // ----------------------------
-// MOUNT ROUTES
-// ----------------------------
-app.use("/api/users", userRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/subscriptions", subscriptionRoutes);
-app.use("/api/contacts", contactRoutes);
-app.use("/api/redis", redisStatusRoutes);
-
-// ----------------------------
-// DEFAULT ROOT
+// ROOT
 // ----------------------------
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
 // ----------------------------
-// GLOBAL ERROR HANDLER
+// ERROR HANDLER
 // ----------------------------
 app.use((err, req, res, next) => {
-  console.error("❌ Express Error:", err);
-  res.status(err.status || 500).json({
-    message: "Server error",
-    error: process.env.NODE_ENV === "production" ? undefined : err.message
-  });
+  console.error("❌ Express Error:", err.message);
+  res.status(500).json({ message: "Server error" });
 });
 
 // ----------------------------
@@ -113,5 +113,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 httpServer.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
