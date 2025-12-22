@@ -73,9 +73,9 @@
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background:transparent;padding:0.6rem 1rem">
     <div class="container">
-      <a class="navbar-brand text-white" href="yoki.html">EnerGise</a>
+      <a class="navbar-brand text-white" href="index.html">EnerGise</a>
       <ul class="navbar-nav ms-auto d-flex flex-row" style="gap:12px">
-        <li class="nav-item"><a class="nav-link text-white" href="yoki.html">Workouts</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html">Workouts</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="products.html">Products</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>
       </ul>
@@ -89,7 +89,7 @@
       <p class="text-muted" style="opacity:.7">Pick a plan and click Subscribe to continue to payment/details.</p>
       <div id="loader" class="msg text-muted">Loading plans…</div>
       <div id="error" class="msg text-danger" style="display:none">Could not load plans. Please ensure backend is
-        running (http://localhost:5000) and CORS is enabled.</div>
+        running (https://energise-fitness-1.onrender.com) and CORS is enabled.</div>
     </div>
   </header>
 
@@ -145,7 +145,7 @@
 
       async function fetchPlans() {
         try {
-          const res = await fetch("http://localhost:5000/api/subscriptions/plans", {
+          const res = await fetch("https://energise-fitness-1.onrender.com/api/subscriptions/plans", {
             credentials: "include",
           });
 

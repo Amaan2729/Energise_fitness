@@ -212,9 +212,9 @@ body::before {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="yoki.html">Workouts</a></li>
-                    <li class="nav-item"><a class="nav-link" href="yoki.html#testimonials">Testimonials</a></li>
-                    <li class="nav-item"><a class="nav-link" href="yoki.html#trainers">Trainers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#trainers">Trainers</a></li>
                     <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
@@ -541,7 +541,7 @@ body::before {
                     const token = localStorage.getItem('token');
                     if (token) headers['Authorization'] = 'Bearer ' + token;
 
-                    const res = await fetch("http://localhost:5000/api/orders", {
+                    const res = await fetch("https://energise-fitness-1.onrender.com/api/orders", {
                         method: "POST",
                         headers,
                         body: JSON.stringify(orderData)
@@ -555,7 +555,7 @@ body::before {
                         updateCart();
                         // redirect to homepage after brief confirmation
                         setTimeout(() => {
-                          window.location.href = 'yoki.html';
+                          window.location.href = 'index.html';
                         }, 800);
                     } else {
                         alert("❌ " + (data.message || 'Order failed'));

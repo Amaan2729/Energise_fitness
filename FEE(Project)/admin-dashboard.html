@@ -273,7 +273,7 @@ body::before{
         }
 
         function initializeWebSocket() {
-            const socket = io('http://localhost:5000', {
+            const socket = io("https://energise-fitness-1.onrender.com",{
                 reconnection: true,
                 reconnectionDelay: 1000,
                 reconnectionDelayMax: 5000

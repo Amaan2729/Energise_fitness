@@ -336,9 +336,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="yoki.html#workouts">Workouts</a></li>
-          <li class="nav-item"><a class="nav-link" href="yoki.html">Testimonials</a></li>
-          <li class="nav-item"><a class="nav-link" href="yoki.html#portfolio">Trainers</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#portfolio">Trainers</a></li>
           <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
           <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
@@ -414,7 +414,7 @@
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/users/register", {
+        const res = await fetch("https://energise-fitness-1.onrender.com/api/users/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, email, password })
