@@ -19,12 +19,11 @@ app.use(cors({ origin: "*", credentials: true }));
 // MONGODB
 // ----------------------------
 if (!process.env.MONGO_URI) {
-  console.error("❌ MONGO_URI missing");
+  console.error("❌ MONGO_URI not set");
   process.exit(1);
 }
 
-mongoose
-  .connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => console.error("❌ MongoDB Error:", err.message));
 
@@ -37,28 +36,35 @@ if (process.env.REDIS_URL) {
   redisClient = redis.createClient({ url: process.env.REDIS_URL });
 
   redisClient.on("connect", () => console.log("✅ Redis Connected"));
-  redisClient.on("error", err =>
-    console.error("❌ Redis Error:", err.message)
-  );
+  redisClient.on("error", err => console.error("❌ Redis Error:", err.message));
 
-  redisClient.connect().catch(() =>
-    console.warn("⚠️ Redis failed, continuing without cache")
-  );
-} else {
-  console.warn("⚠️ REDIS_URL not set");
+  (async () => {
+    try {
+      await redisClient.connect();
+    } catch (e) {
+      console.error("❌ Redis connect failed:", e.message);
+    }
+  })();
 }
 
 // ----------------------------
 // HTTP + SOCKET.IO
 // ----------------------------
-const httpServer = http.createServer(app);
+const server = http.createServer(app);
 
-const io = new Server(httpServer, {
+const io = new Server(server, {
   cors: { origin: "*", credentials: true }
 });
 
 app.set("io", io);
 app.set("redis", redisClient);
+
+io.on("connection", socket => {
+  console.log("🔌 Client connected:", socket.id);
+  socket.on("disconnect", () =>
+    console.log("🔌 Client disconnected:", socket.id)
+  );
+});
 
 // ----------------------------
 // API ROUTES
@@ -70,19 +76,19 @@ app.use("/api/contacts", require("./routes/contactRoutes"));
 app.use("/api/redis", require("./routes/redisStatus"));
 
 // ----------------------------
-// SERVE FRONTEND ✅
+// SERVE FRONTEND (IMPORTANT)
 // ----------------------------
-const frontendPath = path.join(__dirname, "../frontend");
-app.use(express.static(frontendPath));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+// ✅ EXPRESS 5 SAFE FALLBACK
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 // ----------------------------
 // START SERVER
 // ----------------------------
 const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () =>
+server.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
