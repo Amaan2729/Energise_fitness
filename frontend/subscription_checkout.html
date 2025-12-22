@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Checkout - EnerGise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <style>
+/* -------------------------
+   GLOBAL THEME VARIABLES
+-------------------------- */
+:root {
+  --primary-color: #ff69b4;
+  --secondary-color: #9c27b0;
+  --dark-bg: #0a0e27;
+  --text-color: #ffffff;
+  --text-muted: #b0b8d4;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--dark-bg) 0%,
+    #1a1f3a 50%,
+    var(--dark-bg) 100%
+  );
+  color: var(--text-color);
+  min-height: 100vh;
+  padding-bottom: 80px;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 105, 180, 0.1) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(156, 39, 176, 0.1) 0%,
+      transparent 40%
+    );
+  z-index: -1;
+}
+
+/* -------------------------
+   NAVBAR
+-------------------------- */
+.navbar {
+  background: linear-gradient(
+      90deg,
+      rgba(255, 122, 89, 0.08),
+      rgba(255, 201, 213, 0.05)
+    ) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 105, 180, 0.12);
+  padding: 0.4rem 1rem !important;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+/* -------------------------
+   MAIN SECTION STYLES
+-------------------------- */
+.checkout-section {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 105, 180, 0.2);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35),
+              0 0 40px rgba(255,105,180,0.15);
+  animation: fadeUp 0.6s ease-out;
+}
+
+.checkout-section h4,
+.checkout-section h2 {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* Form */
+.form-label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.form-control,
+.form-select {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,105,180,0.25);
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(255,105,180,0.3);
+  color: #fff;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(255,105,180,0.25);
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(255,105,180,0.4);
+}
+
+.alert {
+  font-weight: 600;
+}
+
+/* Smooth animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">EnerGise</a>
+    </div>
+</nav>
+
+<div class="container mt-5 pt-5">
+    <h1 class="text-center mb-4">Complete Subscription</h1>
+
+    <div class="row">
+        <!-- Left Section Form -->
+        <div class="col-md-8">
+            <div class="checkout-section">
+                <form id="subForm">
+                    <h4>Account / Shipping</h4>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            <input id="firstName" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            <input id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input id="address" class="form-control" required>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input id="city" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State</label>
+                            <input id="state" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Zip</label>
+                            <input id="zip" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <h4>Payment</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <select id="paymentMethod" class="form-select" required>
+                            <option value="">Choose...</option>
+                            <option value="cash">Cash</option>
+                            <option value="card">Card</option>
+                        </select>
+                    </div>
+
+                    <button id="subscribeBtn" class="btn btn-primary">Subscribe</button>
+                </form>
+
+                <div id="msg" class="mt-3"></div>
+            </div>
+        </div>
+
+        <!-- Right Section Summary -->
+        <div class="col-md-4">
+            <div class="checkout-section">
+                <h2>Selected Plan</h2>
+                <div id="planSummary"></div>
+                <hr>
+                <h4>Total: <span id="totalPrice" style="color: var(--primary-color); font-weight:700;">₹0</span></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const sel = localStorage.getItem('selectedSubscription');
+    if (!sel) {
+        alert('No subscription selected. Redirecting to plans.');
+        window.location.href = 'subscription.html';
+        return;
+    }
+    const plan = JSON.parse(sel);
+
+    // element references
+    const firstNameEl = document.getElementById('firstName');
+    const lastNameEl = document.getElementById('lastName');
+    const addressEl = document.getElementById('address');
+    const cityEl = document.getElementById('city');
+    const stateEl = document.getElementById('state');
+    const zipEl = document.getElementById('zip');
+    const paymentMethodEl = document.getElementById('paymentMethod');
+    const msgEl = document.getElementById('msg');
+
+    document.getElementById('planSummary').innerHTML = `<h4>${escapeHtml(plan.name)}</h4><p>₹${Number(plan.price)} / month</p>`;
+    document.getElementById('totalPrice').textContent = `₹${Number(plan.price)}`;
+
+    document.getElementById('subscribeBtn').addEventListener('click', async function(e){
+        e.preventDefault();
+        const form = document.getElementById('subForm');
+        if (!form.reportValidity()) return;
+
+        const payload = {
+            planName: plan.name,
+            price: plan.price,
+            firstName: firstNameEl.value.trim(),
+            lastName: lastNameEl.value.trim(),
+            address: addressEl.value.trim(),
+            city: cityEl.value.trim(),
+            state: stateEl.value.trim(),
+            zip: zipEl.value.trim(),
+            paymentMethod: paymentMethodEl.value
+        };
+
+        // clear previous message
+        msgEl.innerHTML = '';
+
+        await placeSubscription(payload);
+    });
+
+    // small helper
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+});
+
+async function placeSubscription(payload) {
+    const msgEl = document.getElementById('msg');
+    const token = localStorage.getItem('token');
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    try {
+        const res = await fetch("https://energise-fitness-1.onrender.com/api/subscriptions", {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json().catch(()=>({ message: res.statusText }));
+
+        if (!res.ok) {
+            if (res.status === 401) {
+                // not authenticated: send user to login (preserve next)
+                window.location.href = 'login.html?next=subscription';
+                return;
+            }
+            throw new Error(data.message || 'Server error');
+        }
+
+        // success
+        msgEl.innerHTML = `<div class="alert alert-success">Subscription created successfully.</div>`;
+        localStorage.removeItem('selectedSubscription');
+
+        setTimeout(()=> {
+            window.location.href = 'index.html';
+        }, 1000);
+
+    } catch (err) {
+        console.error('subscribe error:', err);
+        msgEl.innerHTML = `<div class="alert alert-danger">Server error: ${escapeHtml(err.message || 'Try again later.')}</div>`;
+    }
+
+    // escape helper for error output
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="assets/css/common.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - EnerGise</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary-color: #ff69b4;
+      --secondary-color: #9c27b0;
+      --dark-bg: #0a0e27;
+      --text-color: #ffffff;
+      --text-muted: #b0b8d4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f3a 50%, var(--dark-bg) 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(255, 105, 180, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* compact navbar to leave more room for the signup card */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      padding: 0.35rem 1rem;
+      display: flex;
+      align-items: center;
+      z-index: 1200;
+      background: linear-gradient(90deg, rgba(255,122,89,0.08), rgba(255,201,213,0.05)) !important;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,122,89,0.12);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.6rem; /* increased for better visibility */
+      padding-left: 0.25rem;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      line-height: 1;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-link {
+      color: #fff !important;
+      transition: all 0.25s ease;
+      padding: 0.35rem 0.6rem;
+      margin: 0 0.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: #ff7a59 !important;
+    }
+
+    /* Keep signup section below the fixed navbar with a small gap */
+    #signup {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 20px 60px 20px;
+      margin-top: 76px; /* accounts for navbar height + small gap */
+      min-height: calc(100vh - 76px);
+    }
+
+    .signup-wrapper {
+      width: 100%;
+      max-width: 520px; /* slightly wider for better layout */
+      margin-top: 12px;
+    }
+
+    .signup-container {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 105, 180, 0.2);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                  0 0 100px rgba(255, 105, 180, 0.1);
+      animation: slideInUp 0.6s ease-out;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .signup-header h2 {
+      color: var(--text-color);
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .signup-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.65rem;
+      display: block;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 105, 180, 0.2);
+      color: var(--text-color);
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+      color: var(--text-color);
+    }
+
+    .form-check {
+      margin: 1.8rem 0 1.5rem 0;
+      padding: 0;
+    }
+
+    .form-check-input {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 105, 180, 0.2);
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.25rem;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    }
+
+    .form-check-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
+
+    .form-check-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-left: 0.65rem;
+      padding-top: 0.2rem;
+    }    .form-check-label a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .form-check-label a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-signup {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      border: none;
+      color: var(--text-color);
+      font-weight: 700;
+      padding: 0.95rem 1.5rem;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      margin-top: 0;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+    }
+
+    .btn-signup:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+      color: var(--text-color);
+    }
+
+    .btn-signup:active {
+      transform: translateY(-1px);
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .form-footer a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    #message {
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      border-radius: 10px;
+      animation: slideInDown 0.3s ease-out;
+      font-size: 0.95rem;
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert-success {
+      background: rgba(76, 175, 80, 0.15) !important;
+      border: 1px solid rgba(76, 175, 80, 0.3) !important;
+      color: #81c784 !important;
+    }
+
+    .alert-danger {
+      background: rgba(244, 67, 54, 0.15) !important;
+      border: 1px solid rgba(244, 67, 54, 0.3) !important;
+      color: #ef5350 !important;
+    }
+
+    @media (max-width: 768px) {
+      .signup-container {
+        padding: 2.5rem 2rem;
+      }
+
+      .signup-header h2 {
+        font-size: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.3rem;
+      }
+
+      #signup {
+        padding: 80px 20px 60px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">EnerGise</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#portfolio">Trainers</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="signup" class="py-5">
+    <div class="signup-wrapper">
+      <div class="signup-container">
+        <div class="signup-header">
+          <h2>💪 Join EnerGise</h2>
+          <p>Create your account to get started</p>
+        </div>
+
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="name" class="form-label">👤 Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">📧 Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">🔐 Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Create a password" required />
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password" class="form-label">✓ Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password" required />
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="terms" required />
+            <label class="form-check-label" for="terms">
+              I agree to the <a href="#">terms and conditions</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-signup">🚀 Sign Up</button>
+
+          <div class="form-footer">
+            Already have an account? <a href="login.html">Login here</a>
+          </div>
+        </form>
+
+        <div id="message"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const message = document.getElementById("message");
+
+      // Simple validation
+      if (password !== confirmPassword) {
+        message.innerHTML = '<div class="alert alert-danger">❌ Passwords do not match!</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch("https://energise-fitness-1.onrender.com/api/users/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+          if (res.ok) {
+          message.innerHTML = '<div class="alert alert-success">✅ ' + data.message + "</div>";
+          document.getElementById("signupForm").reset();
+
+          // Preserve any plan query parameter and redirect to login
+          const params = new URLSearchParams(window.location.search);
+          const plan = params.get('plan');
+          const nextParam = plan ? `next=subscription&plan=${encodeURIComponent(plan)}` : 'next=subscription';
+          setTimeout(() => {
+            window.location.href = `login.html?${nextParam}`;
+          }, 1200);
+        } else {
+          message.innerHTML = '<div class="alert alert-danger">❌ ' + data.message + "</div>";
+        }
+      } catch (err) {
+        message.innerHTML = '<div class="alert alert-danger">❌ Server error. Please try again later.</div>';
+      }
+    });
+  </script>
+</body>
+</html>

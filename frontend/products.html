@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - EnerGise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <style>
+        :root{
+            --bg-1: #0f1724;
+            --bg-2: #0b2a3a;
+            --card-bg: rgba(255,255,255,0.04);
+            --accent: #ff7a59;
+            --pink-accent: #ffc9d5;
+            --muted: rgba(255,255,255,0.7);
+        }
+        body.products-page{font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background: linear-gradient(135deg,var(--bg-1), var(--bg-2)); color: #fff;}
+        .navbar{background: linear-gradient(90deg, rgba(255,122,89,0.08), rgba(255,201,213,0.05));backdrop-filter: blur(8px);height:56px;padding:0.35rem 1rem;border-bottom:1px solid rgba(255,122,89,0.12)}
+        .navbar .container{max-width:1100px}
+        /* ensure navbar text (brand + links) is white for contrast */
+        .navbar-brand{
+            font-weight:800;
+            font-size:1.5rem;
+            letter-spacing:0.8px;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+        }
+        .nav-link{
+            color:#ffffff !important;
+            padding:0.4rem 0.6rem;
+            font-weight:600;
+            transition: color .25s ease, transform .12s ease, text-shadow .18s ease;
+            cursor: pointer;
+            position: relative;
+            -webkit-font-smoothing:antialiased;
+            will-change: transform, text-shadow;
+        }
+        /* micro lift + glow + accent color on hover */
+        .nav-link:hover{
+            transform: translateY(-3px) scale(1.02);
+            text-shadow: 0 8px 22px rgba(255,201,213,0.18);
+            color: var(--accent) !important;
+        }
+        /* animated underline on hover */
+        .nav-link::after{
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--pink-accent));
+            border-radius: 3px;
+            transform: translateX(-50%);
+            transition: width .24s cubic-bezier(.2,.9,.2,1), opacity .18s;
+            opacity: 0;
+        }
+        .nav-link:hover::after{
+            width: 56%;
+            opacity: 1;
+        }
+        section{padding-top:90px}
+        h1{font-weight:700;color:#ffffff !important}
+        #cart-icon{color: rgba(255,255,255,0.85); font-size:1.25rem; cursor:pointer; position:relative}
+        #cart-count{background:var(--pink-accent);color:#0f1724;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;position:absolute;top:-8px;right:-8px}
+
+        /* 3D tilt + continuous spin for product cards */
+        .product-card .card-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.18s ease-out;
+            --rx: 0deg;
+            --ry: 0deg;
+            --spin: 0deg;
+            transform: rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--spin)));
+            will-change: transform;
+            display: block;
+        }
+        @keyframes spin360 { to { --spin: 360deg; } }
+        .product-card .card-inner.spin-continuous { animation: spin360 1.2s linear infinite; }
+
+        /* Product card styling */
+        .product-card{background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:0; box-shadow: 0 8px 24px rgba(2,6,23,0.6); transition:transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s, background .3s, border-color .25s; overflow:hidden}
+        .product-card img{width:100%;height:200px;object-fit:cover;border-radius:14px 14px 0 0}
+        .product-card .content{padding:20px;display:flex;flex-direction:column;justify-content:space-between;min-height:180px}
+        .product-card h3{font-weight:700;margin-bottom:0.5rem;color: rgba(255,255,255,0.96); text-shadow: 0 1px 0 rgba(0,0,0,0.45), 0 6px 18px rgba(255,201,213,0.04); letter-spacing:0.2px; transition: color .28s ease, text-shadow .28s ease}
+        .product-card p{color:var(--muted);margin-bottom:8px;font-size:0.95rem}
+        .product-card strong{color:var(--accent);font-size:1.1rem;transition: color .28s ease}
+        .btn-primary{border-radius:10px;padding:.6rem 1.1rem;font-weight:600;background:var(--accent);border:none;transition:all .28s ease}
+        .btn-primary:hover{background:#ff6f42;transform:scale(1.05)}
+
+        /* Hover effect for the entire card */
+        .product-card:hover{ transform: translateY(-8px) scale(1.02); box-shadow: 0 22px 48px rgba(2,6,23,0.68), 0 0 60px rgba(255,201,213,0.30), inset 0 0 40px rgba(255,201,213,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03)); border-color: rgba(255,201,213,0.32); }
+        .product-card:has(.btn-primary:hover), .product-card:hover{ box-shadow: 0 32px 72px rgba(2,6,23,0.65), 0 0 90px rgba(255,201,213,0.38), inset 0 0 50px rgba(255,201,213,0.15); }
+        .product-card:hover h3, .product-card:has(.btn-primary:hover) h3{ color: var(--pink-accent); text-shadow: 0 8px 32px rgba(255,201,213,0.22) }
+        .product-card:hover strong, .product-card:has(.btn-primary:hover) strong{ color: var(--pink-accent) }
+
+        /* Responsive */
+        @media (max-width: 767px){
+            section{padding-top:78px}
+            .product-card .content{padding:15px;min-height:150px}
+            .navbar-brand{font-size:1.15rem}
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce){
+            .product-card .card-inner, .product-card, .btn-primary{ animation: none !important; transition: none !important }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buyNowButtons = document.querySelectorAll('.btn-primary');
+            
+            buyNowButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('h3').textContent;
+                    const productPrice = productCard.querySelector('strong').textContent.replace('₹', '');
+                    
+                    // Store the selected product in localStorage
+                    localStorage.setItem('selectedProduct', JSON.stringify({
+                        name: productName,
+                        price: productPrice
+                    }));
+                    
+                    // Redirect to the checkout page
+                    window.location.href = 'checkout.html';
+                });
+            });
+        });
+        </script>
+</head>
+<body class="products-page">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EnerGise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trainers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="products">
+        <div class="container">
+            <h1 class="text-center mb-4">EnerGise Shop</h1>
+            <div class="d-flex justify-content-end mb-4">
+                <div id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Existing Products -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61jau6tusOL._AC_UF894,1000_QL80_.jpg" alt="Dumbbells">
+                        <div class="content">
+                            <h3>Adjustable Dumbbells</h3>
+                            <p>High-quality adjustable dumbbells for versatile strength training.</p>
+                            <p><strong>₹749.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://png.pngtree.com/thumb_back/fw800/background/20231006/pngtree-d-illustration-of-yoga-mat-placed-on-natural-wooden-floor-in-image_13605986.png" alt="Yoga Mat">
+                        <div class="content">
+                            <h3>Yoga Mat</h3>
+                            <p>Comfortable and durable yoga mat for your flexibility and balance exercises.</p>
+                            <p><strong>₹899.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-room-with-black-treadmills-sitting-in-the-dark-image_2884907.jpg" alt="Treadmill">
+                        <div class="content">
+                            <h3>High-Performance Treadmill</h3>
+                            <p>Advanced treadmill with multiple speed and incline settings for effective cardio workouts.</p>
+                            <p><strong>₹49999.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Additional Products -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://png.pngtree.com/background/20230525/original/pngtree-kettlebells-hung-up-on-colorful-background-picture-image_2730663.jpg" alt="Kettlebells">
+                        <div class="content">
+                            <h3>Kettlebells Set</h3>
+                            <p>Versatile kettlebells for strength and endurance training.</p>
+                            <p><strong>₹2999.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51oQ+VA5Q8L._AC_UF350,350_QL50_.jpg" alt="Exercise Ball">
+                        <div class="content">
+                            <h3>Exercise Ball</h3>
+                            <p>Durable exercise ball for core workouts and stretching.</p>
+                            <p><strong>₹599.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51Kl0vZ6anL._AC_UF894,1000_QL80_.jpg" alt="Resistance Bands">
+                        <div class="content">
+                            <h3>Resistance Bands</h3>
+                            <p>Set of resistance bands for strength training and flexibility exercises.</p>
+                            <p><strong>₹299.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61BtljihF9L._AC_UF894,1000_QL80_.jpg" alt="Pull-Up Bar">
+                        <div class="content">
+                            <h3>Pull-Up Bar</h3>
+                            <p>Heavy-duty pull-up bar for home workouts and strength training.</p>
+                            <p><strong>₹1499.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61J65Fm47HL.jpg" alt="Jump Rope">
+                        <div class="content">
+                            <h3>Jump Rope</h3>
+                            <p>Adjustable jump rope for cardio and agility workouts.</p>
+                            <p><strong>₹299.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61QUuUuLlKL.jpg" alt="Foam Roller">
+                        <div class="content">
+                            <h3>Foam Roller</h3>
+                            <p>Foam roller for muscle recovery and myofascial release.</p>
+                            <p><strong>₹799.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/81E2OfQPMGL._AC_UF894,1000_QL80_.jpg" alt="Medicine Ball">
+                        <div class="content">
+                            <h3>Medicine Ball</h3>
+                            <p>Weighted medicine ball for strength and conditioning exercises.</p>
+                            <p><strong>₹999.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://contents.mediadecathlon.com/p1913648/846164822bee71919aad8cb444ee1d27/p1913648.jpg?format=auto&quality=70&f=2520x0" alt="Ab Wheel">
+                        <div class="content">
+                            <h3>Ab Wheel</h3>
+                            <p>Ab wheel for core strengthening and stability training.</p>
+                            <p><strong>₹399.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/91ao1xkzQ3L._AC_UL210_SR210,210_.jpg" alt="Balance Board">
+                        <div class="content">
+                            <h3>Balance Board</h3>
+                            <p>Balance board for improving stability and coordination.</p>
+                            <p><strong>₹1299.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/41yIq6+QpvL._AC_UF894,1000_QL80_.jpg" alt="Barbell">
+                        <div class="content">
+                            <h3>Barbell</h3>
+                            <p>High-quality barbell for weightlifting and strength training.</p>
+                            <p><strong>₹3999.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- muscle blaze whey protein -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="data:image/jpeg;base64,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" alt="Whey protein">
+                        <div class="content">
+                            <h3>Muscleblaze Whey protein</h3>
+                            <p>High-quality protein for increase muscle size and complete protein intake</p>
+                            <p><strong>₹4999.00</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- dymatize isolate protein -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSccprZ64mcNCQIb7HVjJIGlp7xyyspXtQaZjH9AwdwEtO7EbWJK5EqT0I0dsIE6jhQwBj_qKA3L8SqhReIpeeszxWpx69Kv1ruOE88Jtl_dXd0rihryZOpB3U47FioHpAU22obLzkaFA&usqp=CAc" alt="isolate whey protein">
+                        <div class="content">
+                            <h3>Dymatize whey protein</h3>
+                            <p>100% whey protein isolate , fast Digestion</p>
+                            <p><strong>₹9999.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- creatine -->
+                 <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61GAMaTg+RL._AC_UF1000,1000_QL80_.jpg" alt="Creatine">
+                       
+                        <div class="content">
+                            <h3>Wellcore - Creatine </h3>
+                            <p>pure micronised Creatine Monohydrate Powder</p>
+                            <p><strong>₹799.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- pre workout -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRHboJROWVQz6Fxht4ceY1S4T3P2YSvEUc-RDRwD0_DSXS_G9ycAV3bTXaXhWaqEBimCPjQ1FI0L4fFISrBCuguaFgYoZvVyia5htoLSpC1QuLwsTqMJvZFEpu9i2jdcUyp-cwWElm9&usqp=CAc" alt="pre workout">
+                       
+                        <div class="content">
+                            <h3>Muscletech pre workout </h3>
+                            <p>powder to enhance your workout performance</p>
+                            <p><strong>₹799.99</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- Multi vitamins -->
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src=" https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS_ctL7edVSWB1GA7_4PRRW6Ylks-OtrFldSy-HNxLAg7Q9nBN77TmIn9cSyC7eQXirwIlBtiz_s57qVbs4hQGEkntvskhHFdnPlh2NYU5adUpTyU3q69ObWSCSNKLb32jAiiDKqQ&usqp=CAc" alt="pre workout">
+                       
+                        <div class="content">
+                            <h3>HealthKart Multi vitamins </h3>
+                            <p>Enhance energy , Immunity & Joint health</p>
+                            <p><strong>₹600.00</strong></p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function(){
+            // Ensure every .product-card has a .card-inner wrapper, then attach listeners to the inner element.
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                let inner = card.querySelector('.card-inner');
+                if (!inner) {
+                    // create wrapper and move existing immediate children (img, .content) into it
+                    inner = document.createElement('div');
+                    inner.className = 'card-inner';
+                    // move children into inner
+                    while (card.firstChild) {
+                        inner.appendChild(card.firstChild);
+                    }
+                    card.appendChild(inner);
+                }
+
+                // Mouse move -> small tilt (applied to inner)
+                inner.addEventListener('mousemove', e => {
+                    const rect = inner.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const cx = rect.width / 2;
+                    const cy = rect.height / 2;
+                    const dx = (x - cx) / cx; // -1..1
+                    const dy = (y - cy) / cy; // -1..1
+                    const rotateY = (dx * 8).toFixed(2);
+                    const rotateX = (-dy * 8).toFixed(2);
+                    inner.style.setProperty('--rx', rotateX + 'deg');
+                    inner.style.setProperty('--ry', rotateY + 'deg');
+                });
+
+                // Mouse enter -> start continuous spin while hovered
+                inner.addEventListener('mouseenter', () => {
+                    inner.style.setProperty('--spin', '0deg');
+                    inner.classList.add('spin-continuous');
+                });
+
+                // Mouse leave -> stop spin and reset transforms
+                inner.addEventListener('mouseleave', () => {
+                    inner.classList.remove('spin-continuous');
+                    inner.style.setProperty('--rx', '0deg');
+                    inner.style.setProperty('--ry', '0deg');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

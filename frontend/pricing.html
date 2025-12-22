@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="assets/css/common.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - EnerGise</title>
+    <!-- Use a single, up-to-date Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="new_yoki.css">
+    <!-- Small page-specific tweaks for pricing cards -->
+    <style>
+        /* existing pricing styles kept but enhanced for 3D */
+        .pricing-card{ perspective: 1200px; }
+        .card-inner{
+            transform-style: preserve-3d;
+            transition: transform 0.18s ease-out;
+            --rx: 0deg; /* rotateX */
+            --ry: 0deg; /* rotateY */
+            --spin: 0deg; /* spin added during animation */
+            transform: rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--spin)));
+        }
+
+        /* one-time spin animation that animates CSS var --spin */
+    @keyframes spin360 { to { --spin: 360deg; } }
+    /* one-time spin kept for compatibility, and continuous spin while hovered */
+    .card-inner.spin{ animation: spin360 0.7s ease-in-out; }
+    .card-inner.spin-continuous{ animation: spin360 1.2s linear infinite; }
+
+        .pricing-plan{
+            background-color: #222;
+            color: #ddd;
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+            transition: box-shadow 0.2s ease;
+            min-height: 100%;
+        }
+        .pricing-plan:hover{ box-shadow: 0 16px 40px rgba(255,105,180,0.12); }
+        .pricing-plan h3{ color: var(--primary-color); margin-bottom: .5rem; }
+        .pricing-plan .price{ font-size: 1.6rem; color: var(--accent-color); font-weight: 700; margin: .5rem 0 1rem; }
+        .pricing-plan ul{ margin: 1rem 0 1.25rem; color: #bbb; }
+        .pricing-plan .btn{ align-self: center; margin-top: auto; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EnerGise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#workouts">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#portfolio">Trainers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="pricing">
+        <div class="container">
+            
+            <h2 class="text-center mb-5">Our Pricing Plans</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Basic Plan</h3>
+                                    <p class="price">₹6500 / Month</p>
+                                    <p>Access to basic workouts and gym equipment.</p>
+                                    <ul class="list-unstyled">
+                                        <li>Access to basic workout plans</li>
+                                        <li>1 personal training session per month</li>
+                                        <li>Access to gym equipment</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Basic" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Premium Plan</h3>
+                                    <p class="price">₹7500 / Month</p>
+                                    <p>Includes everything in basic and premium plus additional features.</p>
+                                    <ul class="list-unstyled">
+                                        <li>All Basic plan features</li>
+                                        <li>Access to premium workout plans</li>
+                                        <li>2 personal training sessions per month</li>
+                                        <li>Access to advanced gym equipment</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Ultimate" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Ultimate plan</h3>
+                                    <p class="price">₹8500 / Month</p>
+                                    <p>All-inclusive plan with premium benefits.</p>
+                                    <ul class="list-unstyled">
+                                        <li>All Standard plan features</li>
+                                        <li>Unlimited personal training sessions</li>
+                                        <li>Access to all gym equipment</li>
+                                        <li>Exclusive workshops and events</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Premium" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add interactive tilt + one-time 360° spin on mouseenter
+        (function(){
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach(card => {
+                const inner = card.querySelector('.card-inner');
+                if(!inner) return;
+
+                // Mouse move -> small tilt
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const cx = rect.width / 2;
+                    const cy = rect.height / 2;
+                    const dx = (x - cx) / cx; // -1..1
+                    const dy = (y - cy) / cy; // -1..1
+                    const rotateY = (dx * 8).toFixed(2);
+                    const rotateX = (-dy * 8).toFixed(2);
+                    inner.style.setProperty('--rx', rotateX + 'deg');
+                    inner.style.setProperty('--ry', rotateY + 'deg');
+                });
+
+                // Mouse enter -> start continuous spin while hovered
+                card.addEventListener('mouseenter', () => {
+                    // ensure spin var starts at 0
+                    inner.style.setProperty('--spin', '0deg');
+                    inner.classList.add('spin-continuous');
+                });
+
+                // Mouse leave -> stop spin and reset transforms
+                card.addEventListener('mouseleave', () => {
+                    inner.classList.remove('spin-continuous');
+                    inner.style.setProperty('--rx', '0deg');
+                    inner.style.setProperty('--ry', '0deg');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="assets/css/common.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - EnerGise</title>
+    <!-- Use a single, up-to-date Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="new_yoki.css">
+    <!-- Small page-specific tweaks for pricing cards -->
+    <style>
+        /* existing pricing styles kept but enhanced for 3D */
+        .pricing-card{ perspective: 1200px; }
+        .card-inner{
+            transform-style: preserve-3d;
+            transition: transform 0.18s ease-out;
+            --rx: 0deg; /* rotateX */
+            --ry: 0deg; /* rotateY */
+            --spin: 0deg; /* spin added during animation */
+            transform: rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--spin)));
+        }
+
+        /* one-time spin animation that animates CSS var --spin */
+    @keyframes spin360 { to { --spin: 360deg; } }
+    /* one-time spin kept for compatibility, and continuous spin while hovered */
+    .card-inner.spin{ animation: spin360 0.7s ease-in-out; }
+    .card-inner.spin-continuous{ animation: spin360 1.2s linear infinite; }
+
+        .pricing-plan{
+            background-color: #222;
+            color: #ddd;
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+            transition: box-shadow 0.2s ease;
+            min-height: 100%;
+        }
+        .pricing-plan:hover{ box-shadow: 0 16px 40px rgba(255,105,180,0.12); }
+        .pricing-plan h3{ color: var(--primary-color); margin-bottom: .5rem; }
+        .pricing-plan .price{ font-size: 1.6rem; color: var(--accent-color); font-weight: 700; margin: .5rem 0 1rem; }
+        .pricing-plan ul{ margin: 1rem 0 1.25rem; color: #bbb; }
+        .pricing-plan .btn{ align-self: center; margin-top: auto; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EnerGise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#workouts">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#portfolio">Trainers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="pricing">
+        <div class="container">
+            
+            <h2 class="text-center mb-5">Our Pricing Plans</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Basic</h3>
+                                    <p class="price">₹6500 / Month</p>
+                                    <p>Access to basic workouts and gym equipment.</p>
+                                    <ul class="list-unstyled">
+                                        <li>Access to basic workout plans</li>
+                                        <li>1 personal training session per month</li>
+                                        <li>Access to gym equipment</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Basic" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Ultimate</h3>
+                                    <p class="price">₹8500 / Month</p>
+                                    <p>Includes everything in basic and premium plus additional features.</p>
+                                    <ul class="list-unstyled">
+                                        <li>All Basic plan features</li>
+                                        <li>Access to premium workout plans</li>
+                                        <li>2 personal training sessions per month</li>
+                                        <li>Access to advanced gym equipment</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Ultimate" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="card-inner">
+                            <div class="card pricing-plan">
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title">Premium</h3>
+                                    <p class="price">₹7500 / Month</p>
+                                    <p>All-inclusive plan with premium benefits.</p>
+                                    <ul class="list-unstyled">
+                                        <li>All Standard plan features</li>
+                                        <li>Unlimited personal training sessions</li>
+                                        <li>Access to all gym equipment</li>
+                                        <li>Exclusive workshops and events</li>
+                                    </ul>
+                                    <a href="signup.html?next=subscription&plan=Premium" class="btn btn-primary mt-auto">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add interactive tilt + one-time 360° spin on mouseenter
+        (function(){
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach(card => {
+                const inner = card.querySelector('.card-inner');
+                if(!inner) return;
+
+                // Mouse move -> small tilt
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const cx = rect.width / 2;
+                    const cy = rect.height / 2;
+                    const dx = (x - cx) / cx; // -1..1
+                    const dy = (y - cy) / cy; // -1..1
+                    const rotateY = (dx * 8).toFixed(2);
+                    const rotateX = (-dy * 8).toFixed(2);
+                    inner.style.setProperty('--rx', rotateX + 'deg');
+                    inner.style.setProperty('--ry', rotateY + 'deg');
+                });
+
+                // Mouse enter -> start continuous spin while hovered
+                card.addEventListener('mouseenter', () => {
+                    // ensure spin var starts at 0
+                    inner.style.setProperty('--spin', '0deg');
+                    inner.classList.add('spin-continuous');
+                });
+
+                // Mouse leave -> stop spin and reset transforms
+                card.addEventListener('mouseleave', () => {
+                    inner.classList.remove('spin-continuous');
+                    inner.style.setProperty('--rx', '0deg');
+                    inner.style.setProperty('--ry', '0deg');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

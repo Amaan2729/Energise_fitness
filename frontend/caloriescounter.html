@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Counter</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="caloriescounter.css">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2 class="text-center">Calorie Counter</h2>
+    
+    <!-- Description Section -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="text-center">About the Calorie Counter</h3>
+            <p class="description">
+              Welcome to the calorie counter! This tool is designed to help you track your daily calorie intake across all your meals. Simply select your meal type (breakfast, brunch, lunch, snacks, or dinner), describe your meal, and input the calorie content. Our tool will help you calculate the total calories for each meal and give you an overview of your overall daily intake. 
+            </p>
+            <p class="description">
+              Whether you're on a fitness journey to lose weight, gain muscle, or just maintain a healthy lifestyle, this tool will help you keep your diet in check. Use it daily to stay aware of what you're consuming and make informed decisions for your health.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calorie Counter Form -->
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <form id="calorieForm">
+              <!-- Meal Type Selection -->
+              <div class="form-group">
+                <label for="mealType">Select Meal Type</label>
+                <select class="form-control" id="mealType">
+                  <option value="breakfast">Breakfast</option>
+                  <option value="brunch">Brunch</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="snacks">Snacks</option>
+                  <option value="dinner">Dinner</option>
+                </select>
+              </div>
+              
+              <!-- Meal Description -->
+              <div class="form-group">
+                <label for="meal">Meal Description</label>
+                <input type="text" class="form-control" id="meal" placeholder="Enter meal description">
+              </div>
+
+              <!-- Calories Input -->
+              <div class="form-group">
+                <label for="calories">Calories</label>
+                <input type="number" class="form-control" id="calories" placeholder="Enter calories">
+              </div>
+              
+              <!-- Add Meal Button -->
+              <button type="submit" class="btn btn-primary btn-block">Add Meal</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Calories Summary -->
+      <div class="col-md-6">
+        <div class="card mt-4 shadow">
+          <div class="card-body">
+            <h3 class="text-center">Total Calories</h3>
+            <ul class="list-group">
+              <li class="list-group-item">Breakfast: <span id="breakfastCalories">0</span> kcal</li>
+              <li class="list-group-item">Brunch: <span id="brunchCalories">0</span> kcal</li>
+              <li class="list-group-item">Lunch: <span id="lunchCalories">0</span> kcal</li>
+              <li class="list-group-item">Snacks: <span id="snacksCalories">0</span> kcal</li>
+              <li class="list-group-item">Dinner: <span id="dinnerCalories">0</span> kcal</li>
+              <li class="list-group-item font-weight-bold">Overall Total: <span id="totalCalories">0</span> kcal</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="top-left-container">
+        
+    
+    <a href="index.html" class="btn btn-primary">Back to Home</a>
+    </div>
+
+  <script src="caloriescounter.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirag - Athletic Performance Specialist Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #f5efef;
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .navbar-brand, .nav-link {
+            color: #ff69b4 !important;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #fff !important;
+        }
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?fitness') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        .portfolio-item {
+            background-color: #222;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .portfolio-item .content {
+            padding: 20px;
+        }
+        .portfolio-item h3 {
+            color: #ff69b4;
+        }
+        .portfolio-item p {
+            color: #ccc;
+        }
+        footer {
+            background-color: #000;
+            color: #ff69b4;
+            padding: 40px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">EnerGise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="yoki.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="portfolio.html">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="yoki.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>Chirag</h1>
+            <p>High-Intensity Interval Training & Athletic Performance Specialist</p>
+        </div>
+    </section>
+
+    <section id="portfolio" class="container py-5">
+        <h2 class="text-center mb-4">About Chirag</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portfolio-item">
+                    <img src="Chirag.jpeg" alt="Chirag">
+                    <div class="content">
+                        <h3>Chirag</h3>
+                        <p>Chirag brings a rich background in professional sports to his training practice, specializing in high-intensity interval training (HIIT) and enhancing athletic performance. With a deep understanding of the demands of elite athletes, Chirag designs training programs that maximize endurance, strength, and agility to help individuals reach their peak potential.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Experience & Achievements</h3>
+                <ul>
+                    <li>Professional sports background with extensive experience in high-performance training.</li>
+                    <li>Specializes in high-intensity interval training (HIIT) and athletic performance enhancement.</li>
+                    <li>Developed training regimens for various sports and fitness enthusiasts.</li>
+                    <li>Regular speaker at sports and fitness workshops.</li>
+                </ul>
+                <h3>Contact Chirag</h3>
+                <p>Email: <a href="mailto:chirag@example.com" style="color: #ff69b4;">chirag@example.com</a></p>
+                <p>Phone: (+91) 90000-67890</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EnerGise. All Rights Reserved.</p>
+        <p>Email: <a href="mailto:info@EnerGise.com">info@EnerGise.com</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
