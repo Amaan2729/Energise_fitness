@@ -1,0 +1,62 @@
+:root {
+  --primary-color: #ff69b4;
+  --secondary-color: #9c27b0;
+  --dark-bg: #0a0e27;
+  --text-color: #ffffff;
+  --text-muted: #b0b8d4;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f3a 50%, var(--dark-bg) 100%);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+h1, h2 {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.checkout-section {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 30px;
+  border: 1px solid rgba(255,105,180,0.25);
+  box-shadow: 0 15px 40px rgba(255,105,180,0.2);
+  margin-bottom: 30px;
+}
+
+.form-control,
+.form-select {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,105,180,0.3);
+  color: #fff;
+  border-radius: 10px;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(255,105,180,0.5);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 10px 18px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,105,180,0.4);
+}
