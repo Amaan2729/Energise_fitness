@@ -241,7 +241,7 @@ body::before {
     </div>
 </div>
 
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function(){
     const sel = localStorage.getItem('selectedSubscription');
     if (!sel) {
@@ -331,6 +331,114 @@ async function placeSubscription(payload) {
     // escape helper for error output
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 }
+</script> -->
+<script>
+/* ✅ AUTO BACKEND URL (LOCAL + RENDER + SAME SERVICE) */
+const API_BASE = window.location.origin;
+
+document.addEventListener('DOMContentLoaded', function(){
+    const sel = localStorage.getItem('selectedSubscription');
+    if (!sel) {
+        alert('No subscription selected. Redirecting to plans.');
+        window.location.href = 'subscription.html';
+        return;
+    }
+    const plan = JSON.parse(sel);
+
+    // element references
+    const firstNameEl = document.getElementById('firstName');
+    const lastNameEl = document.getElementById('lastName');
+    const addressEl = document.getElementById('address');
+    const cityEl = document.getElementById('city');
+    const stateEl = document.getElementById('state');
+    const zipEl = document.getElementById('zip');
+    const paymentMethodEl = document.getElementById('paymentMethod');
+    const msgEl = document.getElementById('msg');
+
+    document.getElementById('planSummary').innerHTML =
+        `<h4>${escapeHtml(plan.name)}</h4><p>₹${Number(plan.price)} / month</p>`;
+    document.getElementById('totalPrice').textContent =
+        `₹${Number(plan.price)}`;
+
+    document.getElementById('subscribeBtn').addEventListener('click', async function(e){
+        e.preventDefault();
+        const form = document.getElementById('subForm');
+        if (!form.reportValidity()) return;
+
+        const payload = {
+            planName: plan.name,
+            price: plan.price,
+            firstName: firstNameEl.value.trim(),
+            lastName: lastNameEl.value.trim(),
+            address: addressEl.value.trim(),
+            city: cityEl.value.trim(),
+            state: stateEl.value.trim(),
+            zip: zipEl.value.trim(),
+            paymentMethod: paymentMethodEl.value
+        };
+
+        msgEl.innerHTML = '';
+        await placeSubscription(payload);
+    });
+
+    function escapeHtml(s){
+        return String(s)
+          .replace(/&/g,'&amp;')
+          .replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;');
+    }
+});
+
+async function placeSubscription(payload) {
+    const msgEl = document.getElementById('msg');
+    const token = localStorage.getItem('token');
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    try {
+        const res = await fetch(`${API_BASE}/api/subscriptions`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json().catch(()=>({ message: res.statusText }));
+
+        if (!res.ok) {
+            if (res.status === 401) {
+                window.location.href = 'login.html?next=subscription';
+                return;
+            }
+            throw new Error(data.message || 'Server error');
+        }
+
+        msgEl.innerHTML =
+            `<div class="alert alert-success">Subscription created successfully.</div>`;
+        localStorage.removeItem('selectedSubscription');
+
+        setTimeout(()=> {
+            window.location.href = 'index.html';
+        }, 1000);
+
+    } catch (err) {
+        console.error('subscribe error:', err);
+        msgEl.innerHTML =
+            `<div class="alert alert-danger">
+                Server error: ${escapeHtml(err.message || 'Try again later.')}
+             </div>`;
+    }
+
+    function escapeHtml(s){
+        return String(s)
+          .replace(/&/g,'&amp;')
+          .replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;');
+    }
+}
 </script>
+
 </body>
 </html>
