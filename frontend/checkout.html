@@ -73,43 +73,97 @@
 
 <script>
 const API_BASE = window.location.origin;
-const products=[
-{name:"Dumbbells",price:750},
-{name:"Yoga Mat",price:900},
-{name:"Resistance Bands",price:300}
+
+const products = [
+  { name: "Dumbbells", price: 750 },
+  { name: "Yoga Mat", price: 900 },
+  { name: "Resistance Bands", price: 300 }
 ];
 
-const sel=document.getElementById("productSelect");
-sel.innerHTML='<option value="">Select</option>'+products.map(p=>`<option data-price="${p.price}">${p.name}</option>`).join("");
+const sel = document.getElementById("productSelect");
+sel.innerHTML =
+  '<option value="">Select</option>' +
+  products.map(p =>
+    `<option value="${p.name}" data-price="${p.price}">
+      ${p.name} - ₹${p.price}
+    </option>`
+  ).join("");
 
-let cart={};
+let cart = {};
 
-addProduct.onclick=()=>{
-const opt=sel.selectedOptions[0];
-if(!opt)return;
-const n=opt.text,p=+opt.dataset.price;
-cart[n]=(cart[n]||0)+p;
-render();
+document.getElementById("addProduct").onclick = () => {
+  const opt = sel.selectedOptions[0];
+  if (!opt) return alert("Select product");
+
+  const name = opt.value;
+  const price = Number(opt.dataset.price);
+
+  cart[name] = cart[name] || { price, qty: 0 };
+  cart[name].qty++;
+
+  renderCart();
 };
 
-function render(){
-let t=0;cartItems.innerHTML="";
-for(let k in cart){t+=cart[k];cartItems.innerHTML+=`<div>${k} - ₹${cart[k]}</div>`;}
-totalPrice.textContent="₹"+t;
+function renderCart() {
+  let total = 0;
+  const box = document.getElementById("cartItems");
+  box.innerHTML = "";
+
+  Object.entries(cart).forEach(([name, v]) => {
+    const sum = v.price * v.qty;
+    total += sum;
+    box.innerHTML += `<div>${name} x ${v.qty} — ₹${sum}</div>`;
+  });
+
+  document.getElementById("totalPrice").textContent = "₹" + total;
+  return total;
 }
 
-paymentMethod.onchange=()=>cardDetails.style.display=paymentMethod.value==="card"?"block":"none";
+paymentMethod.onchange = () => {
+  cardDetails.style.display = paymentMethod.value === "card" ? "block" : "none";
+};
 
-placeOrderBtn.onclick=async()=>{
-const res=await fetch(`${API_BASE}/api/orders`,{
-method:"POST",
-headers:{'Content-Type':'application/json',Authorization:'Bearer '+localStorage.getItem('token')},
-body:JSON.stringify({cart})
-});
-if(res.ok){alert("Order placed");location.href="index.html";}
-else alert("Login required");
+document.getElementById("placeOrderBtn").onclick = async () => {
+  if (!Object.keys(cart).length) return alert("Cart empty");
+
+  const totalPrice = renderCart();
+
+  const orderPayload = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    address: address.value,
+    city: city.value,
+    state: state.value,
+    zip: zip.value,
+    paymentMethod: paymentMethod.value,
+    totalPrice,
+    products: Object.entries(cart).map(([name, v]) => ({
+      name,
+      price: v.price,
+      quantity: v.qty
+    }))
+  };
+
+  const res = await fetch(`${API_BASE}/api/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token")
+    },
+    body: JSON.stringify(orderPayload)
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("✅ Order placed");
+    location.href = "index.html";
+  } else {
+    alert("❌ " + data.message);
+  }
 };
 </script>
+
 
 </body>
 </html>
