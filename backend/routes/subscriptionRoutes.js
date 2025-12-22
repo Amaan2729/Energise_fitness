@@ -4,67 +4,60 @@ const auth = require("../middleware/auth");
 const Subscription = require("../models/subscription");
 const { cacheGet, cacheSet } = require("../utils/redisHelpers");
 
-/* --------------------------------------
-   GET ALL PLANS (with Redis caching)
--------------------------------------- */
+/* ----------------------
+   GET SUBSCRIPTION PLANS
+---------------------- */
 router.get("/plans", async (req, res) => {
   try {
     const cacheKey = "plans:all";
-    let cached = null;
+    const cached = await cacheGet(cacheKey).catch(() => null);
 
-    try {
-      cached = await cacheGet(cacheKey);
-    } catch (err) {
-      console.warn("[redis] cacheGet failed:", err?.message);
-    }
-
-    if (cached) return res.json({ plans: cached, cache: true });
+    if (cached) return res.json({ plans: cached });
 
     const plans = [
-      { name: "Basic", price: 6500, description: "Access to standard workout plans and gym facilities." },
-      { name: "Premium", price: 7500, description: "Includes personalized training plans and nutrition guidance." },
-      { name: "Ultimate", price: 8500, description: "All-inclusive access with premium support and exclusive events." }
+      { name: "Basic", price: 6500, description: "Standard workouts" },
+      { name: "Premium", price: 7500, description: "Personal training" },
+      { name: "Ultimate", price: 8500, description: "All access" }
     ];
 
-    try {
-      await cacheSet(cacheKey, plans, 86400);
-    } catch (err) {
-      console.warn("[redis] cacheSet failed:", err?.message);
-    }
-
-    return res.json({ plans, cache: false });
-  } catch (err) {
-    console.error("Error fetching plans:", err);
-    return res.status(500).json({ message: "Server error" });
+    await cacheSet(cacheKey, plans, 86400).catch(() => {});
+    res.json({ plans });
+  } catch {
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-/* --------------------------------------
-   CREATE SUBSCRIPTION (protected route)
--------------------------------------- */
+/* ----------------------
+   CREATE SUBSCRIPTION
+---------------------- */
 router.post("/", auth, async (req, res) => {
   try {
-    console.log("[subscriptions] body:", req.body);
+    const userId = req.user?.id || req.user?._id || req.user?.userId;
 
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ message: "Unauthorized. Please login." });
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { planName, price, firstName, lastName, address, city, state, zip, paymentMethod } = req.body;
+    const {
+      planName,
+      price,
+      firstName,
+      lastName,
+      address,
+      city,
+      state,
+      zip,
+      paymentMethod
+    } = req.body;
 
-    if (!planName || typeof planName !== "string") {
-      return res.status(400).json({ message: "Invalid or missing planName" });
-    }
-
-    const numericPrice = Number(price);
-    if (isNaN(numericPrice) || numericPrice <= 0) {
-      return res.status(400).json({ message: "Invalid price" });
+    if (!planName || !price) {
+      return res.status(400).json({ message: "Missing data" });
     }
 
     const subscription = new Subscription({
-      user: req.user.id,
-      planName: planName.trim(),
-      price: numericPrice,
+      user: userId,
+      planName,
+      price,
       firstName,
       lastName,
       address,
@@ -74,32 +67,20 @@ router.post("/", auth, async (req, res) => {
       paymentMethod
     });
 
-    const saved = await subscription.save();
-    console.log("[subscriptions] saved id =", saved._id);
+    await subscription.save();
 
-    return res.json({ message: "Subscription created", id: saved._id });
-
+    res.status(201).json({ message: "Subscription created" });
   } catch (err) {
-    console.error("POST /api/subscriptions error:", err);
-    return res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-/* --------------------------------------
-   DEBUG: LAST 20 SUBSCRIPTIONS
--------------------------------------- */
+/* ----------------------
+   DEBUG (OPTIONAL)
+---------------------- */
 router.get("/debug/latest", async (req, res) => {
-  try {
-    const docs = await Subscription.find({})
-      .sort({ createdAt: -1 })
-      .limit(20)
-      .lean();
-
-    return res.json({ ok: true, count: docs.length, docs });
-  } catch (err) {
-    console.error("debug/latest error:", err);
-    return res.status(500).json({ ok: false, message: "Server error" });
-  }
+  const docs = await Subscription.find().sort({ createdAt: -1 }).limit(10);
+  res.json(docs);
 });
 
 module.exports = router;

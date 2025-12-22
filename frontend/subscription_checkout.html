@@ -333,112 +333,73 @@ async function placeSubscription(payload) {
 }
 </script> -->
 <script>
-/* ✅ AUTO BACKEND URL (LOCAL + RENDER + SAME SERVICE) */
 const API_BASE = window.location.origin;
 
-document.addEventListener('DOMContentLoaded', function(){
-    const sel = localStorage.getItem('selectedSubscription');
-    if (!sel) {
-        alert('No subscription selected. Redirecting to plans.');
-        window.location.href = 'subscription.html';
-        return;
-    }
-    const plan = JSON.parse(sel);
+document.addEventListener("DOMContentLoaded", () => {
+  const selected = localStorage.getItem("selectedSubscription");
+  if (!selected) {
+    window.location.href = "subscription.html";
+    return;
+  }
 
-    // element references
-    const firstNameEl = document.getElementById('firstName');
-    const lastNameEl = document.getElementById('lastName');
-    const addressEl = document.getElementById('address');
-    const cityEl = document.getElementById('city');
-    const stateEl = document.getElementById('state');
-    const zipEl = document.getElementById('zip');
-    const paymentMethodEl = document.getElementById('paymentMethod');
-    const msgEl = document.getElementById('msg');
+  const plan = JSON.parse(selected);
 
-    document.getElementById('planSummary').innerHTML =
-        `<h4>${escapeHtml(plan.name)}</h4><p>₹${Number(plan.price)} / month</p>`;
-    document.getElementById('totalPrice').textContent =
-        `₹${Number(plan.price)}`;
+  document.getElementById("planSummary").innerHTML =
+    `<h4>${plan.name}</h4><p>₹${plan.price} / month</p>`;
+  document.getElementById("totalPrice").textContent = `₹${plan.price}`;
 
-    document.getElementById('subscribeBtn').addEventListener('click', async function(e){
-        e.preventDefault();
-        const form = document.getElementById('subForm');
-        if (!form.reportValidity()) return;
-
-        const payload = {
-            planName: plan.name,
-            price: plan.price,
-            firstName: firstNameEl.value.trim(),
-            lastName: lastNameEl.value.trim(),
-            address: addressEl.value.trim(),
-            city: cityEl.value.trim(),
-            state: stateEl.value.trim(),
-            zip: zipEl.value.trim(),
-            paymentMethod: paymentMethodEl.value
-        };
-
-        msgEl.innerHTML = '';
-        await placeSubscription(payload);
-    });
-
-    function escapeHtml(s){
-        return String(s)
-          .replace(/&/g,'&amp;')
-          .replace(/</g,'&lt;')
-          .replace(/>/g,'&gt;')
-          .replace(/"/g,'&quot;');
-    }
+  document.getElementById("subscribeBtn").addEventListener("click", submit);
 });
 
-async function placeSubscription(payload) {
-    const msgEl = document.getElementById('msg');
-    const token = localStorage.getItem('token');
+async function submit(e) {
+  e.preventDefault();
 
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = 'Bearer ' + token;
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "login.html?next=subscription";
+    return;
+  }
 
-    try {
-        const res = await fetch(`${API_BASE}/api/subscriptions`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(payload)
-        });
+  const payload = {
+    planName: JSON.parse(localStorage.getItem("selectedSubscription")).name,
+    price: JSON.parse(localStorage.getItem("selectedSubscription")).price,
+    firstName: firstName.value.trim(),
+    lastName: lastName.value.trim(),
+    address: address.value.trim(),
+    city: city.value.trim(),
+    state: state.value.trim(),
+    zip: zip.value.trim(),
+    paymentMethod: paymentMethod.value
+  };
 
-        const data = await res.json().catch(()=>({ message: res.statusText }));
+  try {
+    const res = await fetch(`${API_BASE}/api/subscriptions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify(payload)
+    });
 
-        if (!res.ok) {
-            if (res.status === 401) {
-                window.location.href = 'login.html?next=subscription';
-                return;
-            }
-            throw new Error(data.message || 'Server error');
-        }
+    const data = await res.json();
 
-        msgEl.innerHTML =
-            `<div class="alert alert-success">Subscription created successfully.</div>`;
-        localStorage.removeItem('selectedSubscription');
-
-        setTimeout(()=> {
-            window.location.href = 'index.html';
-        }, 1000);
-
-    } catch (err) {
-        console.error('subscribe error:', err);
-        msgEl.innerHTML =
-            `<div class="alert alert-danger">
-                Server error: ${escapeHtml(err.message || 'Try again later.')}
-             </div>`;
+    if (!res.ok) {
+      alert(data.message || "Subscription failed");
+      return;
     }
 
-    function escapeHtml(s){
-        return String(s)
-          .replace(/&/g,'&amp;')
-          .replace(/</g,'&lt;')
-          .replace(/>/g,'&gt;')
-          .replace(/"/g,'&quot;');
-    }
+    localStorage.removeItem("selectedSubscription");
+    alert("Subscription successful 🎉");
+    window.location.href = "index.html";
+
+  } catch (err) {
+    alert("Server error");
+  }
 }
 </script>
+
+
 
 </body>
 </html>
