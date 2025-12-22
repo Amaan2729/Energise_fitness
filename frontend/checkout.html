@@ -1,7 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="assets/css/common.css">
+    <!-- <link rel="stylesheet" href="assets/css/common.css"> -->
+     <style>
+        :root {
+  --primary-color: #ff69b4;
+  --secondary-color: #333;
+  --background-color: #000;
+  --text-color: #fff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1, h2 {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.checkout-section {
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(255,105,180,0.15);
+  margin-bottom: 30px;
+}
+
+.form-control,
+.form-select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,105,180,0.25);
+  color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 12px rgba(255,105,180,0.4);
+  background: rgba(255,255,255,0.08);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #ff45a0;
+  border-color: #ff45a0;
+  transform: translateY(-2px);
+}
+
+     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - EnerGise</title>
