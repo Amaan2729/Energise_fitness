@@ -1,0 +1,20 @@
+window.ALL_PRODUCTS = [
+  { name: "Adjustable Dumbbells", price: 749.99 },
+  { name: "Yoga Mat", price: 899.99 },
+  { name: "High-Performance Treadmill", price: 49999.99 },
+  { name: "Kettlebells Set", price: 2999.99 },
+  { name: "Exercise Ball", price: 599.99 },
+  { name: "Resistance Bands", price: 299.99 },
+  { name: "Pull-Up Bar", price: 1499.99 },
+  { name: "Jump Rope", price: 299.99 },
+  { name: "Foam Roller", price: 799.99 },
+  { name: "Medicine Ball", price: 999.99 },
+  { name: "Ab Wheel", price: 399.99 },
+  { name: "Balance Board", price: 1299.99 },
+  { name: "Barbell", price: 3999.99 },
+  { name: "Muscleblaze Whey Protein", price: 4999.00 },
+  { name: "Dymatize Whey Protein", price: 9999.99 },
+  { name: "Wellcore Creatine", price: 799.99 },
+  { name: "Muscletech Pre Workout", price: 799.99 },
+  { name: "HealthKart Multivitamins", price: 600.00 }
+];
