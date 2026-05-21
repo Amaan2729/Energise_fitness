@@ -1,79 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>EnerGise Shop</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/common.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnerGise - Premium Fitness Shop</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/common.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Header Area */
+        .shop-hero {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3.5rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.2);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cart Floating Status Area */
+        .cart-status-bar {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(247, 7, 118, 0.3);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        #cart-count {
+            background: #f70776;
+            color: white;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Category Title Dividers */
+        .category-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.6rem;
+            position: relative;
+            padding-left: 15px;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background: linear-gradient(to bottom, #f70776, #871b8f);
+            border-radius: 2px;
+        }
+
+        /* Product Cards Structure */
+        .product-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: #f70776;
+            box-shadow: 0 20px 40px rgba(247, 7, 118, 0.25);
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #151d2a;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(15, 23, 36, 0.85);
+            border: 1px solid #f70776;
+            color: #f70776;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-body-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #f70776;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Buttons and Custom UI elements */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776 0%, #871b8f 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 0.7rem 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(247, 7, 118, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(247, 7, 118, 0.4);
+            background: linear-gradient(135deg, #ff1e85 0%, #a12ca9 100%);
+        }
+
+        .btn-checkout {
+            background: linear-gradient(135deg, #f70776 0%, #871b8f 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0.4rem 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-checkout:hover {
+            color: white;
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2.5rem 0 1.5rem 0;
+            margin-top: 5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.4rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            color: #f70776;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
 
-<section id="products" class="container mt-5">
-  <h1 class="text-center mb-4">EnerGise Shop</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <div class="text-end mb-3">
-    🛒 Cart: <span id="cart-count">0</span>
-    <a href="checkout.html" class="btn btn-sm btn-primary ms-2">Checkout</a>
-  </div>
+    <section class="shop-hero text-center">
+        <div class="container">
+            <h1>EnerGise Gear Shop</h1>
+            <p class="text-secondary col-md-8 mx-auto">Equip your specialized private home studio environment with premium-tier, high-grade kinetic resistance elements, biomechanical stabilization gear, and professional telemetry tracking arrays.</p>
+            
+            <div class="mt-3">
+                <div class="cart-status-bar text-light">
+                    <i class="fas fa-shopping-cart text-pink me-1" style="color:#f70776;"></i> 
+                    Cart Items: <span id="cart-count">0</span>
+                    <a href="checkout.html" class="btn-checkout ms-3 text-decoration-none">Proceed to Checkout <i class="fas fa-arrow-right font-size-xs"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="row g-4" id="productsRow"></div>
-</section>
+    <main class="container">
+        <div id="dynamicShopRows"></div>
+    </main>
 
-<script>
-/* ================= PRODUCTS LIST ================= */
-const PRODUCTS = [
-  { name:"Adjustable Dumbbells", price:749.99 },
-  { name:"Yoga Mat", price:899.99 },
-  { name:"High-Performance Treadmill", price:49999.99 },
-  { name:"Kettlebells Set", price:2999.99 },
-  { name:"Exercise Ball", price:599.99 },
-  { name:"Resistance Bands", price:299.99 },
-  { name:"Pull-Up Bar", price:1499.99 },
-  { name:"Jump Rope", price:299.99 },
-  { name:"Foam Roller", price:799.99 },
-  { name:"Medicine Ball", price:999.99 },
-  { name:"Ab Wheel", price:399.99 },
-  { name:"Balance Board", price:1299.99 },
-  { name:"Barbell", price:3999.99 },
-  { name:"Muscleblaze Whey Protein", price:4999.00 },
-  { name:"Dymatize Whey Protein", price:9999.99 },
-  { name:"Wellcore Creatine", price:799.99 },
-  { name:"Muscletech Pre Workout", price:799.99 },
-  { name:"HealthKart Multivitamins", price:600.00 }
-];
+    <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2026 EnerGise Performance Systems. All rights reserved.</p>
+            <p>
+                <a href="#privacy-policy">Privacy Matrix</a> | 
+                <a href="#terms">Terms of Service Delivery</a> | 
+                <a href="#contact">Hardware Support</a>
+            </p>
+            <div class="social-icons">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
 
-/* Save full product list for checkout */
-localStorage.setItem("ALL_PRODUCTS", JSON.stringify(PRODUCTS));
+    <script>
+    // Comprehensive High-Quality Inventory Dataset Mapping Array (25+ Distinct Products)
+    const INVENTORY_DATA = [
+        // CATEGORY 1: Structural Strength & Isometric Loads
+        { name: "Pro Adjustable Dial Dumbbells (Pair)", price: 44749.00, cat: "Strength Systems", badge: "Premium Iron", img: "https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=600&auto=format&fit=crop&q=80" },
+        { name: "Competition Cast-Iron Kettlebell Set", price: 8999.00, cat: "Strength Systems", badge: "High Density", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&auto=format&fit=crop&q=80" },
+        { name: "Multi-Grip Ceiling Pull-Up Framework", price: 3499.00, cat: "Strength Systems", badge: "Heavy Duty", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=600&auto=format&fit=crop&q=80" },
+        { name: "Olympic Barbell Chrome Shaft (20kg)", price: 12499.00, cat: "Strength Systems", badge: "Precision Steel", img: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&auto=format&fit=crop&q=80" },
+        { name: "Bumper Plate Calibrated Set (50kg total)", price: 14500.00, cat: "Strength Systems", badge: "Competition", img: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=600&auto=format&fit=crop&q=80" },
+        { name: "Heavy Duty Multi-Angle Utility Bench", price: 18999.00, cat: "Strength Systems", badge: "Top Tier", img: "https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=600&auto=format&fit=crop&q=80" },
+        { name: "Steel Tube Squat & Power Rack Shell", price: 34999.00, cat: "Strength Systems", badge: "Elite Frame", img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80" },
+       {
+  name: "Hex-Head Rubber Dumbbell Pair (15kg)",
+  price: 5499.00,
+  cat: "Strength Systems",
+  badge: "Anti-Roll",
+  img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop"
+},
 
-const row = document.getElementById("productsRow");
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        // CATEGORY 2: Aerobic Conditioning & Endurance Equipment
+        { name: "Commercial Motorized Hydro-Treadmill Matrix", price: 84999.00, cat: "Cardio Infrastructure", badge: "Fluid Shock", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80" },
+       {
+  name: "Magnetic Resistance Fluid Studio Cycle",
+  price: 38500.00,
+  cat: "Cardio Infrastructure",
+  badge: "Whisper quiet",
+  img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop"
+},
+        { name: "High Velocity Bearing Steel Jump Rope", price: 799.00, cat: "Cardio Infrastructure", badge: "Speed Tech", img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&auto=format&fit=crop&q=80" },
+        { name: "Air-Resistance Cross-Training Fan Bike", price: 46999.00, cat: "Cardio Infrastructure", badge: "Dual Action", img: "https://images.unsplash.com/photo-1511886929837-354d827aae26?w=600&auto=format&fit=crop&q=80" },
+        { name: "Water-Resistance Natural Wood Rower", price: 62000.00, cat: "Cardio Infrastructure", badge: "Pure Fluid", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=80" },
+        { name: "Slam Ball High-Impact Core Unit (12kg)", price: 2899.00, cat: "Cardio Infrastructure", badge: "Zero Rebound", img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600&auto=format&fit=crop&q=80" },
+        { name: "Adjustable Height Aerobic Step Deck", price: 2199.00, cat: "Cardio Infrastructure", badge: "Non-Slip Base", img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&auto=format&fit=crop&q=80" },
 
-/* Render products */
-PRODUCTS.forEach(p => {
-  row.innerHTML += `
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h5>${p.name}</h5>
-        <p><strong>₹${p.price}</strong></p>
-        <button class="btn btn-primary" onclick="addToCart('${p.name}', ${p.price})">
-          Buy Now
-        </button>
-      </div>
-    </div>`;
-});
+        // CATEGORY 3: Kinetic Elasticity, Yoga & Postural Realignments
+        { name: "Eco-Friendly Natural Cork Non-Slip Yoga Mat", price: 2499.00, cat: "Yoga & Core Mobility", badge: "Pure Grip", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&auto=format&fit=crop&q=80" },
+        { name: "Natural Unbreakable Rubber Tube Band Kit", price: 1199.00, cat: "Yoga & Core Mobility", badge: "Elastic Core", img: "https://images.unsplash.com/photo-1518459031867-a89b944bffe4?w=600&auto=format&fit=crop&q=80" },
+        { name: "Dual-Texture Deep Tissue Foam Roller", price: 1499.00, cat: "Yoga & Core Mobility", badge: "Myofascial", img: "https://images.unsplash.com/photo-1600881333168-2ef49b341f30?w=600&auto=format&fit=crop&q=80" },
+        { name: "High-Density Anti-Burst Balance Sphere", price: 1850.00, cat: "Yoga & Core Mobility", badge: "Pelvic Base", img: "https://images.unsplash.com/photo-1599447292180-45fd84092ef0?w=600&auto=format&fit=crop&q=80" },
+        { name: "Ergonomic High-Density EVA Yoga Blocks (Pair)", price: 899.00, cat: "Yoga & Core Mobility", badge: "Support Block", img: "https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=600&auto=format&fit=crop&q=80" },
+        { name: "Woven Cotton Deep-Stretch Strap Line", price: 499.00, cat: "Yoga & Core Mobility", badge: "Flex Line", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80" },
+        { name: "Stability Balance Pad Core Trainer", price: 1650.00, cat: "Yoga & Core Mobility", badge: "Ankle Matrix", img: "https://images.unsplash.com/photo-1614928228253-dc09cbc3b11c?w=600&auto=format&fit=crop&q=80" },
+        { name: "Fabric Glute Loop Resistance Bands (3 Pack)", price: 999.00, cat: "Yoga & Core Mobility", badge: "Anti-Roll Fabric", img: "https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=600&auto=format&fit=crop&q=80" },
 
-function addToCart(name, price) {
-  cart.push({ name, price, qty: 1 });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCount();
-}
+        // CATEGORY 4: Connected Smart Fitness Devices & Recovery Systems
+        { name: "Bio-Telemetry Optical Pulse Smart Tracker", price: 14999.00, cat: "Smart Hardware & Recovery", badge: "Neural Sync", img: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&auto=format&fit=crop&q=80" },
+    {
+  name: "High-Frequency Percussive Therapy Massager",
+  price: 11999.00,
+  cat: "Smart Hardware & Recovery",
+  badge: "Deep Recovery",
+  img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop"
+},
+        { name: "Smart Bluetooth Body Composition Analyzer", price: 3499.00, cat: "Smart Hardware & Recovery", badge: "BIA Tech", img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=600&auto=format&fit=crop&q=80" },
+        { name: "Connected Electronic Counter Boxing Target", price: 19500.00, cat: "Smart Hardware & Recovery", badge: "Reflex Engine", img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&auto=format&fit=crop&q=80" },
+       {
+  name: "Wireless Bio-Impedance Smart Jump Rope",
+  price: 2199.00,
+  cat: "Smart Hardware & Recovery",
+  badge: "Auto Matrix",
+  img: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop"
+},
+        { name: "Muscle-Stimulation EMS Unit Neuromuscular Kit", price: 6790.00, cat: "Smart Hardware & Recovery", badge: "Pulse Stim", img: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&auto=format&fit=crop&q=80" }
+    ];
 
-function updateCount() {
-  document.getElementById("cart-count").textContent = cart.length;
-}
+    // Persist full catalog payload for application checkout metrics
+    localStorage.setItem("ALL_PRODUCTS", JSON.stringify(INVENTORY_DATA));
 
-updateCount();
-</script>
+    // Initialize local shopping context components
+    let currentActiveCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const layoutShellContainer = document.getElementById("dynamicShopRows");
 
+    // Re-structure items mapped clean into unique display categories
+    function compileRenderedInventory() {
+        const groupMapping = {};
+        INVENTORY_DATA.forEach(item => {
+            if (!groupMapping[item.cat]) {
+                groupMapping[item.cat] = [];
+            }
+            groupMapping[item.cat].push(item);
+        });
+
+        let fullGeneratedHTML = "";
+        for (const catName in groupMapping) {
+            fullGeneratedHTML += `<h2 class="category-title">${catName}</h2>`;
+            fullGeneratedHTML += `<div class="row g-4 mb-5">`;
+
+            groupMapping[catName].forEach(prod => {
+                fullGeneratedHTML += `
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="product-card">
+                            <div class="img-container">
+                                <span class="product-badge">${prod.badge}</span>
+                                <img src="${prod.img}" alt="${prod.name}" loading="lazy">
+                            </div>
+                            <div class="card-body-content">
+                                <div>
+                                    <h5 class="product-title">${prod.name}</h5>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="product-price">₹${prod.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+                                    <button class="btn btn-primary w-100" onclick="pushToActiveCart('${escape(prod.name)}', ${prod.price})">
+                                        <i class="fas fa-cart-plus me-1"></i> Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            fullGeneratedHTML += `</div>`;
+        }
+        layoutShellContainer.innerHTML = fullGeneratedHTML;
+    }
+
+    // Safely insert elements down into localized database stack cleanly
+    function pushToActiveCart(escapedName, productValue) {
+        const structuralRealName = unescape(escapedName);
+        const matchedReferenceIndex = currentActiveCart.findIndex(cartElement => cartElement.name === structuralRealName);
+        
+        if (matchedReferenceIndex > -1) {
+            currentActiveCart[matchedReferenceIndex].qty += 1;
+        } else {
+            currentActiveCart.push({ name: structuralRealName, price: productValue, qty: 1 });
+        }
+        
+        localStorage.setItem("cart", JSON.stringify(currentActiveCart));
+        refreshCartCounterInterface();
+    }
+
+    // Recalculate global quantities visible on the interface counter element
+    function refreshCartCounterInterface() {
+        const cumulativeItemCount = currentActiveCart.reduce((accum, currentObj) => accum + currentObj.qty, 0);
+        document.getElementById("cart-count").textContent = cumulativeItemCount;
+    }
+
+    // Processing Operations Core Invocation
+    compileRenderedInventory();
+    refreshCartCounterInterface();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
