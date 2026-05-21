@@ -1,85 +1,250 @@
-// /* =========================
-//    ENERGISE PREMIUM PROTECTION
-// ========================= */
+// ===============================
+// ENERGISE PREMIUM SYSTEM
+// ===============================
 
-// const isSubscribed =
+document.addEventListener(
 
-// localStorage.getItem(
-//     "isSubscribed"
-// );
+  "DOMContentLoaded",
 
-// if (isSubscribed !== "true") {
+  () => {
 
-//     document.body.innerHTML = `
+    initializePremiumLocks();
 
-//     <div style="
-//         min-height:100vh;
-//         display:flex;
-//         justify-content:center;
-//         align-items:center;
-//         background:#0b0e23;
-//         font-family:Poppins,sans-serif;
-//         color:white;
-//         padding:20px;
-//     ">
+  }
 
-//         <div style="
-//             max-width:500px;
-//             width:100%;
-//             background:#15183a;
-//             padding:40px;
-//             border-radius:20px;
-//             text-align:center;
-//             box-shadow:
-//             0 20px 50px rgba(0,0,0,0.5);
-//         ">
+);
 
-//             <h1 style="
-//                 color:#ff69b4;
-//                 margin-bottom:15px;
-//             ">
-//                 🔒 Premium Content
-//             </h1>
+// ===============================
+// CHECK LOGIN
+// ===============================
 
-//             <p style="
-//                 color:#cfd3ff;
-//                 line-height:1.7;
-//                 margin-bottom:30px;
-//             ">
-//                 This workout/tutorial is available
-//                 only for subscribed EnerGise members.
-//             </p>
+function isLoggedIn() {
 
-//             <a
-//                 href="pricing.html"
+  return localStorage.getItem("token");
 
-//                 style="
-//                     display:inline-block;
-//                     padding:14px 28px;
-//                     border-radius:10px;
-//                     text-decoration:none;
-//                     color:white;
-//                     background:
-//                     linear-gradient(
-//                         135deg,
-//                         #ff69b4,
-//                         #9c27b0
-//                     );
-//                     font-weight:600;
-//                 "
-//             >
+}
 
-//                 🚀 Upgrade Plan
+// ===============================
+// CHECK SUBSCRIPTION
+// ===============================
 
-//             </a>
+function isSubscribed() {
 
-//         </div>
+  return localStorage.getItem("isSubscribed") === "true";
 
-//     </div>
+}
 
-//     `;
+// ===============================
+// PREMIUM LOCK SYSTEM
+// ===============================
 
-//     throw new Error(
-//       "Premium content locked"
-//     );
-// }
+function initializePremiumLocks() {
+
+  const premiumLinks = document.querySelectorAll(
+
+    ".premium-link"
+
+  );
+
+  premiumLinks.forEach((link) => {
+
+    link.addEventListener(
+
+      "click",
+
+      (e) => {
+
+        if (!isLoggedIn()) {
+
+          e.preventDefault();
+
+          alert(
+
+            "⚠️ Please login first."
+
+          );
+
+          window.location.href =
+
+            "login.html";
+
+          return;
+
+        }
+
+        if (!isSubscribed()) {
+
+          e.preventDefault();
+
+          showPremiumModal();
+
+        }
+
+      }
+
+    );
+
+  });
+
+}
+
+// ===============================
+// SHOW PREMIUM MODAL
+// ===============================
+
+function showPremiumModal() {
+
+  let modal = document.getElementById(
+
+    "premiumModal"
+
+  );
+
+  if (!modal) {
+
+    modal = document.createElement("div");
+
+    modal.id = "premiumModal";
+
+    modal.innerHTML = `
+
+      <div style="
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.75);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:9999;
+      ">
+
+        <div style="
+          background:#141850;
+          padding:40px;
+          border-radius:20px;
+          text-align:center;
+          width:90%;
+          max-width:450px;
+          color:white;
+          box-shadow:0 0 30px rgba(255,105,180,0.3);
+        ">
+
+          <h2 style="
+            color:#ff69b4;
+            margin-bottom:20px;
+          ">
+            🔒 Premium Plan Required
+          </h2>
+
+          <p style="
+            margin-bottom:25px;
+            color:#ddd;
+          ">
+            Subscribe to EnerGise Premium
+            to unlock workouts and tutorials.
+          </p>
+
+          <button
+            id="upgradeBtn"
+            style="
+              background:linear-gradient(135deg,#ff69b4,#9c27b0);
+              border:none;
+              padding:12px 25px;
+              border-radius:10px;
+              color:white;
+              font-weight:bold;
+              cursor:pointer;
+              margin-right:10px;
+            "
+          >
+
+            🚀 Upgrade Plan
+
+          </button>
+
+          <button
+            id="closePremiumModal"
+            style="
+              background:#444;
+              border:none;
+              padding:12px 20px;
+              border-radius:10px;
+              color:white;
+              cursor:pointer;
+            "
+          >
+
+            Close
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    document.body.appendChild(modal);
+
+    // Upgrade button
+    document
+      .getElementById("upgradeBtn")
+      .addEventListener(
+
+        "click",
+
+        () => {
+
+          window.location.href =
+
+            "subscription.html";
+
+        }
+
+      );
+
+    // Close button
+    document
+      .getElementById("closePremiumModal")
+      .addEventListener(
+
+        "click",
+
+        () => {
+
+          modal.remove();
+
+        }
+
+      );
+
+  }
+
+}
+
+// ===============================
+// PREMIUM ACTIVATION
+// ===============================
+
+function activatePremium(plan) {
+
+  localStorage.setItem(
+
+    "isSubscribed",
+
+    "true"
+
+  );
+
+  localStorage.setItem(
+
+    "subscriptionPlan",
+
+    plan
+
+  );
+
+}
