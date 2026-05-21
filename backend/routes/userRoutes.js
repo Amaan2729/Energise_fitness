@@ -73,18 +73,22 @@ router.post("/register", async (req, res) => {
        LIVE ADMIN NOTIFICATION
     ========================= */
 
-    const io = req.app.get("io");
+  const io = req.app.get("io");
 
-    io.emit("notification", {
+if (io) {
 
-      type: "signup",
+  io.emit("notification", {
 
-      title: "👤 New User Signup",
+    type: "signup",
 
-      message:
-      `${name} registered with ${email}`
+    title: "👤 New User Signup",
 
-    });
+    message:
+    `${name} registered with ${email}`
+
+  });
+
+}
 
     /* Success Response */
 
