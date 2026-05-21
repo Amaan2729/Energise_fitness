@@ -272,6 +272,104 @@ app.use((req, res) => {
 const PORT =
 process.env.PORT || 5000;
 
+const axios = require("axios");
+
+/* =========================
+   FITGENIE AI CHAT API
+========================= */
+
+app.post("/api/chat", async (req, res) => {
+
+  try {
+
+    const { message } = req.body;
+
+    if (!message) {
+
+      return res.status(400).json({
+        reply: "Message is required"
+      });
+
+    }
+
+    const response = await axios.post(
+
+      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
+
+      {
+        inputs: `You are FitGenie AI, a professional fitness coach for EnerGise gym.
+
+Give short, actionable, beginner-friendly fitness advice.
+
+User: ${message}
+
+Assistant:`
+      },
+
+      {
+        headers: {
+
+          Authorization:
+          `Bearer ${process.env.HF_TOKEN}`,
+
+          "Content-Type":
+          "application/json"
+
+        }
+      }
+
+    );
+
+    let reply =
+    "Sorry, no response generated.";
+
+    if (
+
+      response.data &&
+      response.data[0] &&
+      response.data[0].generated_text
+
+    ) {
+
+      const generatedText =
+      response.data[0].generated_text;
+
+      reply =
+
+      generatedText
+      .split("Assistant:")[1]
+      ?.trim()
+
+      || generatedText;
+
+    }
+
+    res.json({ reply });
+
+  }
+
+  catch (error) {
+
+    console.error(
+
+      "❌ HF CHAT ERROR:",
+
+      error.response?.data
+      || error.message
+
+    );
+
+    res.status(500).json({
+
+      reply:
+      "⚠️ AI service unavailable right now."
+
+    });
+
+  }
+
+});
+
 server.listen(PORT, () => {
 
   console.log(
