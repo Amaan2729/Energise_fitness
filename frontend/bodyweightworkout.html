@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
+    <link rel="stylesheet" href="assets/css/common.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Full Body Workout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
 </head>
 <body>
     <div class="container">
         <h1>Bodyweight Workout Tutorial</h1>
         <p>Bodyweight training uses your own body weight as resistance to build strength, endurance, and flexibility. It's versatile, accessible, and can be done anywhere without equipment.</p>
-        
+
         <h2>Effective Bodyweight Exercises</h2>
         <ul>
             <li><strong>Push-Ups:</strong> A fundamental upper body exercise that targets the chest, shoulders, and triceps while engaging the core.</li>
@@ -21,7 +21,7 @@
             <li><strong>Planks:</strong> An isometric exercise that builds core stability and strength while engaging the entire body.</li>
             <li><strong>Lunges:</strong> A dynamic lower body movement that improves balance, strength, and coordination.</li>
             <li><strong>pull-ups:</strong> A full-body exercise that combines strength and cardio, increasing endurance and power.</li>
-        
+
         <h2>Benefits of Bodyweight Workouts</h2>
         <ul>
             <li>Builds functional strength and endurance</li>
@@ -29,7 +29,7 @@
             <li>Requires no equipment, making it accessible anywhere</li>
             <li>Helps in weight management and muscle toning</li>
         </ul>
-    
+
         <h2>Tips for Effective Bodyweight Workouts</h2>
         <ul>
             <li>Maintain proper form to prevent injury and maximize effectiveness.</li>
@@ -37,16 +37,856 @@
             <li>Incorporate a variety of exercises to target different muscle groups.</li>
             <li>Focus on controlled movements and engage your core for stability.</li>
         </ul>
-    
+
         <a href="index.html" class="btn btn-primary">Back to Home</a>
     </div>
-    
+
 
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
             <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
         </div>
+    </footer> -->
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnerGise - Bodyweight Workout</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1f1f2e 0%, #2d2d44 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #f70776 !important;
+        }
+
+        .nav-link {
+            color: #fff !important;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #f70776 0%, #871b8f 100%);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(247, 7, 118, 0.3);
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+            color: #f70776;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        h2 i {
+            font-size: 2rem;
+        }
+
+        /* Exercise Cards */
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(247, 7, 118, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .exercise-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #f70776;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(247, 7, 118, 0.2);
+        }
+
+        .exercise-card h3 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exercise-card p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .exercise-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 3px solid #f70776;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #f70776;
+        }
+
+        .detail-value {
+            opacity: 0.9;
+        }
+
+        /* Tabs for Difficulty Levels */
+        .nav-tabs {
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .nav-tabs .nav-link {
+            color: #fff;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-bottom-color: #f70776;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: transparent;
+            border-bottom-color: #f70776;
+            color: #f70776;
+        }
+
+        /* Benefits & Tips Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-item {
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid rgba(247, 7, 118, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(247, 7, 118, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h4 {
+            color: #f70776;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Workout Plan */
+        .workout-plan {
+            background: rgba(247, 7, 118, 0.1);
+            border: 2px solid #f70776;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .workout-plan h3 {
+            color: #f70776;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #f70776;
+        }
+
+        .plan-item strong {
+            color: #f70776;
+        }
+
+        /* CTA Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776 0%, #871b8f 100%);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #f70776;
+            color: #f70776;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #f70776;
+            color: #fff;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(247, 7, 118, 0.3);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Video/Image Container */
+        .media-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(247, 7, 118, 0.2);
+        }
+
+        .media-container img, 
+        .media-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background: rgba(247, 7, 118, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(247, 7, 118, 0.3);
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin-top: 80px;
+                padding: 1rem;
+            }
+
+            .exercise-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">💪 EnerGise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#workouts">Workouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>💪 Bodyweight Workout Tutorial</h1>
+            <p>Master functional strength and build muscle using only your body weight. No equipment needed, train anywhere!</p>
+            <span class="difficulty-badge">🟢 Beginner to Advanced</span>
+            <span class="difficulty-badge">⏱️ 30-45 Minutes</span>
+        </div>
+
+        <!-- Introduction -->
+        <section>
+            <p style="font-size: 1.1rem; margin: 2rem 0;">
+                Bodyweight training uses your own body weight as resistance to build strength, endurance, and flexibility. It's versatile, 
+                accessible, and can be done anywhere without equipment. Whether you're at home, traveling, or in the park, bodyweight exercises 
+                are your ticket to staying fit!
+            </p>
+        </section>
+
+        <!-- Difficulty Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button">🟢 Beginner</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button">🟡 Intermediate</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button">🔴 Advanced</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Beginner -->
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <h2><i class="fas fa-star"></i> Beginner Bodyweight Exercises</h2>
+                
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-up"></i> Push-Ups</h3>
+                    <p>A fundamental upper body exercise that targets the chest, shoulders, and triceps while engaging the core.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">8-12</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">60 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modification:</span>
+                            <span class="detail-value">Wall or knee push-ups</span>
+                        </div>
+                    </div>
+                    <p><strong>Form Tips:</strong> Keep your body straight, lower until your chest nearly touches the ground, push back up.</p>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-down"></i> Squats</h3>
+                    <p>A lower body workout that strengthens the legs, glutes, and core muscles.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">15-20</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">60 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modification:</span>
+                            <span class="detail-value">Hold onto a chair for balance</span>
+                        </div>
+                    </div>
+                    <p><strong>Form Tips:</strong> Feet shoulder-width apart, lower hips back and down, keep chest up, knees tracking over toes.</p>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-rectangle-landscape"></i> Planks</h3>
+                    <p>An isometric exercise that builds core stability and strength while engaging the entire body.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">20-30 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">45 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modification:</span>
+                            <span class="detail-value">Knee plank</span>
+                        </div>
+                    </div>
+                    <p><strong>Form Tips:</strong> Engage core, keep body in straight line, don't let hips sag or pike up.</p>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-person-walking"></i> Lunges</h3>
+                    <p>A dynamic lower body movement that improves balance, strength, and coordination.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">10 per leg</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">60 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Modification:</span>
+                            <span class="detail-value">Hold onto wall for balance</span>
+                        </div>
+                    </div>
+                    <p><strong>Form Tips:</strong> Step forward, lower hips until both knees at 90°, push back to start.</p>
+                </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <h2><i class="fas fa-fire"></i> Intermediate Bodyweight Exercises</h2>
+                
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-up"></i> Wide-Grip Push-Ups</h3>
+                    <p>Targets shoulders and chest more intensely than standard push-ups.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">4</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">12-15</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">45 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-down"></i> Jump Squats</h3>
+                    <p>Explosive lower body exercise that builds power and cardio endurance.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">12-15</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">60 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-up-down"></i> Dips</h3>
+                    <p>Excellent for building triceps and chest strength using a chair or bench.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">10-12</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">60 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrows"></i> Burpees</h3>
+                    <p>Full-body exercise combining strength and cardio.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">10</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">90 seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <h2><i class="fas fa-bolt"></i> Advanced Bodyweight Exercises</h2>
+                
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-up"></i> Archer Push-Ups</h3>
+                    <p>Intense variation that builds unilateral strength.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">4</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">8-10 per side</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">90 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-arrow-up"></i> Pull-Ups</h3>
+                    <p>Ultimate upper body pulling exercise for back and biceps.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">4</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">6-12</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">120 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-mountain"></i> Pistol Squats</h3>
+                    <p>Single-leg squat for advanced leg strength and balance.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Reps:</span>
+                            <span class="detail-value">5-8 per leg</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">120 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3><i class="fas fa-person-hiking"></i> Handstand Hold</h3>
+                    <p>Core and shoulder stability exercise.</p>
+                    <div class="exercise-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sets:</span>
+                            <span class="detail-value">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">20-40 seconds</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rest:</span>
+                            <span class="detail-value">120 seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <h2><i class="fas fa-check-circle"></i> Benefits of Bodyweight Workouts</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <i class="fas fa-dumbbell"></i>
+                <h4>Builds Strength</h4>
+                <p>Develops functional strength and endurance for daily activities.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-arrows-alt"></i>
+                <h4>Improves Flexibility</h4>
+                <p>Increases range of motion and mobility.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-globe"></i>
+                <h4>Accessible Anywhere</h4>
+                <p>Requires no equipment, train at home, park, or traveling.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-scale-balanced"></i>
+                <h4>Weight Management</h4>
+                <p>Helps in fat loss and muscle toning.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-heart"></i>
+                <h4>Functional Fitness</h4>
+                <p>Builds real-world strength for daily movements.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-brain"></i>
+                <h4>Mental Health</h4>
+                <p>Improves mood, confidence, and mental well-being.</p>
+            </div>
+        </div>
+
+        <!-- Sample Workout Plan -->
+        <div class="workout-plan">
+            <h3><i class="fas fa-calendar"></i> Weekly Workout Plan</h3>
+            <div class="plan-item">
+                <strong>Monday - Upper Body:</strong> Push-ups, Dips, Planks (3 sets each)
+            </div>
+            <div class="plan-item">
+                <strong>Wednesday - Lower Body:</strong> Squats, Lunges, Jump Squats (3 sets each)
+            </div>
+            <div class="plan-item">
+                <strong>Friday - Full Body:</strong> Push-ups, Squats, Burpees, Planks (2 sets each)
+            </div>
+            <div class="plan-item">
+                <strong>Rest Days:</strong> Tuesday, Thursday, Saturday, Sunday - Light stretching or yoga
+            </div>
+        </div>
+
+        <!-- Progress Tracker -->
+        <h2><i class="fas fa-chart-line"></i> Track Your Progress</h2>
+        <div class="progress-tracker">
+            <div class="progress-item">
+                <input type="checkbox" id="push">
+                <label for="push">Completed push-ups workout</label>
+            </div>
+            <div class="progress-item">
+                <input type="checkbox" id="squat">
+                <label for="squat">Completed squats workout</label>
+            </div>
+            <div class="progress-item">
+                <input type="checkbox" id="plank">
+                <label for="plank">Completed plank workout</label>
+            </div>
+            <div class="progress-item">
+                <input type="checkbox" id="cardio">
+                <label for="cardio">Completed cardio session</label>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <h2><i class="fas fa-lightbulb"></i> Tips for Effective Bodyweight Workouts</h2>
+        <ul>
+            <li><strong>Maintain Proper Form:</strong> Always prioritize form over speed to prevent injury and maximize effectiveness.</li>
+            <li><strong>Gradual Progression:</strong> Increase repetitions and difficulty as you progress to continually challenge your muscles.</li>
+            <li><strong>Exercise Variety:</strong> Incorporate a variety of exercises to target different muscle groups and prevent plateaus.</li>
+            <li><strong>Core Engagement:</strong> Focus on controlled movements and engage your core for stability and better results.</li>
+            <li><strong>Consistency:</strong> Train regularly (3-5 times per week) for best results.</li>
+            <li><strong>Recovery:</strong> Get adequate sleep (7-9 hours) and rest between sessions.</li>
+            <li><strong>Nutrition:</strong> Eat a balanced diet with enough protein to support muscle recovery.</li>
+            <li><strong>Warm-Up & Cool-Down:</strong> Always warm up before and stretch after your workout.</li>
+        </ul>
+
+        <!-- Action Buttons -->
+        <div style="margin: 3rem 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <a href="pushup.html" class="btn btn-secondary">
+                <i class="fas fa-arrow-right"></i> Push-ups Tutorial
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EnerGise. All rights reserved.</p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="index.html">Back to Home</a>
+            </p>
+            <div style="margin-top: 1rem;">
+                <a href="#" style="margin: 0 0.5rem;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="margin: 0 0.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Progress tracker persistence
+        document.querySelectorAll('.progress-tracker input[type="checkbox"]').forEach(checkbox => {
+            const key = checkbox.id;
+            if (localStorage.getItem(key)) {
+                checkbox.checked = true;
+            }
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    localStorage.setItem(key, 'true');
+                } else {
+                    localStorage.removeItem(key);
+                }
+            });
+        });
+    </script>
+
+    <script src="subscription-protect.js"></script>
+
 </body>
 </html>
+

@@ -9,106 +9,454 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
   />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: #0b0e23;
+      background: linear-gradient(135deg, #0b0e23 0%, #1a1f3a 100%);
       color: #fff;
-      font-family: Poppins, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 0;
     }
-    .plan-card {
-      background: #15183a;
-      border-radius: 12px;
-      padding: 20px;
+
+    .subscription-header {
       text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      margin-bottom: 3rem;
+      animation: fadeIn 0.6s ease-out;
     }
-    .plan-card h4 {
-      color: #ff69b4;
+
+    .subscription-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #f70776, #871b8f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .plan-card button {
-      background: linear-gradient(135deg,#ff69b4,#9c27b0);
-      border: none;
+
+    .subscription-header p {
+      font-size: 1.1rem;
+      color: #b0b0b0;
+      margin-top: 1rem;
+    }
+
+    .plans-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .plan-card {
+      background: linear-gradient(135deg, #15183a 0%, #1f2449 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(247, 7, 118, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .plan-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(247, 7, 118, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .plan-card:hover::before {
+      left: 100%;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-10px);
+      border-color: #f70776;
+      box-shadow: 0 16px 48px rgba(247, 7, 118, 0.2);
+    }
+
+    .plan-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #f70776, #871b8f);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .plan-badge.popular {
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      animation: pulse 2s infinite;
+    }
+
+    .plan-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 1rem 0;
       color: #fff;
-      padding: 8px 20px;
-      border-radius: 8px;
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1.5rem 0;
+      background: linear-gradient(135deg, #f70776, #871b8f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .plan-price small {
+      font-size: 1rem;
+      color: #b0b0b0;
+      -webkit-text-fill-color: #b0b0b0;
+    }
+
+    .plan-cta {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .plan-btn {
+      background: linear-gradient(135deg, #f70776, #871b8f);
+      color: white;
+      border: none;
+      padding: 0.85rem 1.5rem;
+      border-radius: 50px;
       font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 20px rgba(247, 7, 118, 0.3);
+    }
+
+    .plan-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(247, 7, 118, 0.5);
+      color: white;
+      text-decoration: none;
+    }
+
+    .plan-btn:active {
+      transform: translateY(0);
+    }
+
+    .plan-btn i {
+      font-size: 1.2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .subscription-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .subscription-header p {
+        font-size: 1rem;
+      }
+
+      .plans-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+
+      .plan-card {
+        padding: 1.5rem;
+      }
+
+      .plan-name {
+        font-size: 1.3rem;
+      }
+
+      .plan-price {
+        font-size: 2rem;
+      }
+    }
+
+    /* Loading state */
+    .loading-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid #f70776;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Navbar styling for consistency */
+    .navbar {
+      background: rgba(15, 23, 36, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(247, 7, 118, 0.2);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #f70776, #871b8f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Footer styling */
+    footer {
+      background: rgba(15, 23, 36, 0.95);
+      border-top: 1px solid rgba(247, 7, 118, 0.2);
+      padding: 2rem 0;
+      margin-top: 3rem;
+      color: #b0b0b0;
     }
   </style>
 </head>
 
 <body>
-  <div class="container py-5">
-    <h2 class="text-center mb-4">Choose Your Plan</h2>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-dumbbell"></i> EnerGise
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#workouts">Workouts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="subscription.html">Plans</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <div class="row" id="plansRow">
-      <p class="text-center">Loading plans...</p>
+  <!-- Main Content -->
+  <div class="container" style="margin-top: 6rem;">
+    <div class="subscription-header">
+      <h1>Choose Your Perfect Plan</h1>
+      <p>Unlock your fitness potential with EnerGise premium membership</p>
+    </div>
+
+    <div class="plans-container" id="plansRow">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
     </div>
   </div>
 
- <script>
-const API_BASE = window.location.origin;
-const CACHE_KEY = "subscriptionPlans";
-const CACHE_TIME = 24 * 60 * 60 * 1000; // 24 hours
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p>&copy; 2024 EnerGise. All rights reserved.</p>
+      <div class="social-icons" style="margin-top: 1rem;">
+        <a href="#" style="color: #f70776; margin: 0 0.5rem;"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" style="color: #f70776; margin: 0 0.5rem;"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="color: #f70776; margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
 
-async function fetchPlans() {
-  const cached = localStorage.getItem(CACHE_KEY);
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ 
 
-  if (cached) {
-    const { data, timestamp } = JSON.parse(cached);
-    if (Date.now() - timestamp < CACHE_TIME) {
-      console.log("✅ Plans loaded from LocalStorage");
-      renderPlans(data);
-      return;
+  <script>
+    const API_BASE = "http://localhost:5000";
+    const CACHE_KEY = "subscriptionPlans";
+    const CACHE_TIME = 24 * 60 * 60 * 1000; // 24 hours
+
+    async function fetchPlans() {
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < CACHE_TIME) {
+            console.log("✅ Plans loaded from LocalStorage");
+            renderPlans(data);
+            return;
+          }
+        }
+
+        const res = await fetch(`${API_BASE}/api/subscriptions/plans`);
+        const json = await res.json();
+
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ data: json.plans, timestamp: Date.now() })
+        );
+
+        console.log("🌐 Plans fetched from API");
+        renderPlans(json.plans);
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+        document.getElementById("plansRow").innerHTML = `
+          <div class="text-center" style="width: 100%; color: #ef4444;">
+            <p>Failed to load plans. Please try again later.</p>
+          </div>
+        `;
+      }
     }
+
+    function renderPlans(plans) {
+      const row = document.getElementById("plansRow");
+      row.innerHTML = "";
+
+      plans.forEach((plan, index) => {
+        const isPopular = index === 1; // Middle plan is popular
+        row.innerHTML += `
+          <div class="plan-card">
+            ${isPopular ? '<div class="plan-badge popular">🌟 Most Popular</div>' : ''}
+            
+            <div>
+              <h3 class="plan-name">${plan.name}</h3>
+              
+              <div class="plan-price">
+                ₹${plan.price}
+                <small>/month</small>
+              </div>
+            </div>
+            
+            <div class="plan-cta">
+              <button class="plan-btn" onclick="selectPlan('${plan.name}', ${plan.price})">
+                <i class="fas fa-star"></i> Subscribe Now
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+   function selectPlan(name, price) {
+
+  /* CHECK LOGIN */
+
+  const token =
+
+  localStorage.getItem(
+    "token"
+  );
+
+  if(!token){
+
+    alert(
+      "Please login first"
+    );
+
+    window.location.href =
+    "login.html";
+
+    return;
   }
 
-  const res = await fetch(`${API_BASE}/api/subscriptions/plans`);
-  const json = await res.json();
+  /* SAVE PLAN */
 
   localStorage.setItem(
-    CACHE_KEY,
-    JSON.stringify({ data: json.plans, timestamp: Date.now() })
-  );
 
-  console.log("🌐 Plans fetched from API");
-  renderPlans(json.plans);
-}
-
-function renderPlans(plans) {
-  const row = document.getElementById("plansRow");
-  row.innerHTML = "";
-
-  plans.forEach(plan => {
-    row.innerHTML += `
-      <div class="plan-card">
-        <h4>${plan.name}</h4>
-        <p>₹${plan.price} / month</p>
-        <button onclick="selectPlan('${plan.name}', ${plan.price})">
-          Subscribe
-        </button>
-      </div>
-    `;
-  });
-}
-
-function selectPlan(name, price) {
-  // 🔥 ONLY subscription data saved
-  localStorage.setItem(
     "selectedSubscription",
-    JSON.stringify({ name, price })
+
+    JSON.stringify({
+
+      name,
+      price
+
+    })
+
   );
 
-  console.log("✅ Subscription saved:", { name, price });
+  console.log(
+    "✅ Subscription selected:",
+    { name, price }
+  );
 
-  window.location.href = "subscription_checkout.html";
+  /* REDIRECT */
+
+  window.location.href =
+  "subscription_checkout.html";
+
 }
 
-fetchPlans();
-</script>
-
-
-
+    // Load plans on page load
+    fetchPlans();
+  </script>
 </body>
 </html>

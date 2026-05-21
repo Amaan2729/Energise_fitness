@@ -333,70 +333,288 @@ async function placeSubscription(payload) {
 }
 </script> -->
 <script>
-const API_BASE = window.location.origin;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const selected = localStorage.getItem("selectedSubscription");
-  if (!selected) {
-    window.location.href = "subscription.html";
-    return;
-  }
+const API_BASE = "http://localhost:5000";
 
-  const plan = JSON.parse(selected);
+/* =========================
+   PAGE LOAD
+========================= */
 
-  document.getElementById("planSummary").innerHTML =
-    `<h4>${plan.name}</h4><p>₹${plan.price} / month</p>`;
-  document.getElementById("totalPrice").textContent = `₹${plan.price}`;
+document.addEventListener(
 
-  document.getElementById("subscribeBtn").addEventListener("click", submit);
-});
+  "DOMContentLoaded",
 
-async function submit(e) {
-  e.preventDefault();
+  () => {
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "login.html?next=subscription";
-    return;
-  }
+    const selected =
 
-  const payload = {
-    planName: JSON.parse(localStorage.getItem("selectedSubscription")).name,
-    price: JSON.parse(localStorage.getItem("selectedSubscription")).price,
-    firstName: firstName.value.trim(),
-    lastName: lastName.value.trim(),
-    address: address.value.trim(),
-    city: city.value.trim(),
-    state: state.value.trim(),
-    zip: zip.value.trim(),
-    paymentMethod: paymentMethod.value
-  };
+    localStorage.getItem(
+      "selectedSubscription"
+    );
 
-  try {
-    const res = await fetch(`${API_BASE}/api/subscriptions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      },
-      body: JSON.stringify(payload)
-    });
+    /* NO PLAN SELECTED */
 
-    const data = await res.json();
+    if (!selected) {
 
-    if (!res.ok) {
-      alert(data.message || "Subscription failed");
+      window.location.href =
+      "subscription.html";
+
       return;
     }
 
-    localStorage.removeItem("selectedSubscription");
-    alert("Subscription successful 🎉");
-    window.location.href = "index.html";
+    const plan =
+    JSON.parse(selected);
 
-  } catch (err) {
-    alert("Server error");
+    /* PLAN SUMMARY */
+
+    document.getElementById(
+      "planSummary"
+    ).innerHTML = `
+
+      <h4>${plan.name}</h4>
+
+      <p>
+        ₹${plan.price} / month
+      </p>
+
+    `;
+
+    document.getElementById(
+      "totalPrice"
+    ).textContent =
+
+    `₹${plan.price}`;
+
+    /* SUBSCRIBE BUTTON */
+
+    document.getElementById(
+      "subscribeBtn"
+    ).addEventListener(
+
+      "click",
+
+      submitSubscription
+
+    );
+
   }
+
+);
+
+/* =========================
+   SUBMIT SUBSCRIPTION
+========================= */
+
+async function submitSubscription(e){
+
+  e.preventDefault();
+
+  /* TOKEN CHECK */
+
+  const token =
+
+  localStorage.getItem(
+    "token"
+  );
+
+  if(!token){
+
+    alert(
+      "Please login first"
+    );
+
+    window.location.href =
+    "login.html?next=subscription";
+
+    return;
+  }
+
+  /* SELECTED PLAN */
+
+  const selectedPlan =
+
+  JSON.parse(
+
+    localStorage.getItem(
+      "selectedSubscription"
+    )
+
+  );
+
+  /* FORM DATA */
+
+  const payload = {
+
+    planName:
+    selectedPlan.name,
+
+    price:
+    selectedPlan.price,
+
+    firstName:
+    document.getElementById(
+      "firstName"
+    ).value.trim(),
+
+    lastName:
+    document.getElementById(
+      "lastName"
+    ).value.trim(),
+
+    address:
+    document.getElementById(
+      "address"
+    ).value.trim(),
+
+    city:
+    document.getElementById(
+      "city"
+    ).value.trim(),
+
+    state:
+    document.getElementById(
+      "state"
+    ).value.trim(),
+
+    zip:
+    document.getElementById(
+      "zip"
+    ).value.trim(),
+
+    paymentMethod:
+    document.getElementById(
+      "paymentMethod"
+    ).value
+
+  };
+
+  /* VALIDATION */
+
+  if(
+
+    !payload.firstName ||
+
+    !payload.lastName ||
+
+    !payload.address ||
+
+    !payload.city ||
+
+    !payload.state ||
+
+    !payload.zip ||
+
+    !payload.paymentMethod
+
+  ){
+
+    alert(
+      "Please fill all fields"
+    );
+
+    return;
+  }
+
+  try{
+
+    const res = await fetch(
+
+      `${API_BASE}/api/subscriptions`,
+
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+          "application/json",
+
+          "Authorization":
+          "Bearer " + token
+
+        },
+
+        body: JSON.stringify(
+          payload
+        )
+
+      }
+
+    );
+
+    const data =
+    await res.json();
+
+    /* FAILED */
+
+    if(!res.ok){
+
+      alert(
+
+        data.message ||
+
+        "Subscription failed"
+
+      );
+
+      return;
+    }
+
+    /* =========================
+       SAVE PREMIUM STATUS
+    ========================= */
+
+    localStorage.setItem(
+
+      "isSubscribed",
+
+      "true"
+
+    );
+
+    localStorage.setItem(
+
+      "subscriptionPlan",
+
+      payload.planName
+
+    );
+
+    /* CLEANUP */
+
+    localStorage.removeItem(
+      "selectedSubscription"
+    );
+
+    /* SUCCESS */
+
+    alert(
+      "🎉 Subscription successful!"
+    );
+
+    /* REDIRECT */
+
+    window.location.href =
+    "index.html";
+
+  }
+
+  catch(err){
+
+    console.error(
+      "Subscription Error:",
+      err
+    );
+
+    alert(
+      "Server error. Please try again."
+    );
+
+  }
+
 }
+
 </script>
 
 

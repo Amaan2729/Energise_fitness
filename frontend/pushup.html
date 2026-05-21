@@ -1,83 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Push-Up Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
+    <!-- Bootstrap 5.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(247, 7, 118, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .card-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .card li strong {
+            color: #f70776;
+        }
+
+        /* Difficulty Tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: rgba(31, 41, 55, 0.6);
+            border: 2px solid rgba(247, 7, 118, 0.2);
+            border-radius: 10px;
+            color: #b0b0b0 !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: #f70776;
+            color: #f70776 !important;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border-color: #f70776;
+            color: white !important;
+        }
+
+        /* Benefits Grid */
+        .benefit-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            color: #f70776;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f70776;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .video-container {
+                margin-bottom: 2rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .benefit-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-arrow-up-long"></i> Push-Up Master Guide</h1>
+            <p>Learn proper form, variations, and build upper body strength with this comprehensive tutorial.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <div class="container">
-        <h1 class="mb-4">Push-Up Tutorial</h1>
-        
-        <div class="video-container mb-5">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/IODxDxX7oi4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- Video Tutorial -->
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/IODxDxX7oi4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
+        <!-- Difficulty Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button" role="tab">
+                    🟢 Beginner
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button" role="tab">
+                    🟡 Intermediate
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">
+                    🔴 Advanced
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Beginner -->
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟢 Beginner Push-Ups</h2>
+                        <p><strong>For those starting their fitness journey</strong></p>
+                        <ul>
+                            <li><strong>Wall Push-Ups:</strong> Stand arm's length away from a wall, place hands flat against it, and push yourself back to standing position. 3 sets of 15 reps.</li>
+                            <li><strong>Incline Push-Ups:</strong> Hands on a bench or elevated surface, body at an angle. Easier than ground push-ups. 3 sets of 12-15 reps.</li>
+                            <li><strong>Knee Push-Ups:</strong> Start in a plank position on your knees. Lower chest to the ground and push back up. 3 sets of 10-15 reps.</li>
+                            <li><strong>Rest:</strong> 60-90 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟡 Intermediate Push-Ups</h2>
+                        <p><strong>Build strength and endurance</strong></p>
+                        <ul>
+                            <li><strong>Standard Push-Ups:</strong> Full plank position, lower chest to near-ground level. 4 sets of 12-15 reps.</li>
+                            <li><strong>Wide-Grip Push-Ups:</strong> Hands wider than shoulders, emphasizes chest. 3 sets of 10-12 reps.</li>
+                            <li><strong>Diamond Push-Ups:</strong> Hands form a diamond shape, targets triceps more. 3 sets of 8-12 reps.</li>
+                            <li><strong>Rest:</strong> 45-60 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🔴 Advanced Push-Up Variations</h2>
+                        <p><strong>Challenge yourself with expert-level variations</strong></p>
+                        <ul>
+                            <li><strong>Archer Push-Ups:</strong> One arm extended, one arm bent. Builds unilateral strength. 3 sets of 8-10 reps per side.</li>
+                            <li><strong>Clapping Push-Ups:</strong> Explosive movement, clap at the top. 3 sets of 6-8 reps.</li>
+                            <li><strong>One-Arm Push-Ups:</strong> Ultimate upper body strength. 3 sets of 5-8 reps per side.</li>
+                            <li><strong>Decline Push-Ups:</strong> Feet elevated on bench, harder than standard. 3 sets of 10-12 reps.</li>
+                            <li><strong>Rest:</strong> 30-45 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Do It -->
         <div class="card mb-5">
             <div class="card-body">
-                <h2 class="card-title">How to Do a Proper Push-Up</h2>
+                <h2 class="card-title">📖 How to Do a Proper Push-Up</h2>
                 <ol>
                     <li><strong>Start in a plank position:</strong> Place your hands slightly wider than shoulder-width apart on the floor, with your shoulders directly above your wrists. Keep your body in a straight line from head to heels.</li>
-                    <li><strong>Lower your body:</strong> Bend your elbows and slowly lower your chest towards the floor, keeping your body straight and your core engaged. Go as low as you can without touching the ground.</li>
+                    <li><strong>Engage your core:</strong> Tighten your abdominal muscles to prevent your hips from sagging. This protects your lower back and improves stability.</li>
+                    <li><strong>Lower your body:</strong> Bend your elbows and slowly lower your chest towards the floor, keeping your body straight and your core engaged. Lower as far as comfortable without touching the ground.</li>
                     <li><strong>Push back up:</strong> Press through your palms to straighten your arms and return to the starting position. Keep your movements controlled and avoid locking your elbows at the top.</li>
+                    <li><strong>Breathe properly:</strong> Inhale as you lower down, exhale as you push back up.</li>
                     <li><strong>Repeat:</strong> Perform the desired number of repetitions, maintaining good form throughout.</li>
                 </ol>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card h-100">
+        <!-- Benefits Grid -->
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700;">💪 Benefits of Push-Ups</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-heart"></i>
+                    <h5>Upper Body Strength</h5>
+                    <p>Strengthens chest, shoulders, triceps, and back muscles</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-bolt"></i>
+                    <h5>Core Stability</h5>
+                    <p>Engages and strengthens core muscles for better posture</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-fire"></i>
+                    <h5>Endurance</h5>
+                    <p>Improves muscular endurance and cardiovascular health</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-globe"></i>
+                    <h5>No Equipment Needed</h5>
+                    <p>Can be done anywhere without any gym equipment</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h5>Scalable</h5>
+                    <p>Easy to modify for any fitness level</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-brain"></i>
+                    <h5>Mental Health</h5>
+                    <p>Reduces stress and improves overall well-being</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Benefits of Push-Ups</h2>
+                        <h2 class="card-title"><i class="fas fa-lightbulb"></i> Tips for Perfecting Your Push-Up</h2>
                         <ul>
-                            <li>Strengthens the chest, shoulders, and triceps</li>
-                            <li>Engages the core muscles for stability</li>
-                            <li>Improves upper body endurance</li>
-                            <li>Can be done anywhere without equipment</li>
-                            <li>Scalable to different fitness levels</li>
+                            <li>Keep your body in a straight line throughout the movement—no sagging hips or piked posterior.</li>
+                            <li>Avoid letting your elbows flare out too wide; keep them at a 45-degree angle.</li>
+                            <li>Engage your core to protect your lower back and maximize effectiveness.</li>
+                            <li>If you're new to push-ups, start with modified versions on your knees or against a wall.</li>
+                            <li>Gradually increase the number of repetitions and difficulty as you build strength.</li>
+                            <li>Focus on controlled movements rather than speed.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card h-100">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Tips for Perfecting Your Push-Up</h2>
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Common Mistakes to Avoid</h2>
                         <ul>
-                            <li>Keep your body in a straight line throughout the movement.</li>
-                            <li>Avoid letting your hips sag or pike.</li>
-                            <li>Engage your core to protect your lower back.</li>
-                            <li>If you're new to push-ups, start with modified push-ups on your knees or against a wall.</li>
-                            <li>Gradually increase the number of repetitions as you build strength.</li>
+                            <li><strong>Sagging hips:</strong> Keeps your body rigid like a plank, not a bridge.</li>
+                            <li><strong>Flared elbows:</strong> Can cause shoulder strain; keep elbows at 45-degree angle.</li>
+                            <li><strong>Limited range:</strong> Go as low as comfortable to maximize muscle engagement.</li>
+                            <li><strong>Rushed reps:</strong> Slow, controlled movements are more effective than fast ones.</li>
+                            <li><strong>Skipping warm-up:</strong> Always warm up before intense training to prevent injury.</li>
+                            <li><strong>Ignoring pain:</strong> Stop if you feel sharp pain; soreness is normal, pain is not.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-5">
-            <a href="index.html" class="btn btn-primary btn-lg">Back to Home</a>
+        <!-- Call to Action -->
+        <div class="text-center mt-5 mb-5">
+            <h3 style="color: #f70776; margin-bottom: 1.5rem;">Ready to Transform?</h3>
+            <a href="index.html#workouts" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-arrow-left"></i> Back to Workouts
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
-            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact Us</a>
+            </p>
             <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

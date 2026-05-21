@@ -1,85 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Burpees Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
+    <!-- Bootstrap 5.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(247, 7, 118, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .card-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .card li strong {
+            color: #f70776;
+        }
+
+        /* Difficulty Tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: rgba(31, 41, 55, 0.6);
+            border: 2px solid rgba(247, 7, 118, 0.2);
+            border-radius: 10px;
+            color: #b0b0b0 !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: #f70776;
+            color: #f70776 !important;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border-color: #f70776;
+            color: white !important;
+        }
+
+        /* Benefits Grid */
+        .benefit-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            color: #f70776;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f70776;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .video-container {
+                margin-bottom: 2rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .benefit-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-explosion"></i> Burpees Master Guide</h1>
+            <p>Master this ultimate full-body exercise to build strength, endurance, and explosive power.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <div class="container">
-        <h1 class="mb-4">Burpees Tutorial</h1>
-        
-        <div class="video-container mb-5">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/auBLPXO8Fww?si=qqvi_6MtKVYTQZC8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <!-- Video Tutorial -->
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/auBLPXO8Fww?si=qqvi_6MtKVYTQZC8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
+        <!-- Difficulty Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button" role="tab">
+                    🟢 Beginner
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button" role="tab">
+                    🟡 Intermediate
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">
+                    🔴 Advanced
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Beginner -->
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟢 Beginner Burpees</h2>
+                        <p><strong>For those starting their burpee journey</strong></p>
+                        <ul>
+                            <li><strong>Step-Back Burpees:</strong> Instead of jumping back, step your feet back one at a time. 3 sets of 8-10 reps with 90 seconds rest.</li>
+                            <li><strong>No Push-Up Burpees:</strong> Skip the push-up portion. 3 sets of 10-12 reps with 75 seconds rest.</li>
+                            <li><strong>Modified Burpees (Incline):</strong> Place hands on elevated surface like a bench. 3 sets of 10 reps with 90 seconds rest.</li>
+                            <li><strong>Burpees Without Jump:</strong> End in standing position instead of jumping. 3 sets of 10 reps with 75 seconds rest.</li>
+                            <li><strong>Rest:</strong> 75-90 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟡 Intermediate Burpees</h2>
+                        <p><strong>Build strength and explosive power</strong></p>
+                        <ul>
+                            <li><strong>Standard Burpees:</strong> Full burpee with push-up and jump. 4 sets of 10-15 reps with 60 seconds rest.</li>
+                            <li><strong>Burpee with Chest-to-Deck:</strong> Lower chest all the way to the floor on the push-up. 3 sets of 8-12 reps with 60 seconds rest.</li>
+                            <li><strong>Fast-Paced Burpees:</strong> Increase speed and maintain good form. 4 sets of 12-15 reps with 45 seconds rest.</li>
+                            <li><strong>Burpee Intervals:</strong> 30 seconds on, 30 seconds rest. 5-6 rounds.</li>
+                            <li><strong>Rest:</strong> 45-60 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🔴 Advanced Burpee Variations</h2>
+                        <p><strong>Challenge yourself with expert-level variations</strong></p>
+                        <ul>
+                            <li><strong>Burpee with Push-Up Clap:</strong> Clap hands at top of push-up for explosive power. 3 sets of 8-10 reps.</li>
+                            <li><strong>Burpee Box Jump:</strong> Jump onto a box at the end instead of normal jump. 3 sets of 8-12 reps.</li>
+                            <li><strong>Weighted Burpees:</strong> Wear a weighted vest while performing burpees. 3 sets of 10-12 reps.</li>
+                            <li><strong>Burpee with Pull-Up:</strong> End with a pull-up from a bar. 3 sets of 5-8 reps.</li>
+                            <li><strong>Tabata Burpees:</strong> 20 seconds all-out effort, 10 seconds rest. 8 rounds (4 minutes total).</li>
+                            <li><strong>Rest:</strong> 30-45 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Do It -->
         <div class="card mb-5">
             <div class="card-body">
-                <h2 class="card-title">How to Do a Proper Burpee</h2>
+                <h2 class="card-title">📖 How to Do a Proper Burpee</h2>
                 <ol>
-                    <li><strong>Start standing:</strong> Stand with your feet shoulder-width apart and your arms at your sides.</li>
-                    <li><strong>Squat down:</strong> Bend your knees and place your hands on the floor in front of you, shoulder-width apart.</li>
-                    <li><strong>Kick back:</strong> Jump your feet back to a plank position, keeping your body in a straight line from head to heels.</li>
-                    <li><strong>Perform a push-up:</strong> Lower your chest to the floor, then press back up to the plank position.</li>
-                    <li><strong>Jump feet forward:</strong> Jump your feet back towards your hands, landing in a squat position.</li>
-                    <li><strong>Jump up:</strong> Explosively jump up, reaching your arms overhead. Land softly and immediately go into the next rep.</li>
+                    <li><strong>Start standing:</strong> Stand with your feet shoulder-width apart and your arms at your sides. Keep your chest up and posture straight.</li>
+                    <li><strong>Squat down:</strong> Bend your knees and place your hands on the floor in front of you, shoulder-width apart. Your hands should be directly under your shoulders.</li>
+                    <li><strong>Engage your core:</strong> Tighten your core muscles to protect your lower back during the movement.</li>
+                    <li><strong>Kick back:</strong> Jump your feet back explosively to a plank position, keeping your body in a straight line from head to heels. Your shoulders should be directly above your wrists.</li>
+                    <li><strong>Perform a push-up:</strong> Lower your chest to the floor, then press back up to the plank position. Keep your elbows close to your body.</li>
+                    <li><strong>Jump feet forward:</strong> Jump your feet back towards your hands, landing in a squat position. This should be one explosive movement.</li>
+                    <li><strong>Jump up:</strong> Explosively jump up, reaching your arms overhead and extending fully. Land softly and immediately go into the next rep.</li>
                 </ol>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card h-100">
+        <!-- Benefits Grid -->
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700;">💪 Benefits of Burpees</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-person"></i>
+                    <h5>Full-Body Workout</h5>
+                    <p>Engages multiple muscle groups simultaneously for total body conditioning</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-heart"></i>
+                    <h5>Cardiovascular Fitness</h5>
+                    <p>Improves heart health and aerobic capacity significantly</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-fire"></i>
+                    <h5>Maximum Calorie Burn</h5>
+                    <p>Burns significant calories in minimal time for efficient training</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-bolt"></i>
+                    <h5>Explosive Power</h5>
+                    <p>Builds explosive strength and athletic performance</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h5>Strength Building</h5>
+                    <p>Develops strength in legs, core, chest, and arms</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-brain"></i>
+                    <h5>Coordination & Agility</h5>
+                    <p>Improves body coordination and functional movement patterns</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Benefits of Burpees</h2>
+                        <h2 class="card-title"><i class="fas fa-lightbulb"></i> Tips for Perfecting Your Burpee</h2>
                         <ul>
-                            <li>Full-body workout that engages multiple muscle groups</li>
-                            <li>Improves cardiovascular fitness and endurance</li>
-                            <li>Builds strength in the legs, core, chest, and arms</li>
-                            <li>Burns a significant amount of calories</li>
-                            <li>Enhances agility and coordination</li>
+                            <li>Maintain a steady pace and control your movements throughout the exercise.</li>
+                            <li>Keep your core engaged at all times to protect your lower back.</li>
+                            <li>Land softly on your feet when jumping to reduce impact on your joints.</li>
+                            <li>Ensure your hands, shoulders, and hips are properly aligned during the plank position.</li>
+                            <li>For beginners, start with modified versions such as step-back burpees or no push-up burpees.</li>
+                            <li>Focus on form and technique to maximize effectiveness and prevent injuries.</li>
+                            <li>Breathe continuously throughout—exhale during exertion, inhale during recovery.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card h-100">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Tips for Perfecting Your Burpee</h2>
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Common Mistakes to Avoid</h2>
                         <ul>
-                            <li>Maintain a steady pace and control your movements throughout the exercise.</li>
-                            <li>Keep your core engaged to protect your lower back.</li>
-                            <li>Land softly when jumping to reduce impact on your joints.</li>
-                            <li>For beginners, start with modified versions, such as step-back burpees or no push-up burpees.</li>
-                            <li>Focus on form and technique to maximize effectiveness and prevent injuries.</li>
+                            <li><strong>Poor plank position:</strong> Keep hips level, not sagging or piked upward.</li>
+                            <li><strong>Improper hand placement:</strong> Hands should be directly under shoulders, not in front.</li>
+                            <li><strong>Unsafe jumps:</strong> Don't land with locked knees; land softly with bent knees.</li>
+                            <li><strong>Weak core engagement:</strong> Always keep your core tight to protect your back.</li>
+                            <li><strong>Rushing the movement:</strong> Maintain control throughout each repetition.</li>
+                            <li><strong>Skipping the push-up:</strong> Include the full push-up for maximum upper body engagement.</li>
+                            <li><strong>Ignoring pain:</strong> Stop immediately if you feel sharp pain; muscle fatigue is normal, pain is not.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-5">
-            <a href="index.html" class="btn btn-primary btn-lg">Back to Home</a>
+        <!-- Pro Tips -->
+        <div class="card mb-5">
+            <div class="card-body">
+                <h2 class="card-title"><i class="fas fa-star"></i> Pro Tips for Maximum Results</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Warm-up properly:</strong> Do 5-10 minutes of light cardio before starting.</li>
+                            <li><strong>Consistency:</strong> Perform burpees 2-3 times per week with rest days in between.</li>
+                            <li><strong>Progressive overload:</strong> Gradually increase reps, sets, or intensity over time.</li>
+                            <li><strong>Proper nutrition:</strong> Fuel your body with adequate protein and carbs before and after.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Track progress:</strong> Keep a log of your burpee sets and reps to monitor improvement.</li>
+                            <li><strong>Recovery matters:</strong> Allow 48 hours between intense burpee sessions.</li>
+                            <li><strong>Cool down:</strong> Always stretch after your workout to aid recovery.</li>
+                            <li><strong>Stay hydrated:</strong> Drink water before, during, and after your workout.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5 mb-5">
+            <h3 style="color: #f70776; margin-bottom: 1.5rem;">Ready to Master Burpees?</h3>
+            <a href="index.html#workouts" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-arrow-left"></i> Back to Workouts
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
-            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact Us</a>
+            </p>
             <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

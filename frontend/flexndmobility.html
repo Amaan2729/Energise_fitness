@@ -1,52 +1,502 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Flexibility and Mobility</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(247, 7, 118, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .card-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .card li strong {
+            color: #f70776;
+        }
+
+        /* Difficulty Tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-tabs .nav-link {
+            background: rgba(31, 41, 55, 0.6);
+            border: 2px solid rgba(247, 7, 118, 0.2);
+            border-radius: 10px;
+            color: #b0b0b0 !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-color: #f70776;
+            color: #f70776 !important;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border-color: #f70776;
+            color: white !important;
+        }
+
+        /* Benefits Grid */
+        .benefit-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            color: #f70776;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f70776;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .benefit-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-kit-medical"></i> Flexibility and Mobility Guide</h1>
+            <p>Unlock deep range of motion, shield structural joints from physical injury, and enhance kinetic fluidity across every movement pattern.</p>
+        </div>
+    </section>
+
     <div class="container">
-        <h1>Flexibility and Mobility Guide</h1>
-        <p>Flexibility and mobility exercises are essential for improving range of motion, preventing injuries, and enhancing overall physical performance. Incorporating these practices into your routine can lead to better posture and increased comfort in daily activities.</p>
         
-        <h2>Key Flexibility and Mobility Exercises</h2>
-        <ul>
-            <li><strong>Dynamic Stretching:</strong> Involves moving parts of your body through a full range of motion, increasing blood flow and preparing muscles for activity.</li>
-            <li><strong>Static Stretching:</strong> Holding stretches for 15-60 seconds to improve flexibility and lengthen muscles post-exercise.</li>
-            <li><strong>Foam Rolling:</strong> A self-myofascial release technique to relieve muscle tightness and improve circulation.</li>
-            <li><strong>Hip Openers:</strong> Targeting the hip flexors, glutes, and inner thighs to enhance hip mobility.</li>
-            <li><strong>Shoulder Stretching:</strong> Involves various movements to increase shoulder flexibility and reduce tension in the upper body.</li>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button" role="tab">
+                    🟢 Daily Restoration
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button" role="tab">
+                    🟡 Pre-Workout Prep
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">
+                    🔴 Deep Release Protocol
+                </button>
+            </li>
         </ul>
-        
-        <h2>Benefits of Flexibility and Mobility Workouts</h2>
-        <ul>
-            <li>Improves range of motion and flexibility</li>
-            <li>Reduces the risk of injuries during physical activities</li>
-            <li>Enhances athletic performance and efficiency in movement</li>
-            <li>Promotes better posture and reduces muscle soreness</li>
-        </ul>
-    
-        <h2>Tips for Effective Flexibility and Mobility Sessions</h2>
-        <ul>
-            <li>Warm up before stretching to prepare your muscles.</li>
-            <li>Focus on breathing and relaxing into each stretch for maximum effectiveness.</li>
-            <li>Incorporate a variety of movements to target all major muscle groups.</li>
-            <li>Be consistent; aim to include flexibility and mobility work into your routine regularly.</li>
-        </ul>
-    
-        <a href="index.html" class="btn btn-primary">Back to Home</a>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟢 Postural Reset & Maintenance</h2>
+                        <p><strong>Decompressing from sedentary stress and resetting everyday kinetic alignment.</strong></p>
+                        <ul>
+                            <li><strong>Passive Lengthening:</strong> 1-2 sets of full-body static stretches held gently for 30 seconds. Perfect right before sleep.</li>
+                            <li><strong>Focused Tissue Rolling:</strong> 5-10 minutes of light foam rolling over tight calves, quads, and upper back structures.</li>
+                            <li><strong>Pacing Threshold:</strong> Move strictly within zero-pain margins; focus on rhythmic, restorative breathing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟡 Dynamic Joint Priming Matrix</h2>
+                        <p><strong>Lubricating joint sockets and exciting neuromuscular channels prior to loading weight.</strong></p>
+                        <ul>
+                            <li><strong>Active Range Calibration:</strong> 1-2 sets x 10 fluid repetitions per movement pattern (e.g., bodyweight deep squats, arm circles, leg swings).</li>
+                            <li><strong>Elastic Activation:</strong> Move through structural pathways continuously without stopping or forcing maximum end-range holds.</li>
+                            <li><strong>Target Timeline:</strong> Execute for 5-8 minutes immediately preceding high-intensity training or sport play.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🔴 Dedicated Structural Plasticity Blocks</h2>
+                        <p><strong>Overloading soft-tissue length thresholds and forcing nervous system compliance.</strong></p>
+                        <ul>
+                            <li><strong>Extended Tissue Trapping:</strong> 2-3 sets of localized deep holds lasting 60 seconds each. Recommended on recovery days.</li>
+                            <li><strong>Targeted Hip & Shoulder Flossing:</strong> Combined active distraction stretching (utilizing resistance bands) to realign tight capsule structures.</li>
+                            <li><strong>Rest Intervals:</strong> Space intense stretch intervals with 30 seconds of loose walking to allow blood pooling safely back into tissues.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-5">
+            <div class="card-body">
+                <h2 class="card-title">📖 Key Flexibility and Mobility Exercises</h2>
+                <ul>
+                    <li><strong>Dynamic Stretching:</strong> Involves actively moving parts of your body through controlled, full ranges of motion—significantly boosting local blood flow and safely preparing muscular networks for high-intensity activity.</li>
+                    <li><strong>Static Stretching:</strong> Consists of holding passive stretches smoothly for 15-60 seconds to reset resting muscle lengths, expand systemic flexibility, and relax tissue tension post-exercise.</li>
+                    <li><strong>Foam Rolling:</strong> A dedicated self-myofascial release technique designed to unlock stubborn soft-tissue knots, mitigate trigger point pain, and flush stagnant circulation.</li>
+                    <li><strong>Hip Openers:</strong> Deliberately isolates the deep hip flexors, external glute rotators, and internal adductor chains to expand athletic pelvic mobility.</li>
+                    <li><strong>Shoulder Stretching:</strong> Incorporates multi-angle dynamic and static postures to widen thoracic flexibility, drop heavy shoulder blades, and release built-up stress across the neck.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700;">💪 Benefits of Recovery Routines</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-arrows-up-to-line"></i>
+                    <h5>Expanded Range</h5>
+                    <p>Widens anatomical joint paths to permit deeper squats, cleaner sprints, and optimal mechanics.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-shield-heart"></i>
+                    <h5>Injury Mitigation</h5>
+                    <p>Absorbs sudden athletic impact forces smoothly by teaching soft tissues to yield under heavy stretch stress.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    <h5>Postural Alignment</h5>
+                    <p>Decompresses tight spinal tissues to undo forward-slouched shoulders and fix pelvic tilt patterns.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-lightbulb"></i> Tips for Effective Sessions</h2>
+                        <ul>
+                            <li>Always elevate your baseline body heat with light cardio before applying structural stretch loads.</li>
+                            <li>Focus deeply on diaphragmatic breathing—long, smooth exhalations trigger nervous system relaxation.</li>
+                            <li>Vary your movement tracks daily to treat the body as a connected kinetic chain rather than isolated spots.</li>
+                            <li>Commit to micro-sessions; 10 dedicated daily minutes beats an hour done once a week.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Structural Mistakes to Avoid</h2>
+                        <ul>
+                            <li><strong>Forcing Through Sharp Pain:</strong> Stretching should cause a dull release, never a sharp, pinching burn. Back off if it pinches.</li>
+                            <li><strong>Ballistic Bouncing (On Cold Muscles):</strong> Aggressive bouncing forces micro-tears in unprepared fibers. Keep static holds completely still.</li>
+                            <li><strong>Holding Your Breath:</strong> Short, anxious breathing forces muscles to lock up defensively. Keep your jaw loose and breaths rhythmic.</li>
+                            <li><strong>Neglecting Structural Symmetry:</strong> Only stretching your "tight side" creates toxic kinetic pull lines across the hips and pelvis. Work both sides evenly.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5">
+            <h3 style="color: #f70776; margin-bottom: 1.5rem;">Ready to Restore Your Kinetic Balance?</h3>
+            <a href="index.html#workouts" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-arrow-left"></i> Back to Workouts
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
     </div>
-    
+
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
-            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact Us</a>
+            </p>
+            <div class="social-icons">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
