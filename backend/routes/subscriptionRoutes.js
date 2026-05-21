@@ -4,6 +4,7 @@ const router = express.Router();
 
 const auth = require("../middleware/auth");
 
+const User = require("../models/User");
 const Subscription = require("../models/subscription");
 
 const {
@@ -103,6 +104,8 @@ router.get("/plans", async (req, res) => {
 
 });
 
+
+
 /* =========================
    CREATE SUBSCRIPTION
 ========================= */
@@ -186,6 +189,18 @@ router.post("/", auth, async (req, res) => {
     });
 
     await subscription.save();
+
+    const user = await User.findById(userId);
+
+if (user) {
+
+  user.isSubscribed = true;
+
+  user.subscriptionPlan = planName;
+
+  await user.save();
+
+}
 
     console.log(
       "✅ Subscription Saved:",
@@ -281,5 +296,33 @@ router.get("/debug/latest", async (req, res) => {
   res.json(docs);
 
 });
+
+router.get(
+    "/check",
+    auth,
+    async (req, res) => {
+
+        try {
+
+            const user = await User.findById(
+                req.user.id
+            );
+
+            res.json({
+                subscribed: user.isSubscribed
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+                message: "Server error"
+            });
+
+        }
+
+    }
+);
 
 module.exports = router;
