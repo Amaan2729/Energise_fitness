@@ -446,7 +446,7 @@
 <script>
 /* ✅ AUTO BACKEND URL (LOCAL / RENDER / SAME SERVICE) */
 // const API_BASE = window.location.origin;
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://energise.onrender.com";
 
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -465,7 +465,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   }
 
   try {
-    const res = await fetch(`http://localhost:5000/api/users/register`, {
+    const res = await fetch(`${API_BASE}/api/users/register`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ name, email, password })
