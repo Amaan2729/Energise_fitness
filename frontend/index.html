@@ -873,6 +873,7 @@ async function checkPremiumAccess(targetPage) {
 
     const token = localStorage.getItem("token");
 
+    // NOT LOGGED IN
     if (!token) {
 
         alert("Please login first");
@@ -888,15 +889,16 @@ async function checkPremiumAccess(targetPage) {
         const response = await fetch(
             "https://energise.onrender.com/api/subscriptions/check",
             {
+                method: "GET",
+
                 headers: {
-                    Authorization: "Bearer " + token
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
 
-        const data = await response.json();
-
-        if (!data.subscribed) {
+        // AUTH FAILED
+        if (!response.ok) {
 
             showPremiumPopup();
 
@@ -904,6 +906,20 @@ async function checkPremiumAccess(targetPage) {
 
         }
 
+        const data = await response.json();
+
+        console.log("Premium Check:", data);
+
+        // NOT SUBSCRIBED
+        if (data.subscribed !== true) {
+
+            showPremiumPopup();
+
+            return;
+
+        }
+
+        // ALLOW ACCESS
         window.location.href = targetPage;
 
     }
@@ -912,7 +928,7 @@ async function checkPremiumAccess(targetPage) {
 
         console.error(error);
 
-        alert("Server error");
+        showPremiumPopup();
 
     }
 
