@@ -411,7 +411,7 @@
 
   <!-- Login Script -->
 
- <script>
+<script>
 
 /* =========================
    BACKEND URL
@@ -424,44 +424,32 @@ const API_BASE = "https://energise.onrender.com";
 ========================= */
 
 const ADMIN_EMAIL = "admin@energise.com";
-
 const ADMIN_PASSWORD = "admin123";
-
-
-
-
 
 /* =========================
    LOGIN FORM
 ========================= */
 
 document
-
 .getElementById("loginForm")
-
 .addEventListener(
-
     "submit",
-
     async (e) => {
 
         e.preventDefault();
 
         const email =
-
         document
         .getElementById("email")
         .value
         .trim();
 
         const password =
-
         document
         .getElementById("password")
         .value;
 
         const messageDiv =
-
         document
         .getElementById("message");
 
@@ -469,13 +457,10 @@ document
            ADMIN LOGIN
         ========================= */
 
-        if(
-
+        if (
             email === ADMIN_EMAIL &&
-
             password === ADMIN_PASSWORD
-
-        ){
+        ) {
 
             messageDiv.innerHTML = `
 
@@ -486,8 +471,6 @@ document
                 </div>
 
             `;
-
-            /* SAVE ADMIN SESSION */
 
             localStorage.setItem(
                 "adminId",
@@ -512,13 +495,14 @@ document
             }, 800);
 
             return;
+
         }
 
         /* =========================
            NORMAL USER LOGIN
         ========================= */
 
-        try{
+        try {
 
             const res = await fetch(
 
@@ -553,7 +537,7 @@ document
                LOGIN FAILED
             ========================= */
 
-            if(!res.ok){
+            if (!res.ok) {
 
                 messageDiv.innerHTML = `
 
@@ -566,6 +550,7 @@ document
                 `;
 
                 return;
+
             }
 
             /* =========================
@@ -582,23 +567,17 @@ document
 
             `;
 
-            /* SAVE TOKEN */
+            /* =========================
+               SAVE USER SESSION
+            ========================= */
 
             localStorage.setItem(
 
-                "token",
-
-                data.token
-
-            );
-
-            /* SAVE USER */
-
-            localStorage.setItem(
-
-                "user",
+                "energiseUser",
 
                 JSON.stringify({
+
+                    token: data.token,
 
                     id: data.user.id,
 
@@ -609,28 +588,6 @@ document
                 })
 
             );
-
-            /* =========================
-               SUBSCRIPTION CHECK
-            ========================= */
-
-            if(
-
-                localStorage.getItem(
-                    "subscriptionPlan"
-                )
-
-            ){
-
-                localStorage.setItem(
-
-                    "isSubscribed",
-
-                    "true"
-
-                );
-
-            }
 
             /* =========================
                URL PARAMS
@@ -658,7 +615,7 @@ document
 
                 /* SUBSCRIPTION REDIRECT */
 
-                if(next === "subscription"){
+                if (next === "subscription") {
 
                     const target =
 
@@ -676,6 +633,7 @@ document
                     target;
 
                     return;
+
                 }
 
                 /* DEFAULT REDIRECT */
@@ -687,7 +645,7 @@ document
 
         }
 
-        catch(err){
+        catch (err) {
 
             console.error(err);
 
@@ -701,6 +659,7 @@ document
                 </div>
 
             `;
+
         }
 
     }
