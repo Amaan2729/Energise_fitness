@@ -1,111 +1,202 @@
-// ===== HUGGING FACE FREE API - FIXED =====
-const HF_API_KEY = "";
+// ===== FITGENIE AI CHATBOT =====
 
-const fitgenieToggle = document.getElementById("fitgenieToggle");
-const fitgeniePanel = document.getElementById("fitgeniePanel");
-const fitgenieBody = document.getElementById("fitgenieBody");
-const fitgenieInput = document.getElementById("fitgenieInput");
-const fitgenieSend = document.getElementById("fitgenieSend");
+const fitgenieToggle =
+document.getElementById("fitgenieToggle");
 
-// Open/Close Chat
-fitgenieToggle.addEventListener("click", () => {
-    fitgeniePanel.classList.toggle("active");
-    if (fitgeniePanel.classList.contains("active")) {
-        fitgenieInput.focus();
+const fitgeniePanel =
+document.getElementById("fitgeniePanel");
+
+const fitgenieBody =
+document.getElementById("fitgenieBody");
+
+const fitgenieInput =
+document.getElementById("fitgenieInput");
+
+const fitgenieSend =
+document.getElementById("fitgenieSend");
+
+/* =========================
+   OPEN / CLOSE CHAT
+========================= */
+
+fitgenieToggle.addEventListener(
+    "click",
+    () => {
+
+        fitgeniePanel.classList.toggle(
+            "active"
+        );
+
+        if(
+            fitgeniePanel.classList.contains(
+                "active"
+            )
+        ){
+
+            fitgenieInput.focus();
+
+        }
+
     }
-});
+);
 
-// Add Message Function
-function addMessage(text, sender) {
-    const message = document.createElement("div");
-    message.classList.add("fitgenie-message");
-    message.classList.add(sender);
+/* =========================
+   ADD MESSAGE
+========================= */
+
+function addMessage(
+    text,
+    sender
+){
+
+    const message =
+    document.createElement("div");
+
+    message.classList.add(
+        "fitgenie-message"
+    );
+
+    message.classList.add(
+        sender
+    );
+
     message.textContent = text;
-    fitgenieBody.appendChild(message);
-    fitgenieBody.scrollTop = fitgenieBody.scrollHeight;
+
+    fitgenieBody.appendChild(
+        message
+    );
+
+    fitgenieBody.scrollTop =
+    fitgenieBody.scrollHeight;
+
 }
 
-// Send Message
-function sendMessage() {
-    const text = fitgenieInput.value.trim();
-    if (text === "") return;
+/* =========================
+   SEND MESSAGE
+========================= */
 
-    addMessage(text, "user");
+function sendUserMessage(){
+
+    const text =
+    fitgenieInput.value.trim();
+
+    if(!text) return;
+
+    addMessage(
+        text,
+        "user"
+    );
+
     fitgenieInput.value = "";
-    
-    // Show loading indicator
-    addMessage("⏳ Thinking...", "bot");
-    
+
     botReply(text);
+
 }
 
-// AI Response with Hugging Face API - CORRECTED
-async function botReply(userMessage) {
-    try {
-        const response = await fetch(
-            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
+/* =========================
+   AI BOT REPLY
+========================= */
+
+async function botReply(
+    userMessage
+){
+
+    addMessage(
+        "⏳ Thinking...",
+        "bot"
+    );
+
+    try{
+
+        const response =
+        await fetch(
+            "https://energise.onrender.com/api/chat",
             {
-                headers: { 
-                    Authorization: `Bearer ${HF_API_KEY}`,
-                    "Content-Type": "application/json"
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
                 },
-                method: "POST",
-                body: JSON.stringify({
-                    inputs: `You are FitGenie AI, a professional fitness coach for EnerGise gym. Answer fitness questions with actionable advice. Keep it concise and helpful.
 
-User Question: ${userMessage}
-
-Answer:`,
+                body:JSON.stringify({
+                    message:userMessage
                 })
             }
         );
 
-        const result = await response.json();
-        console.log("API Response:", result); // Debug log
-        
-        // Remove loading message
-        const messages = fitgenieBody.querySelectorAll(".fitgenie-message.bot");
-        if (messages.length > 0) {
-            messages[messages.length - 1].remove();
+        const data =
+        await response.json();
+
+        /* REMOVE THINKING */
+
+        const thinking =
+        document.querySelectorAll(
+            ".fitgenie-message.bot"
+        );
+
+        if(thinking.length > 0){
+
+            thinking[
+                thinking.length - 1
+            ].remove();
+
         }
 
-        let botMessage = "Sorry, couldn't generate response. Try again!";
-        
-        // FIX: Correct way to extract response from Hugging Face
-        if (result && result[0] && result[0].generated_text) {
-            // Extract only the answer part (after "Answer:")
-            const fullText = result[0].generated_text;
-            const answerPart = fullText.split("Answer:")[1];
-            
-            if (answerPart) {
-                botMessage = answerPart.trim();
-            } else {
-                botMessage = fullText.trim();
-            }
-        } else if (result.error) {
-            botMessage = `⚠️ Error: ${result.error}`;
-        }
+        addMessage(
+            data.reply ||
+            "No response received",
+            "bot"
+        );
 
-        addMessage(botMessage, "bot");
-
-    } catch (error) {
-        console.error("API Error:", error);
-        
-        // Remove loading message
-        const messages = fitgenieBody.querySelectorAll(".fitgenie-message.bot");
-        if (messages.length > 0) {
-            messages[messages.length - 1].remove();
-        }
-        
-        addMessage("⚠️ Connection error. Check your internet or try again!", "bot");
     }
+
+    catch(error){
+
+        console.error(error);
+
+        const thinking =
+        document.querySelectorAll(
+            ".fitgenie-message.bot"
+        );
+
+        if(thinking.length > 0){
+
+            thinking[
+                thinking.length - 1
+            ].remove();
+
+        }
+
+        addMessage(
+            "⚠️ AI server unavailable",
+            "bot"
+        );
+
+    }
+
 }
 
-// Event Listeners
-fitgenieSend.addEventListener("click", sendMessage);
-fitgenieInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        sendMessage();
+/* =========================
+   EVENTS
+========================= */
+
+fitgenieSend.addEventListener(
+    "click",
+    sendUserMessage
+);
+
+fitgenieInput.addEventListener(
+    "keypress",
+    (e) => {
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            sendUserMessage();
+
+        }
+
     }
-});
+);
