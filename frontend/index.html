@@ -827,21 +827,16 @@
     }
 
 }
-function logoutUser(){
+function logoutUser() {
 
-    localStorage.removeItem("token");
-
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("isSubscribed");
+    localStorage.removeItem("energiseUser");
 
     alert("Logged out");
 
-    window.location.href =
-    "login.html";
+    window.location.href = "login.html";
 
 }
-function initializePremiumLocks(){
+function initializePremiumLocks() {
 
     const premiumLinks =
     document.querySelectorAll(
@@ -857,7 +852,7 @@ function initializePremiumLocks(){
 
         link.addEventListener(
             "click",
-            function(e){
+            function(e) {
 
                 e.preventDefault();
 
@@ -871,14 +866,19 @@ function initializePremiumLocks(){
 }
 async function checkPremiumAccess(targetPage) {
 
-    const token = localStorage.getItem("token");
+    const user = JSON.parse(
+        localStorage.getItem(
+            "energiseUser"
+        )
+    );
 
     // NOT LOGGED IN
-    if (!token) {
+    if (!user || !user.token) {
 
         alert("Please login first");
 
-        window.location.href = "login.html";
+        window.location.href =
+        "login.html";
 
         return;
 
@@ -892,12 +892,15 @@ async function checkPremiumAccess(targetPage) {
                 method: "GET",
 
                 headers: {
-                    Authorization: `Bearer ${token}`
+
+                    Authorization:
+                    `Bearer ${user.token}`
+
                 }
             }
         );
 
-        // AUTH FAILED
+        // REQUEST FAILED
         if (!response.ok) {
 
             showPremiumPopup();
@@ -906,12 +909,16 @@ async function checkPremiumAccess(targetPage) {
 
         }
 
-        const data = await response.json();
+        const data =
+        await response.json();
 
-        console.log("Premium Check:", data);
+        console.log(
+            "Premium Check:",
+            data
+        );
 
         // NOT SUBSCRIBED
-        if (data.subscribed !== true) {
+        if (!data.subscribed) {
 
             showPremiumPopup();
 
@@ -919,8 +926,9 @@ async function checkPremiumAccess(targetPage) {
 
         }
 
-        // ALLOW ACCESS
-        window.location.href = targetPage;
+        // ACCESS ALLOWED
+        window.location.href =
+        targetPage;
 
     }
 
@@ -928,24 +936,14 @@ async function checkPremiumAccess(targetPage) {
 
         console.error(error);
 
-        showPremiumPopup();
+        alert(
+            "Server error"
+        );
 
     }
 
 }
-document.addEventListener(
 
-    "DOMContentLoaded",
-
-    () => {
-
-        updateNavbarAuth();
-
-        initializePremiumLocks();
-
-    }
-
-);
 function showPremiumPopup() {
 
     document.getElementById(
@@ -961,6 +959,17 @@ function closePremiumPopup() {
     ).style.display = "none";
 
 }
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateNavbarAuth();
+
+        initializePremiumLocks();
+
+    }
+);
     </script>
     <script src="js/auth.js"></script>
 <script src="subscription-protect.js"></script>
