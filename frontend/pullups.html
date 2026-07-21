@@ -1,84 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Pull-Up Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
+    <!-- Bootstrap 5.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(247, 7, 118, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .card-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .card li strong {
+            color: #f70776;
+        }
+
+        /* Difficulty Tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: rgba(31, 41, 55, 0.6);
+            border: 2px solid rgba(247, 7, 118, 0.2);
+            border-radius: 10px;
+            color: #b0b0b0 !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: #f70776;
+            color: #f70776 !important;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border-color: #f70776;
+            color: white !important;
+        }
+
+        /* Benefits Grid */
+        .benefit-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            color: #f70776;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f70776;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .video-container {
+                margin-bottom: 2rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .benefit-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-arrow-up"></i> Pull-Up Master Guide</h1>
+            <p>Master the art of pull-ups and build exceptional back, shoulder, and arm strength.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <div class="container">
-        <h1 class="mb-4">Pull-Up Tutorial</h1>
-        
-        <div class="video-container mb-5">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/eGo4IYlbE5g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- Video Tutorial -->
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/eGo4IYlbE5g" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
+        <!-- Difficulty Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button" role="tab">
+                    🟢 Beginner
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button" role="tab">
+                    🟡 Intermediate
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">
+                    🔴 Advanced
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Beginner -->
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟢 Beginner Pull-Ups</h2>
+                        <p><strong>For those starting their pull-up journey</strong></p>
+                        <ul>
+                            <li><strong>Dead Hangs:</strong> Hang from the bar with straight arms. This builds grip strength. 3 sets of 20-30 seconds.</li>
+                            <li><strong>Assisted Pull-Ups:</strong> Use a resistance band or machine for assistance. 3 sets of 5-8 reps.</li>
+                            <li><strong>Negative Pull-Ups:</strong> Jump to the top position and lower yourself slowly. 3 sets of 5-8 reps.</li>
+                            <li><strong>Scapular Pulls:</strong> Pull yourself up just a few inches using only shoulder blades. 3 sets of 8-10 reps.</li>
+                            <li><strong>Rest:</strong> 60-90 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟡 Intermediate Pull-Ups</h2>
+                        <p><strong>Build strength and endurance</strong></p>
+                        <ul>
+                            <li><strong>Standard Pull-Ups:</strong> Full pull-up motion with bodyweight. 4 sets of 5-10 reps.</li>
+                            <li><strong>Wide-Grip Pull-Ups:</strong> Hands wider than shoulders, emphasizes back. 3 sets of 5-8 reps.</li>
+                            <li><strong>Chin-Ups:</strong> Palms facing you, easier on arms. 3 sets of 8-12 reps.</li>
+                            <li><strong>Weighted Pull-Ups:</strong> Add light weight with a belt. 3 sets of 5-8 reps.</li>
+                            <li><strong>Rest:</strong> 45-60 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🔴 Advanced Pull-Up Variations</h2>
+                        <p><strong>Challenge yourself with expert-level variations</strong></p>
+                        <ul>
+                            <li><strong>Muscle-Ups:</strong> Transition from pull-up to dip position. 3 sets of 3-6 reps.</li>
+                            <li><strong>One-Arm Pull-Ups:</strong> Ultimate upper body strength. 3 sets of 3-5 reps per arm.</li>
+                            <li><strong>L-Sit Pull-Ups:</strong> Legs extended in L-position. 3 sets of 5-8 reps.</li>
+                            <li><strong>Archer Pull-Ups:</strong> One arm extended, one bent. 3 sets of 5-8 reps per side.</li>
+                            <li><strong>Clapping Pull-Ups:</strong> Explosive pull-ups with hand clap at top. 3 sets of 3-6 reps.</li>
+                            <li><strong>Rest:</strong> 30-45 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Do It -->
         <div class="card mb-5">
             <div class="card-body">
-                <h2 class="card-title">How to Do a Proper Pull-Up</h2>
+                <h2 class="card-title">📖 How to Do a Proper Pull-Up</h2>
                 <ol>
-                    <li><strong>Start with the correct grip:</strong> Grab the pull-up bar with your palms facing away from you, hands shoulder-width apart.</li>
-                    <li><strong>Engage your core:</strong> Tighten your core and keep your body straight, avoiding swinging or kicking your legs.</li>
-                    <li><strong>Pull yourself up:</strong> Pull your chest towards the bar by engaging your back and arm muscles until your chin clears the bar.</li>
-                    <li><strong>Lower yourself down:</strong> Slowly lower your body back down to the starting position with control.</li>
-                    <li><strong>Repeat:</strong> Perform the desired number of repetitions, ensuring proper form throughout.</li>
+                    <li><strong>Start with the correct grip:</strong> Grab the pull-up bar with your palms facing away from you (overhand grip), hands shoulder-width apart. Your arms should be fully extended.</li>
+                    <li><strong>Engage your core:</strong> Tighten your abdominal muscles and keep your body straight. Avoid swinging or kicking your legs for momentum.</li>
+                    <li><strong>Pull yourself up:</strong> Pull your chest towards the bar by engaging your back muscles (lats) and arm muscles. Your elbows should move down and back.</li>
+                    <li><strong>Reach the top:</strong> Continue pulling until your chin clears the bar and your chest nearly touches it.</li>
+                    <li><strong>Lower yourself down:</strong> Slowly lower your body back down to the starting position with control. Do not drop suddenly.</li>
+                    <li><strong>Full extension:</strong> Return to full arm extension before starting your next repetition.</li>
+                    <li><strong>Repeat:</strong> Perform the desired number of repetitions while maintaining proper form throughout.</li>
                 </ol>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card h-100">
+        <!-- Benefits Grid -->
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700;">💪 Benefits of Pull-Ups</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-arrow-up"></i>
+                    <h5>Back Strength</h5>
+                    <p>Strengthens lats, rhomboids, and middle back muscles</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-hand-fist"></i>
+                    <h5>Grip Strength</h5>
+                    <p>Builds exceptional grip and forearm strength</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-bolt"></i>
+                    <h5>Core Stability</h5>
+                    <p>Engages and strengthens core muscles throughout</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h5>Upper Body Power</h5>
+                    <p>Builds shoulders, arms, and chest muscles</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-fire"></i>
+                    <h5>Functional Fitness</h5>
+                    <p>Improves climbing and pulling strength for daily tasks</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h5>Posture Improvement</h5>
+                    <p>Strengthens back muscles for better spinal alignment</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Benefits of Pull-Ups</h2>
+                        <h2 class="card-title"><i class="fas fa-lightbulb"></i> Tips for Perfecting Your Pull-Up</h2>
                         <ul>
-                            <li>Strengthens the back, shoulders, and arms</li>
-                            <li>Improves grip strength and core stability</li>
-                            <li>Enhances upper body endurance</li>
-                            <li>Can be done with minimal equipment</li>
-                            <li>Scalable for various fitness levels</li>
+                            <li>Maintain a controlled and smooth movement throughout—avoid jerking or swinging.</li>
+                            <li>Focus on using your back muscles rather than relying only on arm strength.</li>
+                            <li>Pull your elbows down and back, not just straight up.</li>
+                            <li>Engage your core to keep your body stable and prevent swinging.</li>
+                            <li>If you're new to pull-ups, use assisted methods like resistance bands or machines.</li>
+                            <li>Gradually increase repetitions and decrease assistance as you build strength.</li>
+                            <li>Practice dead hangs to build grip strength before attempting full pull-ups.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card h-100">
+            <div class="col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Tips for Perfecting Your Pull-Up</h2>
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Common Mistakes to Avoid</h2>
                         <ul>
-                            <li>Maintain a controlled and smooth movement throughout.</li>
-                            <li>Avoid swinging or using momentum.</li>
-                            <li>Engage your core to keep your body stable.</li>
-                            <li>If you're new to pull-ups, start with assisted pull-ups or negative pull-ups.</li>
-                            <li>Gradually increase repetitions as you build strength.</li>
+                            <li><strong>Using only arms:</strong> Engage your back muscles (lats) for proper pull-ups.</li>
+                            <li><strong>Partial range of motion:</strong> Always go from full extension to chin over bar for maximum benefit.</li>
+                            <li><strong>Swinging and momentum:</strong> Use controlled movements, not body swing.</li>
+                            <li><strong>Poor grip:</strong> Ensure hands are positioned correctly—shoulder-width apart.</li>
+                            <li><strong>Skipping warm-up:</strong> Always warm up your shoulders and arms before attempting pull-ups.</li>
+                            <li><strong>Neglecting negatives:</strong> Negative pull-ups are excellent for building strength.</li>
+                            <li><strong>Ignoring shoulder pain:</strong> Stop if you feel sharp pain; soreness is normal, pain is not.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-5">
-            <a href="index.html" class="btn btn-primary btn-lg">Back to Home</a>
+        <!-- Call to Action -->
+        <div class="text-center mt-5 mb-5">
+            <h3 style="color: #f70776; margin-bottom: 1.5rem;">Ready to Master Pull-Ups?</h3>
+            <a href="index.html#workouts" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-arrow-left"></i> Back to Workouts
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
-            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact Us</a>
+            </p>
             <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

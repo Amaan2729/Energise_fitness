@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Your Ultimate Fitness Destination</title>
-    <!-- Use a single Bootstrap stylesheet -->
+  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- Page-specific styles -->
+   
     <link rel="stylesheet" href="new_yoki.css">
 
-    <!-- added: ensure hero has visible background and slide overlay styles -->
     <style>
-      /* ensure hero section is visible and covers viewport area */
+      
       #hero {
         position: relative;
         min-height: 60vh;
@@ -45,23 +44,43 @@
 
       /* ensure fixed navbar sits above hero visuals */
       .navbar { z-index: 10; }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
     </style>
+
+    <!-- FitGenie chat widget styles (logic lives in fitgenie.js) -->
+    <link rel="stylesheet" href="fitgenie.css">
 </head>
 <body>
-    <!-- old code -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">EnerGise</a>
-            <img src="pikaso_enhance__vivid_2K_Standard_r_c_.png" alt="EnerGise Logo" width="100" height="100" class="d-inline-block align-text-top">
-                
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#HealthAnalyzer">Health Analyzer</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="healthAnalyzerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Health Analyzer
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="healthAnalyzerDropdown">
+                            <li><a class="dropdown-item" href="bmi-calculator.html">BMI Calculator</a></li>
+                            <li><a class="dropdown-item" href="caloriescounter.html">Calories Counter</a></li>
+                            <li><a class="dropdown-item" href="dietchart.html">Diet chart</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#workouts">Workouts</a>
@@ -82,69 +101,24 @@
                         <a class="nav-link" href="signup.html">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
+                    <li class="nav-item" id="loginNav">
+                        <a class="nav-link" href="login.html">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="logoutNav">
+                        <a class="nav-link" href="#" onclick="logoutUser(); return false;">
+                            👋 Logout (<span id="userNameDisplay">User</span>)
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav> -->
+    </nav>
 
-    <!-- new code -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="pikaso_enhance__vivid_2K_Standard_r_c_.png" alt="EnerGise Logo" width="100" height="100" class="d-inline-block align-text-top">
-                   
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="healthAnalyzerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Health Analyzer
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="healthAnalyzerDropdown">
-                                <li><a class="dropdown-item" href="bmi-calculator.html">BMI Calculator</a></li>
-                                <li><a class="dropdown-item" href="caloriescounter.html">Calories Counter</a></li>
-                                <li><a class ="dropdown-item" href="dietchart.html">Diet chart</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#workouts">Workouts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#testimonials">Testimonials</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#portfolio">Trainers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="products.html">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="signup.html">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    
-
+    <!-- Hero Section -->
     <section id="hero">
         <div class="container">
             <h1><i>Welcome to EnerGise</i></h1>
@@ -153,106 +127,113 @@
         </div>
     </section>
 
+    <!-- Workouts Section -->
     <section id="workouts">
         <div class="container">
             <h2 class="text-center mb-5">Our Workout Plans</h2>
             <div class="row g-4">
+                <!-- Bodyweight Training -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title"> Bodyweight Training </h5>
+                            <h5 class="card-title">Bodyweight Training</h5>
                             <p class="card-text">Using body weight as resistance for strength and conditioning.</p>
-                            <a href="bodyweightworkout.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('bodyweightworkout.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="pushup.html" class="card-link">Push-ups Tutorial</a>
-                                <a href="squat.html" class="card-link">Squats Tutorial</a>
-                                <a href="pullups.html" class="card-link">Pull up Tutorial</a>
-                                <a href="planks.html"  class="card-link">Plank Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('pushup.html'); return false;" class="card-link">Push-ups Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('squat.html'); return false;" class="card-link">Squats Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('pullup.html'); return false;" class="card-link">Pull up Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('plank.html'); return false;" class="card-link">Plank Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Cardio Blast -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Cardio Blast</h5>
                             <p class="card-text">High-intensity cardio workout to get your heart pumping.</p>
-                            <a href="cardio.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('cardio.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="jumpingjack.html" class="card-link">Jumping Jacks Tutorial</a>
-                                <a href="burpees.html" class="card-link">Burpees Tutorial</a>
-                                <a href="rowing.html" class="card-link">Rowing Tutorial</a>
-                                
+                                <a href="#" onclick="checkWorkoutAccess('jumpingjack.html'); return false;" class="card-link">Jumping Jacks Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('burpee.html'); return false;" class="card-link">Burpees Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('rowing.html'); return false;" class="card-link">Rowing Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Strength Training -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Strength Training</h5>
                             <p class="card-text">Focus on building strength with resistance training.</p>
-                            <a href="strength.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('strength.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="dumbellcurls.html" class="card-link">Dumbbell Curls Tutorial</a>
-                                <a href="deadlift.html" class="card-link">Deadlifts Tutorial</a>
-                                <a href="benchpress.html" class="card-link"> Bench press Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('dumbellcurls.html'); return false;" class="card-link">Dumbbell Curls Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('deadlift.html'); return false;" class="card-link">Deadlifts Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('benchpress.html'); return false;" class="card-link">Bench press Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- new box1  -->
+
+                <!-- High Intensity Interval Training -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">High Intensity Interval Training</h5>
                             <p class="card-text">Combining short bursts of intense activity with periods of rest or lower-intensity activity.</p>
-                            <a href="highintensityEx.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('highintensityEx.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="jumpsquats.html" class="card-link">Jump squat Tutorial</a>
-                                <a href="mountainclimbers.html" class="card-link">Mountain Climbers Tutorial</a>
-                                <a href="highknees.html" class="card-link"> High knees Tutorial </a>
-                                <a href="plankjacks.html" class="card-link"> Plank jacks Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('jumpsquats.html'); return false;" class="card-link">Jump squat Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('mountainclimbers.html'); return false;" class="card-link">Mountain Climbers Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('highknees.html'); return false;" class="card-link">High knees Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('plankjacks.html'); return false;" class="card-link">Plank jacks Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- new box 2 -->
+
+                <!-- Flexibility and Mobility Training -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Flexibility and Mobility Training</h5>
                             <p class="card-text">Increasing the range of motion in joints and improving flexibility.</p>
-                            <a href="flexndmobility.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('flexndmobility.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="mobilitydrills.html" class="card-link">Mobility Tutorial</a>
-                                <a href="Stretching.html" class="card-link">Stretching Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('mobilitydrills.html'); return false;" class="card-link">Mobility Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('Stretching.html'); return false;" class="card-link">Stretching Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- new box 3 -->
+
+                <!-- The Art of Yoga -->
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">The Art of Yoga</h5>
                             <p class="card-text">Yoga is a holistic practice combining physical postures, breathing exercises, and mindfulness. It improves flexibility, strength, balance, and mental well-being, making it suitable for all fitness levels.</p>
-                            <a href="yogaex.html" class="card-link">Learn More</a>
+                            <a href="#" onclick="checkWorkoutAccess('yogaex.html'); return false;" class="card-link">Learn More</a>
                             <div class="mt-3">
-                                <a href="downwarddog.html" class="card-link"> Downward Dog Tutorial</a>
-                                <a href="warrior2.html" class="card-link">Warrior II Tutorial</a>
-                                <a href="cobrapose.html" class="card-link"> Cobra Pose Tutorial</a>
-                                <a href="treepose.html" class="card-link"> Tree Pose Tutorial</a>
-                               
+                                <a href="#" onclick="checkWorkoutAccess('downwarddog.html'); return false;" class="card-link">Downward Dog Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('warrior2.html'); return false;" class="card-link">Warrior II Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('cobrapose.html'); return false;" class="card-link">Cobra Pose Tutorial</a>
+                                <a href="#" onclick="checkWorkoutAccess('treepose.html'); return false;" class="card-link">Tree Pose Tutorial</a>
                             </div>
                         </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     </section>
 
+    <!-- Pricing Section -->
     <section id="pricing">
         <div class="container">
             <h2 class="text-center mb-5">Our Pricing Plans</h2>
@@ -263,7 +244,7 @@
                             <h5 class="card-title">Basic Plan</h5>
                             <p class="card-text">Access to standard workout plans and gym facilities.</p>
                             <p class="card-text"><strong>₹6500/month</strong></p>
-                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                            <a href="subscription.html" class="btn btn-primary">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -273,7 +254,7 @@
                             <h5 class="card-title">Premium Plan</h5>
                             <p class="card-text">Includes personalized training plans and nutrition guidance.</p>
                             <p class="card-text"><strong>₹7500/month</strong></p>
-                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                            <a href="subscription.html" class="btn btn-primary">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -283,7 +264,7 @@
                             <h5 class="card-title">Ultimate Plan</h5>
                             <p class="card-text">All-inclusive access with premium support and exclusive events.</p>
                             <p class="card-text"><strong>₹8500/month</strong></p>
-                            <a href="pricing.html" class="btn btn-primary">Learn More</a>
+                            <a href="subscription.html" class="btn btn-primary">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -291,6 +272,7 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
     <section id="testimonials">
         <div class="container">
             <h2 class="text-center mb-5">What Our Clients Say</h2>
@@ -329,13 +311,14 @@
         </div>
     </section>
 
+    <!-- Trainers Section -->
     <section id="portfolio">
         <div class="container">
             <h2 class="text-center mb-5">Meet Our Trainers</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="portfolio-item">
-                        <img src="Aarnav.jpeg" alt="Aarnav Kaushal">
+                        <img src="assets/Aarnav.jpeg" alt="Aarnav Kaushal">
                         <div class="content">
                             <h3>Aarnav Kaushal</h3>
                             <p>Specializing in strength training and bodybuilding, Aarnav has helped countless clients achieve their muscle-building goals.</p>
@@ -345,27 +328,30 @@
                 </div>
                 <div class="col-md-4">
                     <div class="portfolio-item">
-                        <img src="Amaan.jpeg" alt="Amaan Ur Rehman">
+                        <img src="assets/Amaan.jpeg" alt="Amaan Ur Rehman">
                         <div class="content">
                             <h3>Amaan Ur Rehman</h3>
                             <p>A certified yoga instructor and nutrition expert, Amaan focuses on holistic wellness and mindful fitness practices.</p>
                             <a href="Viewprofile2.html" class="btn btn-primary">View Profile</a>
                         </div>
                     </div>
-                </div>
+                </div>  
                 <div class="col-md-4">
                     <div class="portfolio-item">
-                        <img src="Chirag.jpeg" alt="Chirag Baboota">
+                        <img src="assets/shruti.jpeg" alt="Shruti">
                         <div class="content">
-                            <h3>Chirag Baboota</h3>
-                            <p>With a background in professional sports, Chirag specializes in high-intensity interval training and athletic performance.</p>
+                            <h3>Shruti</h3>
+                            <p>With a background in professional sports, Shruti specializes in high-intensity interval training and athletic performance.</p>
                             <a href="Viewprofile3.html" class="btn btn-primary">View Profile</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <section id="newsletter">
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter">
         <div class="container">
             <h2>Stay Updated!</h2>
             <p>Sign up for our newsletter to receive the latest updates and offers.</p>
@@ -376,29 +362,8 @@
         </div>
     </section>
 
-    <!-- <section id="cta">
-        <div class="container">
-            <h2>Ready to Start Your Fitness Journey?</h2>
-            <a href="#contact" class="btn btn-primary btn-lg">Contact Us</a>
-        </div>
-    </section> -->
-    </section>
-
-    <!-- <footer id="contact" class="text-center">
-        <div class="container">
-            <h2 class="mb-4">Get in Touch</h2>
-            <p>Ready to start your fitness journey? Contact us today!</p>
-            <p>Email: <a href="mailto:info@EnerGise.com">info@EnerGise.com</a></p>
-            <p>Phone: (+91) 88003-84559</p>
-            <div class="mt-4 social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-    </footer> -->
-     <!-- new code -->
-     <footer class="text-center">
+    <!-- Footer -->
+    <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
             <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
@@ -409,14 +374,106 @@
             </div>
         </div>
     </footer>
-    
+
+    <!-- Premium Access Modal -->
+    <div id="premiumModal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    ">
+        <div style="
+            background: linear-gradient(135deg, #1a2449, #0f1724);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #f70776;
+            box-shadow: 0 20px 60px rgba(247, 7, 118, 0.4);
+            animation: slideUp 0.4s ease-out;
+        ">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🔐</div>
+            <h2 style="color: #f70776; font-weight: 700; margin-bottom: 1rem; font-size: 2rem;">
+                Premium Plan Required
+            </h2>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">
+                Subscribe to EnerGise Premium to unlock workouts and tutorials. Get access to all fitness programs today!
+            </p>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="upgradePlan()" style="
+                    background: linear-gradient(135deg, #f70776, #871b8f);
+                    color: white;
+                    border: none;
+                    padding: 1rem 2rem;
+                    border-radius: 10px;
+                    font-weight: 700;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    flex: 1;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 10px 25px rgba(247, 7, 118, 0.3);
+                " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(247, 7, 118, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(247, 7, 118, 0.3)'">
+                    🚀 Upgrade Plan
+                </button>
+                <button onclick="closePremiumModal()" style="
+                    background: rgba(255, 255, 255, 0.1);
+                    color: white;
+                    border: 1px solid rgba(247, 7, 118, 0.3);
+                    padding: 1rem 2rem;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    flex: 1;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='rgba(247, 7, 118, 0.1)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FitGenie Chat Widget -->
+    <div class="fitgenie-widget" id="fitgenieWidget">
+        <div class="fitgenie-panel" id="fitgeniePanel">
+            <div class="fitgenie-header">
+                <h4>FitGenie</h4>
+                <p style="margin: 0.25rem 0 0; font-size: 0.9rem; opacity: 0.95;">Your free fitness helper.</p>
+            </div>
+            <div class="fitgenie-body" id="fitgenieBody">
+                <div class="fitgenie-message bot">Hi there! I'm FitGenie. Ask me about workouts, nutrition, recovery, or how to stay motivated.</div>
+            </div>
+            <div class="fitgenie-input-bar">
+                <input type="text" id="fitgenieInput" placeholder="Type your question..." aria-label="FitGenie chat input">
+                <button id="fitgenieSend" type="button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="fitgenie-toggle" id="fitgenieToggle" aria-label="Open FitGenie chat">
+        <i class="fas fa-comment"></i>
+    </button>
 
     <button id="back-to-top" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
 
-    <!-- Single Bootstrap bundle -->
+    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Auth Script -->
+    <script src="auth.js"></script>
+
+    <!-- Main Script -->
     <script>
-        // Navbar scroll effect, back-to-top, smooth scrolling (existing)
+        // ========== NAVBAR SCROLL EFFECT ==========
         window.addEventListener('scroll', function() {
             if (window.scrollY > 50) {
                 document.querySelector('.navbar').classList.add('navbar-scrolled');
@@ -425,6 +482,7 @@
             }
         });
 
+        // ========== BACK TO TOP BUTTON ==========
         var backToTopButton = document.getElementById("back-to-top");
         window.onscroll = function() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -438,6 +496,7 @@
             document.documentElement.scrollTop = 0;
         };
 
+        // ========== SMOOTH SCROLLING ==========
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -449,7 +508,7 @@
             });
         });
 
-        // Hero background slider
+        // ========== HERO BACKGROUND SLIDER ==========
         const gymImages = [
             "https://i.pinimg.com/1200x/68/41/97/684197f061bde5a3f49619d188e7245f.jpg",
             "https://i.pinimg.com/736x/2e/2b/bf/2e2bbfd31cac2979925bc8e9b8c6934e.jpg",
@@ -460,12 +519,11 @@
         let currentImage = 0;
 
         const hero = document.getElementById('hero');
-        // create overlay element once
         let slideDiv = document.getElementById('hero-bg-slide');
         if (!slideDiv) {
-          slideDiv = document.createElement('div');
-          slideDiv.id = 'hero-bg-slide';
-          hero.appendChild(slideDiv);
+            slideDiv = document.createElement('div');
+            slideDiv.id = 'hero-bg-slide';
+            hero.appendChild(slideDiv);
         }
 
         function setHeroBg(idx) {
@@ -474,23 +532,105 @@
 
         function slideToNextBg() {
             const nextIdx = (currentImage + 1) % gymImages.length;
-            // set overlay to next image and fade it in
             slideDiv.style.background = `linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('${gymImages[nextIdx]}') no-repeat center center/cover`;
             hero.classList.add('slide-active');
-            // after transition, swap main background and hide overlay
             setTimeout(() => {
                 setHeroBg(nextIdx);
                 hero.classList.remove('slide-active');
                 slideDiv.style.background = '';
                 currentImage = nextIdx;
-            }, 850); // matches CSS transition
+            }, 850);
         }
 
-        // initial background
         setHeroBg(currentImage);
-        // change every 2500ms (you can change to 2000 if you prefer faster)
         setInterval(slideToNextBg, 2500);
+
+        // ========== PREMIUM WORKOUT ACCESS CONTROL ==========
+        function checkWorkoutAccess(workoutPage) {
+            // Check if user is logged in
+            const token = localStorage.getItem("token");
+            
+            if (!token) {
+                alert("Please login first to access workouts");
+                localStorage.setItem("redirectAfterLogin", workoutPage);
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Check if user has active subscription
+            const hasSubscription =
+localStorage.getItem(
+    "activeSubscription"
+);
+
+if (hasSubscription !== "true") {
+
+    console.log(
+        "❌ No active subscription"
+    );
+
+    showPremiumModal();
+
+    return;
+}
+
+            // User has both login and subscription - grant access
+            console.log("✅ Access granted to", workoutPage);
+            window.location.href = workoutPage;
+        }
+
+        function showPremiumModal() {
+            document.getElementById("premiumModal").style.display = "flex";
+        }
+
+        function closePremiumModal() {
+            document.getElementById("premiumModal").style.display = "none";
+        }
+
+        function upgradePlan() {
+            closePremiumModal();
+            window.location.href = "subscription.html";
+        }
+
+        // Close modal when clicking outside
+        document.getElementById("premiumModal").addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePremiumModal();
+            }
+        });
+
+        // ========== LOGOUT FUNCTION ==========
+       function logoutUser() {
+
+    // REMOVE ONLY LOGIN SESSION
+    localStorage.removeItem("token");
+
+    // OPTIONAL USER DATA
+    localStorage.removeItem("currentUser");
+
+    alert("✅ Logged out successfully");
+
+    window.location.href = "index.html";
+}
+
+        // ========== CHECK LOGIN STATUS ON PAGE LOAD ==========
+        window.addEventListener('load', function() {
+            const token = localStorage.getItem("token");
+            const userData = localStorage.getItem("currentUser");
+            
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                document.getElementById("loginNav").classList.add("d-none");
+                document.getElementById("logoutNav").classList.remove("d-none");
+                document.getElementById("userNameDisplay").textContent = user.name || "User";
+            } else {
+                document.getElementById("loginNav").classList.remove("d-none");
+                document.getElementById("logoutNav").classList.add("d-none");
+            }
+        });
     </script>
+
+    <!-- FitGenie chat widget logic (real AI replies via our backend) -->
+    <script src="fitgenie.js"></script>
 </body>
 </html>
-

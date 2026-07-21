@@ -1,245 +1,683 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
     <title>Admin Dashboard - EnerGise</title>
 
-    <link rel="stylesheet" href="assets/css/common.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="assets/css/common.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <style>
+
         :root{
             --primary-color:#ff69b4;
             --secondary-color:#9c27b0;
             --dark-bg:#05071c;
             --text-color:#fff;
-            --text-muted:#b4b9d6;
         }
 
         body{
+
             font-family:Poppins,sans-serif;
-            background:linear-gradient(135deg,#05071c,#0d1130 55%,#05071c);
-            color:var(--text-color);
+
+            background:
+            linear-gradient(
+                135deg,
+                #05071c,
+                #0d1130 55%,
+                #05071c
+            );
+
+            color:white;
+
             min-height:100vh;
         }
 
         body::before{
+
             content:"";
+
             position:fixed;
+
             inset:0;
+
             background:
-              radial-gradient(circle at 20% 30%, rgba(255,105,180,.12), transparent 45%),
-              radial-gradient(circle at 85% 80%, rgba(156,39,176,.12), transparent 45%);
+              radial-gradient(circle at 20% 30%,
+              rgba(255,105,180,.12),
+              transparent 45%),
+
+              radial-gradient(circle at 85% 80%,
+              rgba(156,39,176,.12),
+              transparent 45%);
+
             z-index:-1;
         }
 
         .navbar{
-            background:rgba(255,255,255,.04);
+
+            background:
+            rgba(255,255,255,.04);
+
             backdrop-filter:blur(10px);
-            border-bottom:1px solid rgba(255,255,255,.1);
+
+            border-bottom:
+            1px solid rgba(255,255,255,.1);
         }
 
         .dashboard-header h1{
+
             font-size:2.3rem;
+
             font-weight:700;
-            background:linear-gradient(90deg,var(--primary-color),var(--secondary-color));
+
+            background:
+            linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--secondary-color)
+            );
+
             -webkit-background-clip:text;
+
             -webkit-text-fill-color:transparent;
         }
 
         .stats-card{
-            background:rgba(255,255,255,.05);
+
+            background:
+            rgba(255,255,255,.05);
+
             border-radius:14px;
+
             padding:1.6rem;
+
             text-align:center;
-            border:1px solid rgba(255,255,255,.08);
-            box-shadow:0 6px 25px rgba(0,0,0,.4);
+
+            border:
+            1px solid rgba(255,255,255,.08);
+
+            box-shadow:
+            0 6px 25px rgba(0,0,0,.4);
+
             transition:.3s;
         }
 
         .stats-card:hover{
+
             transform:translateY(-5px);
-            box-shadow:0 10px 35px rgba(255,105,180,.25);
+
+            box-shadow:
+            0 10px 35px rgba(255,105,180,.25);
         }
 
         .stats-card h3{
+
             color:var(--primary-color);
+
             font-size:2rem;
+
             font-weight:700;
         }
 
         .notification-feed{
-            background:rgba(255,255,255,.05);
+
+            background:
+            rgba(255,255,255,.05);
+
             border-radius:16px;
+
             padding:1.6rem;
-            border:1px solid rgba(255,255,255,.08);
+
+            border:
+            1px solid rgba(255,255,255,.08);
+
             max-height:70vh;
+
             overflow-y:auto;
         }
 
         .notification-item{
+
             display:flex;
+
             gap:1rem;
+
             padding:1rem;
-            background:rgba(255,255,255,.04);
-            border-left:4px solid var(--primary-color);
+
+            background:
+            rgba(255,255,255,.04);
+
+            border-left:
+            4px solid var(--primary-color);
+
             border-radius:12px;
+
             margin-bottom:1rem;
         }
 
         .connection-status{
+
             display:flex;
+
             gap:.5rem;
+
             align-items:center;
+
             padding:.5rem 1rem;
-            background:rgba(255,255,255,.07);
+
+            background:
+            rgba(255,255,255,.07);
+
             border-radius:20px;
+
             font-weight:600;
         }
 
         .connection-status.disconnected{
-            background:rgba(255,0,0,.12);
+
+            background:
+            rgba(255,0,0,.12);
+
             color:#ff7a7a;
         }
 
         .status-dot{
+
             width:10px;
+
             height:10px;
+
             background:#6cff7c;
+
             border-radius:50%;
+
             animation:pulse 2s infinite;
         }
 
         .connection-status.disconnected .status-dot{
+
             background:#ff4444;
+
             animation:none;
         }
 
         @keyframes pulse{
-            0%,100%{transform:scale(1)}
-            50%{transform:scale(1.3)}
+
+            0%,100%{
+                transform:scale(1);
+            }
+
+            50%{
+                transform:scale(1.3);
+            }
         }
+
     </style>
+
 </head>
+
 <body>
 
+<!-- NAVBAR -->
+
 <nav class="navbar fixed-top">
+
     <div class="container">
-        <span class="navbar-brand fw-bold">🔔 Admin Dashboard</span>
+
+        <span class="navbar-brand fw-bold">
+
+            🔔 Admin Dashboard
+
+        </span>
+
         <div class="ms-auto">
-            <span class="connection-status" id="connectionStatus">
+
+            <span class="connection-status disconnected"
+                  id="connectionStatus">
+
                 <span class="status-dot"></span>
-                <span id="statusText">Connecting...</span>
+
+                <span id="statusText">
+
+                    Connecting...
+
+                </span>
+
             </span>
+
         </div>
+
     </div>
+
 </nav>
 
-<div class="container" style="margin-top:90px">
+<!-- CONTENT -->
+
+<div class="container"
+     style="margin-top:90px">
+
+    <!-- HEADER -->
+
     <div class="dashboard-header mb-4">
-        <h1>Real-Time Admin Notifications</h1>
-        <p class="text-muted">Live updates from users, orders & subscriptions</p>
+
+        <h1>
+
+            Real-Time Admin Notifications
+
+        </h1>
+
+        <p class="text-muted">
+
+            Live updates from users,
+            orders & subscriptions
+
+        </p>
+
     </div>
+
+    <!-- STATS -->
 
     <div class="row mb-4">
-        <div class="col-md-4">
+
+        <!-- SIGNUPS -->
+
+        <div class="col-md-3">
+
             <div class="stats-card">
+
+                <h3 id="signupCount">0</h3>
+
+                <p>New Signups</p>
+
+            </div>
+
+        </div>
+
+        <!-- CONTACTS -->
+
+        <div class="col-md-3">
+
+            <div class="stats-card">
+
                 <h3 id="contactCount">0</h3>
+
                 <p>New Contacts</p>
+
             </div>
+
         </div>
-        <div class="col-md-4">
+
+        <!-- ORDERS -->
+
+        <div class="col-md-3">
+
             <div class="stats-card">
+
                 <h3 id="orderCount">0</h3>
+
                 <p>New Orders</p>
+
             </div>
+
         </div>
-        <div class="col-md-4">
+
+        <!-- SUBSCRIPTIONS -->
+
+        <div class="col-md-3">
+
             <div class="stats-card">
+
                 <h3 id="subscriptionCount">0</h3>
+
                 <p>New Subscriptions</p>
+
             </div>
+
         </div>
+
     </div>
+
+    <!-- NOTIFICATION FEED -->
 
     <div class="notification-feed">
-        <h4 class="mb-3">Notification Feed</h4>
+
+        <h4 class="mb-3">
+
+            Notification Feed
+
+        </h4>
+
         <div id="notificationList">
-            <p class="text-muted text-center">Waiting for notifications…</p>
+
+            <p class="text-muted text-center">
+
+                Waiting for notifications...
+
+            </p>
+
         </div>
+
     </div>
+
 </div>
 
-<div id="toastContainer" style="position:fixed;top:20px;right:20px;z-index:9999"></div>
+<!-- BOOTSTRAP -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SOCKET.IO -->
+
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
 <script>
-/* ✅ AUTO BACKEND URL (LOCAL + RENDER) */
-const API_BASE = window.location.origin;
 
-/* Admin credentials */
+/* =========================
+   BACKEND URL
+========================= */
+
+const API_BASE = "http://localhost:5000";
+
+/* =========================
+   ADMIN CREDENTIALS
+========================= */
+
 const ADMIN_ID = "admin";
+
 const ADMIN_PASSWORD = "admin123";
 
-window.addEventListener("DOMContentLoaded", verifyAdminAccess);
+/* =========================
+   VERIFY ADMIN
+========================= */
+
+window.addEventListener(
+
+    "DOMContentLoaded",
+
+    verifyAdminAccess
+
+);
 
 function verifyAdminAccess(){
+
     if(
-        localStorage.getItem("adminId") !== ADMIN_ID ||
-        localStorage.getItem("adminPassword") !== ADMIN_PASSWORD
+
+        localStorage.getItem("adminId")
+        !== ADMIN_ID ||
+
+        localStorage.getItem("adminPassword")
+        !== ADMIN_PASSWORD
+
     ){
-        window.location.href = "admin-login.html";
+
+        window.location.href =
+        "admin-login.html";
+
         return;
     }
+
     initializeWebSocket();
 }
 
+/* =========================
+   SOCKET INITIALIZE
+========================= */
+
 function initializeWebSocket(){
-    const socket = io(API_BASE,{
-        reconnection:true,
-        reconnectionDelay:1000,
-        reconnectionDelayMax:5000
+
+    const socket = io(
+
+        "http://localhost:5000",
+
+        {
+
+            reconnection:true,
+
+            reconnectionDelay:1000,
+
+            reconnectionDelayMax:5000
+
+        }
+
+    );
+
+    const counts = {
+
+        signup:0,
+        contact:0,
+        order:0,
+        subscription:0
+
+    };
+
+    /* CONNECT */
+
+    socket.on("connect",()=>{
+
+        updateStatus(true);
+
     });
 
-    const counts = {contact:0,order:0,subscription:0};
+    /* DISCONNECT */
 
-    socket.on("connect",()=>updateStatus(true));
-    socket.on("disconnect",()=>updateStatus(false));
+    socket.on("disconnect",()=>{
+
+        updateStatus(false);
+
+    });
+
+    /* LIVE NOTIFICATIONS */
 
     socket.on("notification",(data)=>{
-        counts[data.type || "order"]++;
-        document.getElementById("contactCount").textContent = counts.contact;
-        document.getElementById("orderCount").textContent = counts.order;
-        document.getElementById("subscriptionCount").textContent = counts.subscription;
+
+        if(
+
+            counts[data.type]
+            !== undefined
+
+        ){
+
+            counts[data.type]++;
+
+        }
+
+        /* UPDATE COUNTS */
+
+        document.getElementById(
+            "signupCount"
+        ).textContent = counts.signup;
+
+        document.getElementById(
+            "contactCount"
+        ).textContent = counts.contact;
+
+        document.getElementById(
+            "orderCount"
+        ).textContent = counts.order;
+
+        document.getElementById(
+            "subscriptionCount"
+        ).textContent = counts.subscription;
+
+        /* ADD FEED */
+
         addNotification(data);
+
     });
 
+    /* STATUS */
+
     function updateStatus(ok){
-        document.getElementById("connectionStatus")
-            .classList.toggle("disconnected",!ok);
-        document.getElementById("statusText").textContent = ok?"Connected":"Disconnected";
+
+        document
+        .getElementById("connectionStatus")
+
+        .classList.toggle(
+
+            "disconnected",
+            !ok
+
+        );
+
+        document
+        .getElementById("statusText")
+
+        .textContent = ok
+
+        ? "Connected"
+
+        : "Disconnected";
     }
 
+    /* ADD NOTIFICATION */
+
     function addNotification(data){
-        const list=document.getElementById("notificationList");
-        if(list.querySelector(".text-muted")) list.innerHTML="";
-        const el=document.createElement("div");
-        el.className="notification-item";
-        el.innerHTML=`
-            <div>📢</div>
+
+        const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+        if(
+            list.querySelector(".text-muted")
+        ){
+
+            list.innerHTML = "";
+        }
+
+        const el =
+        document.createElement("div");
+
+        el.className =
+        "notification-item";
+
+        el.innerHTML = `
+
             <div>
-                <strong>${data.title}</strong>
-                <p>${data.message}</p>
-                <small>${new Date().toLocaleTimeString()}</small>
-            </div>`;
+
+                📢
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    ${data.title}
+
+                </strong>
+<p>
+
+    ${data.message}
+
+</p>
+
+${
+    data.type === "contact" && data.data?.message
+
+    ?
+
+    `<div style="
+        margin-top:8px;
+        padding:10px;
+        background:rgba(255,255,255,0.06);
+        border-radius:10px;
+        color:#dfe6ff;
+        font-size:0.9rem;
+        line-height:1.5;
+    ">
+        💬 ${data.data.message}
+    </div>`
+
+    :
+
+    ""
+}
+
+${
+    data.type === "order"
+
+    ?
+
+    `<div style="
+        margin-top:8px;
+        padding:10px;
+        background:rgba(255,255,255,0.06);
+        border-radius:10px;
+        color:#dfe6ff;
+        font-size:0.9rem;
+        line-height:1.6;
+    ">
+        💰 Total: ₹${data.data.totalPrice}<br>
+        💳 Payment: ${data.data.paymentMethod}<br>
+        📍 ${data.data.city}, ${data.data.state}<br>
+        📦 Products: ${data.data.products.length}
+    </div>`
+
+    :
+
+    ""
+}
+    ${
+    data.type === "subscription"
+
+    ?
+
+    `<div style="
+        margin-top:8px;
+        padding:10px;
+        background:rgba(255,255,255,0.06);
+        border-radius:10px;
+        color:#dfe6ff;
+        font-size:0.9rem;
+        line-height:1.6;
+    ">
+        💳 Plan: ${data.data.planName}<br>
+        💰 Price: ₹${data.data.price}<br>
+        💳 Payment: ${data.data.paymentMethod}<br>
+        📍 ${data.data.city}, ${data.data.state}
+    </div>`
+
+    :
+
+    ""
+}
+
+                <small>
+
+                    ${new Date()
+                    .toLocaleTimeString()}
+
+                </small>
+
+            </div>
+
+        `;
+
         list.prepend(el);
     }
+
 }
+
 </script>
+
 </body>
 </html>

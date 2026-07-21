@@ -1,52 +1,684 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=\"stylesheet\" href=\"assets/css/common.css\">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnerGise - Cardio Training Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
+    <!-- Bootstrap 5.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f1724 0%, #1a2332 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 36, 0.95) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #f70776;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: #e0e0e0 !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #f70776 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(247, 7, 118, 0.1), rgba(135, 27, 143, 0.1));
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(247, 7, 118, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(247, 7, 118, 0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .card-title {
+            color: #f70776;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        .card li strong {
+            color: #f70776;
+        }
+
+        /* Difficulty Tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: rgba(31, 41, 55, 0.6);
+            border: 2px solid rgba(247, 7, 118, 0.2);
+            border-radius: 10px;
+            color: #b0b0b0 !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: #f70776;
+            color: #f70776 !important;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border-color: #f70776;
+            color: white !important;
+        }
+
+        /* Benefits Grid */
+        .benefit-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #f70776;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        /* Exercise Grid */
+        .exercise-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            border-color: #f70776;
+            box-shadow: 0 20px 50px rgba(247, 7, 118, 0.3);
+        }
+
+        .exercise-card h5 {
+            color: #f70776;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-card p {
+            color: #b0b0b0;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f70776, #871b8f);
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 7, 118, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(247, 7, 118, 0.2);
+            color: #f70776;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f70776;
+            background: rgba(247, 7, 118, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 36, 0.95);
+            border-top: 2px solid #f70776;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #f70776;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #871b8f;
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 7, 118, 0.1);
+            border: 1px solid #f70776;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f70776;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .benefit-card, .exercise-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-dumbbell"></i> EnerGise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#workouts">Workouts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-running"></i> Cardio Training Master Guide</h1>
+            <p>Master cardiovascular exercises to improve heart health, endurance, and overall fitness.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <div class="container">
-        <h1>Cardio Training Tutorial</h1>
-        <p>Cardio training is essential for improving heart health, endurance, and overall fitness. It involves activities that raise your heart rate and keep it elevated for a period of time.</p>
-        
-        <h2>Effective Cardio Exercises</h2>
-        <ul>
-            <li><strong>Running:</strong> A great way to improve cardiovascular health and endurance. Can be done indoors on a treadmill or outdoors.</li>
-            <li><strong>Cycling:</strong> Provides a low-impact cardio workout that strengthens your legs and improves cardiovascular fitness.</li>
-            <li><strong>Jump Rope:</strong> An excellent full-body workout that boosts endurance and coordination.</li>
-            <li><strong>High-Intensity Interval Training (HIIT):</strong> Alternates between short bursts of intense activity and periods of lower intensity or rest.</li>
-            <li><strong>Rowing:</strong> A full-body exercise that provides a robust cardio workout and builds upper body strength.</li>
-        </ul>
-        
-        <h2>Benefits of Cardio Training</h2>
-        <ul>
-            <li>Improves cardiovascular health</li>
-            <li>Enhances endurance and stamina</li>
-            <li>Helps in weight management</li>
-            <li>Reduces stress and improves mood</li>
+        <!-- Introduction -->
+        <div class="card mb-5">
+            <div class="card-body">
+                <h2 class="card-title">❤️ What is Cardio Training?</h2>
+                <p style="color: #b0b0b0; line-height: 1.8;">Cardio training is essential for improving heart health, endurance, and overall fitness. It involves activities that raise your heart rate and keep it elevated for a period of time. Regular cardio exercise improves cardiovascular function, burns calories, reduces stress, and increases your overall fitness level.</p>
+            </div>
+        </div>
+
+        <!-- Difficulty Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner" type="button" role="tab">
+                    🟢 Beginner
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="intermediate-tab" data-bs-toggle="tab" data-bs-target="#intermediate" type="button" role="tab">
+                    🟡 Intermediate
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">
+                    🔴 Advanced
+                </button>
+            </li>
         </ul>
 
-        <h2>Tips for Effective Cardio Workouts</h2>
-        <ul>
-            <li>Start with a warm-up to prepare your body for exercise.</li>
-            <li>Gradually increase intensity and duration to avoid overtraining.</li>
-            <li>Incorporate a variety of cardio exercises to keep workouts interesting.</li>
-            <li>Stay hydrated and listen to your body’s signals.</li>
-        </ul>
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Beginner -->
+            <div class="tab-pane fade show active" id="beginner" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟢 Beginner Cardio Workouts</h2>
+                        <p><strong>For those starting their cardio journey</strong></p>
+                        <ul>
+                            <li><strong>Brisk Walking:</strong> Walk at a moderate pace for 20-30 minutes. 3-4 times per week. Heart rate should be elevated but you can still talk.</li>
+                            <li><strong>Stationary Cycling:</strong> Low-impact, easy on joints. 20-30 minutes at moderate intensity. 3 times per week.</li>
+                            <li><strong>Swimming:</strong> Full-body cardio workout. Start with 15-20 minutes. 2-3 times per week.</li>
+                            <li><strong>Jump Rope:</strong> Interval training. 30 seconds on, 30 seconds rest. 10-15 minutes total. 2-3 times per week.</li>
+                            <li><strong>Elliptical Machine:</strong> Low-impact cardio. 20-25 minutes at comfortable pace. 3 times per week.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-        <a href="index.html" class="btn btn-primary">Back to Home</a>
+            <!-- Intermediate -->
+            <div class="tab-pane fade" id="intermediate" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🟡 Intermediate Cardio Workouts</h2>
+                        <p><strong>Build endurance and cardiovascular strength</strong></p>
+                        <ul>
+                            <li><strong>Running:</strong> Steady-state running at moderate pace. 30-40 minutes. 3-4 times per week.</li>
+                            <li><strong>HIIT Training:</strong> High-intensity intervals. 30 seconds intense, 30 seconds recovery. 20-30 minutes total. 2-3 times per week.</li>
+                            <li><strong>Rowing Machine:</strong> Full-body cardio and strength. 30-40 minutes moderate pace. 3 times per week.</li>
+                            <li><strong>Stair Climbing:</strong> Intense leg and cardiovascular workout. 20-30 minutes. 2-3 times per week.</li>
+                            <li><strong>Box Jumps:</strong> Explosive cardio. 3 sets of 10-15 reps with 1-2 minute rest between sets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">🔴 Advanced Cardio Workouts</h2>
+                        <p><strong>Challenge yourself with high-intensity training</strong></p>
+                        <ul>
+                            <li><strong>Sprint Intervals:</strong> All-out sprints with recovery periods. 5-8 x 400m sprints with 2-3 minute rest. 1-2 times per week.</li>
+                            <li><strong>Tabata Training:</strong> Ultra-intense 20 seconds on, 10 seconds rest. 4 minutes per exercise. 2-3 times per week.</li>
+                            <li><strong>Battle Ropes:</strong> Explosive full-body cardio. 30 seconds intense, 30 seconds rest. 15-20 minutes total.</li>
+                            <li><strong>Double-Unders (Jump Rope):</strong> Advanced jump rope technique. 5 sets of 30-50 reps. 2 times per week.</li>
+                            <li><strong>CrossFit Metabolic Conditioning:</strong> Complex cardio circuits. 20-40 minutes. 2-3 times per week.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Effective Cardio Exercises Grid -->
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700; margin-top: 3rem;">🏃 Effective Cardio Exercises</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-person-running" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>Running</h5>
+                    <p>A great way to improve cardiovascular health and endurance. Can be done indoors on a treadmill or outdoors. Burns significant calories and builds lower body strength.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-person-biking" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>Cycling</h5>
+                    <p>Provides a low-impact cardio workout that strengthens your legs and improves cardiovascular fitness. Easy on joints while building endurance.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-person-hiking" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>Jump Rope</h5>
+                    <p>An excellent full-body workout that boosts endurance and coordination. Improves footwork, agility, and cardiovascular fitness with minimal equipment.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-wave-square" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>Rowing</h5>
+                    <p>A full-body exercise that provides a robust cardio workout and builds upper body strength. Excellent for building endurance and muscle simultaneously.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-person-swimming" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>Swimming</h5>
+                    <p>Low-impact, full-body cardio workout that's easy on joints. Builds cardiovascular fitness, strength, and flexibility simultaneously.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="exercise-card">
+                    <i class="fas fa-fire" style="font-size: 2rem; color: #f70776; margin-bottom: 0.5rem;"></i>
+                    <h5>HIIT Training</h5>
+                    <p>Alternates between short bursts of intense activity and periods of lower intensity or rest. Maximizes calorie burn in shorter time periods.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits Grid -->
+        <h2 class="text-center mb-4" style="color: #f70776; font-weight: 700;">💪 Benefits of Cardio Training</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-heart"></i>
+                    <h5>Heart Health</h5>
+                    <p>Strengthens cardiovascular system and improves blood circulation</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-wind"></i>
+                    <h5>Increased Endurance</h5>
+                    <p>Builds stamina and allows you to exercise longer with less fatigue</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-scale-balanced"></i>
+                    <h5>Weight Management</h5>
+                    <p>Burns significant calories and helps maintain healthy body weight</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-brain"></i>
+                    <h5>Mental Health</h5>
+                    <p>Reduces stress, anxiety, and improves mood through endorphin release</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-lungs"></i>
+                    <h5>Lung Capacity</h5>
+                    <p>Improves oxygen uptake and respiratory efficiency</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <i class="fas fa-shield"></i>
+                    <h5>Disease Prevention</h5>
+                    <p>Reduces risk of heart disease, diabetes, and other chronic conditions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-lightbulb"></i> Tips for Effective Cardio Workouts</h2>
+                        <ul>
+                            <li>Start with a 5-10 minute warm-up to prepare your body for exercise.</li>
+                            <li>Gradually increase intensity and duration to avoid overtraining and injury.</li>
+                            <li>Incorporate a variety of cardio exercises to keep workouts interesting and work different muscles.</li>
+                            <li>Stay hydrated throughout your workout—drink water before, during, and after.</li>
+                            <li>Listen to your body's signals and rest when needed to prevent burnout.</li>
+                            <li>Aim for 150 minutes of moderate cardio or 75 minutes of intense cardio per week.</li>
+                            <li>Wear proper footwear to protect your joints and prevent injury.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Common Mistakes to Avoid</h2>
+                        <ul>
+                            <li><strong>Overtraining:</strong> Don't do intense cardio every day; allow recovery days.</li>
+                            <li><strong>Poor posture:</strong> Maintain good form to prevent injury and maximize effectiveness.</li>
+                            <li><strong>Ignoring nutrition:</strong> Eat properly before and after cardio sessions for energy and recovery.</li>
+                            <li><strong>Not warming up:</strong> Always warm up to prepare your body and reduce injury risk.</li>
+                            <li><strong>Inconsistent routine:</strong> Stay consistent with your cardio training for best results.</li>
+                            <li><strong>Ignoring pain:</strong> Stop immediately if you feel sharp pain; soreness is normal, pain is not.</li>
+                            <li><strong>Skipping cool-down:</strong> Always cool down and stretch after cardio to aid recovery.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Plan -->
+        <div class="card mb-5">
+            <div class="card-body">
+                <h2 class="card-title">📅 Sample Weekly Cardio Plan</h2>
+                <div style="overflow-x: auto;">
+                    <table class="table" style="color: #e0e0e0; border-color: rgba(247, 7, 118, 0.2);">
+                        <thead style="border-bottom: 2px solid #f70776;">
+                            <tr>
+                                <th>Day</th>
+                                <th>Exercise</th>
+                                <th>Duration</th>
+                                <th>Intensity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Monday</strong></td>
+                                <td>Running</td>
+                                <td>30 minutes</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tuesday</strong></td>
+                                <td>HIIT Training</td>
+                                <td>20 minutes</td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wednesday</strong></td>
+                                <td>Cycling</td>
+                                <td>35 minutes</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thursday</strong></td>
+                                <td>Rest Day</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Friday</strong></td>
+                                <td>Jump Rope</td>
+                                <td>20 minutes</td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Saturday</strong></td>
+                                <td>Rowing</td>
+                                <td>30 minutes</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sunday</strong></td>
+                                <td>Swimming</td>
+                                <td>30 minutes</td>
+                                <td>Moderate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5 mb-5">
+            <h3 style="color: #f70776; margin-bottom: 1.5rem;">Ready to Improve Your Cardiovascular Fitness?</h3>
+            <a href="index.html#workouts" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-arrow-left"></i> Back to Workouts
+            </a>
+            <a href="index.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center">
         <div class="container">
             <p>&copy; 2024 EnerGise. All rights reserved.</p>
-            <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            <p>
+                <a href="#privacy-policy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact Us</a>
+            </p>
+            <div class="social-icons">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
