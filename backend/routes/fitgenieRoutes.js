@@ -125,19 +125,23 @@ router.post('/chat', async (req, res) => {
       },
       body: JSON.stringify({
         model: GROQ_MODEL,
-        max_tokens: MAX_TOKENS,
+       max_completion_tokens: MAX_TOKENS,
         messages
       })
     });
 
-    if (!response.ok) {
-      const errBody = await response.text();
-      console.error('❌ Groq API error:', response.status, errBody);
+   if (!response.ok) {
+  const errBody = await response.text();
 
-      return res.status(502).json({
-        message: 'FitGenie had trouble reaching its brain. Please try again in a moment.'
-      });
-    }
+  console.error("❌ Groq API error:");
+  console.error("Status:", response.status);
+  console.error("Response:", errBody);
+
+  return res.status(502).json({
+    message: "Groq API Error",
+    error: errBody
+  });
+}
 
     const data = await response.json();
 
