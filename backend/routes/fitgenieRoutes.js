@@ -9,7 +9,7 @@ const router = express.Router();
    Docs: https://console.groq.com/docs/models
 ========================= */
 
-const GROQ_MODEL = 'llama-3.3-70b-versatile'; // strong free model, good for a demo
+const GROQ_MODEL = 'openai/gpt-oss-20b';
 const MAX_TOKENS = 400;
 const MAX_HISTORY_MESSAGES = 12; // how many past turns we forward (keeps latency in check)
 const MAX_MESSAGE_LENGTH = 800; // characters, guards against huge pastes
