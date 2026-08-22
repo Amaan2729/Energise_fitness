@@ -546,38 +546,69 @@
         setInterval(slideToNextBg, 2500);
 
         // ========== PREMIUM WORKOUT ACCESS CONTROL ==========
-        function checkWorkoutAccess(workoutPage) {
-            // Check if user is logged in
-            const token = localStorage.getItem("token");
-            
-            if (!token) {
-                alert("Please login first to access workouts");
-                localStorage.setItem("redirectAfterLogin", workoutPage);
-                window.location.href = "login.html";
-                return;
-            }
 
-            // Check if user has active subscription
-            const hasSubscription =
-localStorage.getItem(
-    "activeSubscription"
-);
+function checkWorkoutAccess(workoutPage) {
 
-if (hasSubscription !== "true") {
+    console.log("🔐 Checking workout access:", workoutPage);
+
+    // 1. Check if user is logged in
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+
+        console.log("❌ User not logged in");
+
+        // Remember the workout user wanted
+        localStorage.setItem(
+            "pendingWorkoutPage",
+            workoutPage
+        );
+
+        // After login, return to workouts section
+        // instead of directly opening the workout
+        localStorage.setItem(
+            "redirectAfterLogin",
+            "index.html#workouts"
+        );
+
+        alert("Please login first to access workouts");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+
+    // 2. User is logged in → check Premium subscription
+    const hasSubscription =
+        localStorage.getItem("activeSubscription");
 
     console.log(
-        "❌ No active subscription"
+        "💳 Subscription:",
+        hasSubscription
     );
 
-    showPremiumModal();
+    if (hasSubscription !== "true") {
 
-    return;
+        console.log(
+            "❌ Premium subscription required"
+        );
+
+        showPremiumModal();
+
+        return;
+    }
+
+
+    // 3. Logged in + Premium → allow workout
+    console.log(
+        "✅ Premium access granted:",
+        workoutPage
+    );
+
+    window.location.href = workoutPage;
 }
-
-            // User has both login and subscription - grant access
-            console.log("✅ Access granted to", workoutPage);
-            window.location.href = workoutPage;
-        }
+     
 
         function showPremiumModal() {
             document.getElementById("premiumModal").style.display = "flex";
